@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soulive/screens/home/ModelResult.dart';
+import 'package:soulive/screens/model_result/ModelResult.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

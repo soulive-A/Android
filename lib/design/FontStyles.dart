@@ -6,6 +6,6 @@ class FontStyles{
     fontSize: 28, fontWeight: FontWeight.w600, fontFamily: 'kristall'
   );
   static const appbarFont = TextStyle(
-      fontSize: 28, fontWeight: FontWeight.w600, fontFamily: 'pretendard'
+      fontSize: 18, fontWeight: FontWeight.w600, fontFamily: 'pretendard'
   );
 }

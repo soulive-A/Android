@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:soulive/screens/home/HomeScreen.dart';
 import 'package:soulive/screens/commercial/CommercialScreen.dart';
+import 'package:soulive/screens/model_result/ModelResult.dart';
 import 'package:soulive/screens/mypage/MypageScreen.dart';
 import 'package:soulive/screens/splash/splashScreen.dart';
 import 'package:go_router/go_router.dart';
@@ -63,6 +64,12 @@ class MyApp extends StatelessWidget{
             builder: (BuildContext context, GoRouterState state){
               return const SplashScreen();
             }
+        ),
+        GoRoute(
+          path: '/model_result',
+          builder: (BuildContext context, GoRouterState state){
+            return const ModelResultScreen();
+          }
         ),
         StatefulShellRoute.indexedStack(
             builder: (BuildContext context, GoRouterState state,
