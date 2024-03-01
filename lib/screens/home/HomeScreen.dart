@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soulive/screens/model_result/ModelResult.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,7 +13,14 @@ class _HomeScreen extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('홈입니다'),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ModelResultScreen())
+              );
+            },
+            child: Text('모델분석결과화면 임시 이동버튼'),
+          )
       ),
     );
   }
