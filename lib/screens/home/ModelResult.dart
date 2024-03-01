@@ -14,7 +14,7 @@ class _ModelResultScreen extends State<ModelResultScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+//점검
     );
   }
   
