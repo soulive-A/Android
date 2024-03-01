@@ -23,6 +23,7 @@ class _ModelResultScreen extends State<ModelResultScreen>{
         ),
         title: Text('모델 분석',
         style: FontStyles.appbarFont),
+        centerTitle: true,
       ),
       body: Container(
 
