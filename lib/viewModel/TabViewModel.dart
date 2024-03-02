@@ -8,6 +8,6 @@ class TabViewModel extends ChangeNotifier{
 
   void selectTab(int index){
     _selectedTab = index;
-    notifyListeners()
+    notifyListeners();
   }
 }

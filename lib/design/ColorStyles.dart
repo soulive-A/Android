@@ -14,4 +14,5 @@ class AppColors{
   static const Color g4 = Color(0xFFB6B6B6);
   static const Color g5 = Color(0xFFD9D9D9);
   static const Color g6 = Color(0xFFF0F0F0);
+  static const Color border = Color(0xFFC2C2C2);
 }
