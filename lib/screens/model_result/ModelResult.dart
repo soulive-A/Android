@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
+import 'package:soulive/screens/model_result/ModelTab1Screen.dart';
 import 'package:soulive/viewModel/TabViewModel.dart';
 
 class ModelResultScreen extends StatefulWidget{
@@ -54,8 +55,8 @@ class _ModelResultScreen extends State<ModelResultScreen>{
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.47),
-                                  side: viewModel.selectedTab == i ? BorderSide(color:AppColors.border, width: 1)
-                                      :BorderSide.none,
+                                  side: viewModel.selectedTab == i ? BorderSide.none
+                                      :BorderSide(color:AppColors.border, width: 1),
                                 )
                               ),
                             ),
@@ -66,16 +67,59 @@ class _ModelResultScreen extends State<ModelResultScreen>{
                                 style: TextStyle(
                                   fontSize: 13.86,
                                   fontWeight: FontWeight.w600,
-                                  fontFamily: 'pretendard'
+                                  fontFamily: 'pretendard',
+                                  color: viewModel.selectedTab == i ? Colors.white : AppColors.g5
                                 ),
                               ),
-                            )
-                          )
+                            ),
+                          ),
                       ],
                     );
                   },
                 )
-              )
+              ),
+              SizedBox(height: 18.98,),
+             Padding(
+                 padding: EdgeInsets.symmetric(horizontal: 20),
+               child:  MainCard(),
+             ),
+              SizedBox(height: 41,),
+              TabBar(
+                labelStyle: TextStyle(
+                  fontSize: 13,
+                  fontFamily: 'pretendard',
+                  fontWeight: FontWeight.w600
+                ),
+                indicatorColor: AppColors.g1,
+                indicatorWeight: 2,
+                tabs: [
+                  Tab(
+                    text: '모델 소개',
+                    height: 31,
+                  ),
+                  Tab(
+                    text: '화제성',
+                    height: 31,
+                  ),
+                  Tab(
+                    text: '부정이슈',
+                    height: 31,
+                  ),
+                  Tab(
+                    text: '모델 적합도',
+                    height: 31,
+                  ),
+                ],
+
+              ),
+              Expanded(
+                  child: TabBarView(
+                    children: [
+                      ModelTab1Screen(),
+
+                    ],
+                  )
+              ),
             ],
           ),
         ),
@@ -89,19 +133,24 @@ class _ModelResultScreen extends State<ModelResultScreen>{
 Widget MainCard(){
   return Card(
     elevation: 10.0,
+    color: Colors.white,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(13)
+      borderRadius: BorderRadius.circular(13),
     ),
     child: Row(
       children: [
         //예시 이미지 추후 변경 필요
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20), // 둥근 모서리의 반지름 설정
-          child: Image.asset(
-            'assets/images/background.png',
-            width: 84,
-            height: 118,
-            fit: BoxFit.fill,
+        SizedBox(width: 20),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 20),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20), // 둥근 모서리의 반지름 설정
+            child: Image.asset(
+              'assets/images/background.png',
+              width: 84,
+              height: 118,
+              fit: BoxFit.fill,
+            ),
           ),
         ),
         SizedBox(width: 20,),
@@ -131,6 +180,7 @@ Widget MainCard(){
             Text(
               '1991.03.19 (32세)',
               style: TextStyle(
+                color: AppColors.g4,
                 fontWeight: FontWeight.w500,
                 fontSize: 10.15,
                 fontFamily: 'pretendard'
@@ -138,7 +188,23 @@ Widget MainCard(){
             ),
             SizedBox(height: 6,),
             Text(
-              '걸그룹 '
+              '걸그룹 레드벨벳 멤버',
+              style: TextStyle(
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w500,
+                fontFamily: 'pretendard',
+                fontSize: 9.23,
+              ),
+            ),
+            SizedBox(height: 7),
+            Text(
+              '소속사: SM 엔터테인먼트',
+              style: TextStyle(
+                color: AppColors.black,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'pretendard',
+                fontSize: 9.23,
+              ),
             )
           ],
         )
