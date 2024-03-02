@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/screens/home/HomeScreen.dart';
 import 'package:soulive/screens/commercial/CommercialScreen.dart';
 import 'package:soulive/screens/model_result/ModelResult.dart';
@@ -7,6 +8,7 @@ import 'package:soulive/screens/mypage/MypageScreen.dart';
 import 'package:soulive/screens/splash/splashScreen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
+
 
 void main() async {
   //await dotenv.load(fileName: ".env");
@@ -27,7 +29,7 @@ class ScaffoldBottomNavigationBar extends StatelessWidget{
       body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
         //디자인 나오면 추후 수정필요
-        selectedItemColor: Colors.black,
+        selectedItemColor: AppColors.m1,
         //디자인나오면 추후 수정
         selectedFontSize: 12,
         items: <BottomNavigationBarItem>[
