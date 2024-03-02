@@ -119,8 +119,26 @@ Widget MainCard(){
                 ),
                 SizedBox(width: 7,),
                 Text('가수/아이돌',
+                  style: TextStyle(
+                    fontSize: 10.15,
+                    fontFamily: 'pretendard',
+                    fontWeight: FontWeight.w600,
+                  ),
                 )
               ],
+            ),
+            SizedBox(height: 8),
+            Text(
+              '1991.03.19 (32세)',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 10.15,
+                fontFamily: 'pretendard'
+              ),
+            ),
+            SizedBox(height: 6,),
+            Text(
+              '걸그룹 '
             )
           ],
         )
