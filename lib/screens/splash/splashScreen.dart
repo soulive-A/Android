@@ -12,7 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreen extends State<SplashScreen> {
-  final int Splash_time = 3000;
+  final int Splash_time = 2000;
   Timer? _splashTimer;
   String _next = '/home';
 

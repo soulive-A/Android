@@ -22,16 +22,16 @@ class CustomTextButton extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(50),
       ),
-      color: backgroundColor,
       //textstyle추가 필요
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Text(
           text,
           style: TextStyle(
-            fontFamily: 'pretendard',fontWeight:FontWeight.w600, fontSize: 18, color: textColor
+            fontFamily: 'pretendard',fontWeight:FontWeight.w600, fontSize: 10, color: textColor
           ),
         ),
       )
