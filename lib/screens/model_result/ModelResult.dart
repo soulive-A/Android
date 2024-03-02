@@ -5,7 +5,11 @@ import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
 import 'package:soulive/screens/model_result/ModelTab1Screen.dart';
+import 'package:soulive/screens/model_result/ModelTab2Screen.dart';
 import 'package:soulive/viewModel/TabViewModel.dart';
+
+import 'ModelTab3Screen.dart';
+import 'ModelTab4Screen.dart';
 
 class ModelResultScreen extends StatefulWidget{
   const ModelResultScreen({super.key});
@@ -26,6 +30,7 @@ class _ModelResultScreen extends State<ModelResultScreen>{
             icon: SoulliveIcon.arrowLeft(),
             onPressed: () {
               //뒤로가기 로직 추가
+              Navigator.pop(context);
             },
           ),
           title: Text('모델 분석',
@@ -34,93 +39,62 @@ class _ModelResultScreen extends State<ModelResultScreen>{
         ),
         body: Container(
           color: AppColors.bg,
-          child: Column(
-            children: [
-              SizedBox(height: 36),
-              //모델 선택 토글
-              Container(
-                margin: EdgeInsets.only(left: 20),
-                child: Consumer<TabViewModel>(
-                  builder: (context, viewModel, child) {
-                    return Row(
-                      children: [
-                        for(var i =0; i<3; i++)
-                          TextButton(
-                            onPressed: (){
-                              viewModel.selectTab(i);
-                              //api 호출하여 데이터 업데이트하는 로직 추가
-                            },
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.47),
-                                  side: viewModel.selectedTab == i ? BorderSide.none
-                                      :BorderSide(color:AppColors.border, width: 1),
-                                )
+          child: DefaultTabController(
+            length: 4,
+            child: Column(
+              children: [
+                SizedBox(height: 36),
+                //모델 선택 토글
+                Container(
+                  margin: EdgeInsets.only(left: 20),
+                  child: Consumer<TabViewModel>(
+                    builder: (context, viewModel, child) {
+                      return Row(
+                        children: [
+                          for(var i =0; i<3; i++)
+                            TextButton(
+                              onPressed: (){
+                                viewModel.selectTab(i);
+                                //api 호출하여 데이터 업데이트하는 로직 추가
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.47),
+                                    side: viewModel.selectedTab == i ? BorderSide.none
+                                        :BorderSide(color:AppColors.border, width: 1),
+                                  )
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 18),
-                              child: Text(
-                                '안녕',
-                                style: TextStyle(
-                                  fontSize: 13.86,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'pretendard',
-                                  color: viewModel.selectedTab == i ? Colors.white : AppColors.g5
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 18),
+                                child: Text(
+                                  '안녕',
+                                  style: TextStyle(
+                                    fontSize: 13.86,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'pretendard',
+                                    color: viewModel.selectedTab == i ? Colors.white : AppColors.g5
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                      ],
-                    );
-                  },
-                )
-              ),
-              SizedBox(height: 18.98,),
-             Padding(
-                 padding: EdgeInsets.symmetric(horizontal: 20),
-               child:  MainCard(),
-             ),
-              SizedBox(height: 41,),
-              TabBar(
-                labelStyle: TextStyle(
-                  fontSize: 13,
-                  fontFamily: 'pretendard',
-                  fontWeight: FontWeight.w600
-                ),
-                indicatorColor: AppColors.g1,
-                indicatorWeight: 2,
-                tabs: [
-                  Tab(
-                    text: '모델 소개',
-                    height: 31,
-                  ),
-                  Tab(
-                    text: '화제성',
-                    height: 31,
-                  ),
-                  Tab(
-                    text: '부정이슈',
-                    height: 31,
-                  ),
-                  Tab(
-                    text: '모델 적합도',
-                    height: 31,
-                  ),
-                ],
-
-              ),
-              Expanded(
-                  child: TabBarView(
-                    children: [
-                      ModelTab1Screen(),
-
-                    ],
+                        ],
+                      );
+                    },
                   )
-              ),
-            ],
+                ),
+                SizedBox(height: 18.98,),
+               Padding(
+                   padding: EdgeInsets.symmetric(horizontal: 20),
+                 child:  MainCard(),
+               ),
+                SizedBox(height: 41,),
+                _tabBar(),
+                Expanded(child: _tabBarView())
+              ],
+            ),
           ),
         ),
       ),
@@ -128,7 +102,41 @@ class _ModelResultScreen extends State<ModelResultScreen>{
   }
 
 }
+//활성화 g1 g3는 언샐랙트
+Widget _tabBar(){
+  return const TabBar(
+    labelColor: AppColors.g1,
+    unselectedLabelColor: AppColors.g3,
+    labelStyle: TextStyle(
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'pretendard',
+      color: AppColors.g1
+    ),
+    unselectedLabelStyle: TextStyle(
+      fontFamily: 'pretendard',
+      fontWeight: FontWeight.w500,
+      fontSize: 13,
+        color: AppColors.g3
+    ), tabs: [
+      Tab(text: '모델 소개'),
+    Tab(text:'화제성'),
+    Tab(text:'부정이슈'),
+    Tab(text:'모델 적합도'),
+  ],
+  );
+}
 
+Widget _tabBarView(){
+  return TabBarView(
+      children: [
+        ModelTab1Screen(),
+        ModelTab2Screen(),
+        ModelTab3Screen(),
+        ModelTab4Screen(),
+      ]
+  );
+}
 
 Widget MainCard(){
   return Card(
