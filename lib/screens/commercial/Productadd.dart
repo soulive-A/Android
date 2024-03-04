@@ -188,7 +188,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                 height: 35,
               ),
 
-
               CustomTitle(iconData: Icons.person, title: '타겟'),
 
               SizedBox(height: 22),
@@ -376,10 +375,46 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                 height: 35,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  //다이얼로그 표시
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    //false로 지정해주면 확인 버튼이 아닌 다른 영역을 아무리 클릭을 해도 창이 닫히지 않는다.
+                    builder: (context) {
+                      return AlertDialog(
+                        backgroundColor: AppColors.s3,
+                        actionsAlignment: MainAxisAlignment.center,
+                        content: Text(
+                          '광고 상품 등록이 완료되었습니다.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'pretendard',
+                            color: AppColors.g1,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text(
+                              '확인',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'pretendard',
+                                color: AppColors.g1,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.m1,
-                  foregroundColor: Colors.white,
                   // shape: RoundedRectangleBorder(
                   //   borderRadius: BorderRadius.circular(10),
                   // ),
@@ -388,9 +423,10 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                 child: Text(
                   '등록하기',
                   style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                     fontFamily: 'pretendard',
-                    fontSize: 20,
-                    color: Colors.white,
+                    color: AppColors.s3,
                   ),
                 ),
               ),
