@@ -28,8 +28,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
   //타겟 텍스트
   TextEditingController targetController = TextEditingController();
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +52,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
             children: [
               const SizedBox(height: 22),
               //텍스트
-              CustomTitle(iconData: Icons.construction, title: '기업명'),
+              CustomTitle(iconData: Icons.business, title: '기업명'),
 
               const SizedBox(height: 22),
 
@@ -197,7 +195,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                 height: 35,
               ),
 
-              CustomTitle(iconData: Icons.construction, title: '상품 정보'),
+              CustomTitle(iconData: Icons.shopping_bag, title: '상품 정보'),
 
               SizedBox(height: 22),
 
@@ -233,17 +231,14 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         children: [
                           Text(
                             "성별",
-                            style: TextStyle(
-                              fontFamily: 'pretendard',
-                              fontSize: 16,
-                              color: AppColors.g2,
-                            ),
+                            style: FontStyles.questionFont,
                           ),
                           Text(
                             " (중복 선택 가능)",
                             style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
                               fontFamily: 'pretendard',
-                              fontSize: 12,
                               color: AppColors.g2,
                             ),
                           ),
@@ -281,17 +276,14 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         children: [
                           Text(
                             "연령대",
-                            style: TextStyle(
-                              fontFamily: 'pretendard',
-                              fontSize: 16,
-                              color: AppColors.g2,
-                            ),
+                            style: FontStyles.questionFont,
                           ),
                           Text(
                             " (중복 선택 가능)",
                             style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
                               fontFamily: 'pretendard',
-                              fontSize: 12,
                               color: AppColors.g2,
                             ),
                           ),
@@ -362,11 +354,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                       SizedBox(height: 35),
                       Text(
                         "구체적 범주",
-                        style: TextStyle(
-                          fontFamily: 'pretendard',
-                          fontSize: 16,
-                          color: AppColors.g2,
-                        ),
+                        style: FontStyles.questionFont,
                       ),
                       Row(
                         children: [
@@ -375,11 +363,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               controller: targetController,
                               decoration: InputDecoration(
                                 hintText: 'ex) 고급스러움, 키치함',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'pretendard',
-                                  fontSize: 16,
-                                  color: AppColors.g5,
-                                ),
+                                hintStyle: FontStyles.hintFont,
                               ),
                             ),
                           ),
