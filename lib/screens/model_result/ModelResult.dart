@@ -117,7 +117,9 @@ Widget _tabBar(){
       fontWeight: FontWeight.w500,
       fontSize: 13,
         color: AppColors.g3
-    ), tabs: [
+    ),
+    indicatorColor: AppColors.g1,
+    tabs: [
       Tab(text: '모델 소개'),
     Tab(text:'화제성'),
     Tab(text:'부정이슈'),
