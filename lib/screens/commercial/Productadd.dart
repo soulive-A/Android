@@ -15,6 +15,20 @@ class ProductAddScreen extends StatefulWidget {
 
 class _ProductAddScreen extends State<ProductAddScreen> {
   var isChecked = false;
+  List<String> allTags = [];
+  List<String> selectedTags= [];
+  //기업 정보 텍스트
+  TextEditingController companyController = TextEditingController();
+  TextEditingController brandNameController = TextEditingController();
+  TextEditingController brandKeywordController = TextEditingController();
+  //상품 정보 텍스트
+  TextEditingController productNameController = TextEditingController();
+  TextEditingController productFeatController = TextEditingController();
+  TextEditingController productKeywordController = TextEditingController();
+  //타겟 텍스트
+  TextEditingController targetController = TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +75,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         style: FontStyles.questionFont,
                       ),
                       TextField(
+                        controller: companyController,
                         decoration: InputDecoration(
                           hintText: 'ex) OO회사, 애플',
                           hintStyle: FontStyles.hintFont,
@@ -86,10 +101,13 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                 ),
                               ),
                               Checkbox(
+                                activeColor: AppColors.s3,
+                                checkColor: AppColors.g2,
                                 value: isChecked,
                                 onChanged: (value) {
                                   setState(() {
                                     isChecked = value!;
+
                                   });
                                 },
                               ),
@@ -98,9 +116,15 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         ],
                       ),
                       TextField(
+                        //체크박스 표시할 시 비활성화
+                        enabled: isChecked != false ? false : true,
+                        controller: brandNameController,
                         decoration: InputDecoration(
                           hintText: 'ex) 아이폰, 아이패드',
                           hintStyle: FontStyles.hintFont,
+                          //체크박스 표시할 시 색상 채우기
+                          filled: isChecked != false ? true : false,
+                          fillColor: AppColors.g6,
                         ),
                       ),
                       SizedBox(height: 35),
@@ -145,6 +169,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         children: [
                           Flexible(
                             child: TextField(
+                              controller: brandKeywordController,
                               decoration: InputDecoration(
                                 hintText: 'ex) 고급스러움, 키치함',
                                 hintStyle: FontStyles.hintFont,
@@ -347,6 +372,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         children: [
                           Flexible(
                             child: TextField(
+                              controller: targetController,
                               decoration: InputDecoration(
                                 hintText: 'ex) 고급스러움, 키치함',
                                 hintStyle: TextStyle(
