@@ -15,16 +15,21 @@ class ProductAddScreen extends StatefulWidget {
 
 class _ProductAddScreen extends State<ProductAddScreen> {
   var isChecked = false;
+  int isPressed = 0;
+
   List<String> allTags = [];
-  List<String> selectedTags= [];
+  List<String> selectedTags = [];
+
   //기업 정보 텍스트
   TextEditingController companyController = TextEditingController();
   TextEditingController brandNameController = TextEditingController();
   TextEditingController brandKeywordController = TextEditingController();
+
   //상품 정보 텍스트
   TextEditingController productNameController = TextEditingController();
   TextEditingController productFeatController = TextEditingController();
   TextEditingController productKeywordController = TextEditingController();
+
   //타겟 텍스트
   TextEditingController targetController = TextEditingController();
 
@@ -105,7 +110,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     isChecked = value!;
-
                                   });
                                 },
                               ),
@@ -179,6 +183,88 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               icon: Icon(Icons.add_circle),
                               onPressed: () {
                                 //태그 추가 로직 작성
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: AppColors.s3,
+                                      title: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '관련 이미지 키워드를 선택해주세요.',
+                                            style: FontStyles.questionFont,
+                                          ),
+                                          Text(
+                                            '최대 3가지 선택 가능합니다.',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'pretendard',
+                                              color: AppColors.g2,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      content: Wrap(
+                                        spacing: 8,
+                                        runSpacing: 4,
+                                        direction: Axis.horizontal,
+                                        alignment: WrapAlignment.start,
+                                        children: <Widget>[
+                                          ActionChip(
+                                            label: Text(
+                                              '새로운',
+                                              style: TextStyle(
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: 'pretendard',
+                                                color: AppColors.g2,
+                                              ),
+                                            ),
+                                            backgroundColor: AppColors.g6,
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                color: AppColors.g6,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                            onPressed: () {
+                                              print('눌렸다!');
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      actions: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            //관련 키워드 추가 로직
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: AppColors.m1,
+                                            // shape: RoundedRectangleBorder(
+                                            //   borderRadius: BorderRadius.circular(10),
+                                            // ),
+                                            minimumSize:
+                                                const Size.fromHeight(50),
+                                          ),
+                                          child: Text(
+                                            '추가하기',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'pretendard',
+                                              color: AppColors.s3,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               },
                               iconSize: 40,
                               color: AppColors.g2,
