@@ -73,8 +73,6 @@ flutter:
       fonts:
         - asset: assets/fonts/pretendard_bold.otf
           weight: 600
-        - asset: assets/fonts/pretendard_semibold.otf
-          weight: 600
         - asset: assets/fonts/pretendard_medium.otf
           weight: 500
         - asset: assets/fonts/pretendard_regular.ttf
