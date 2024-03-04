@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
+import 'package:soulive/design/component/CustomContainer.dart';
+import 'package:soulive/design/component/CustomTitle.dart';
 
 class CommercialScreen extends StatefulWidget {
   const CommercialScreen({super.key});
@@ -36,60 +38,38 @@ class _CommercialScreen extends State<CommercialScreen> {
             children: [
               const SizedBox(height: 22),
               //텍스트
-              Row(
-                children: [
-                  Icon(
-                    Icons.account_balance, //임시 아이콘(디자인 확정나면 바꿀 예정)
-                    size: 16,
-                    color: AppColors.g2,
-                  ),
-                  SizedBox(width: 5),
-                  Text(
-                    "기업 정보",
-                    style: TextStyle(
-                      fontFamily: 'pretendard',
-                      fontSize: 16,
-                      color: AppColors.g2,
-                    ),
-                  ),
-                ],
-              ),
+              CustomTitle(iconData: Icons.construction, title: '기업명'),
 
               const SizedBox(height: 22),
 
               Container(
+                height: 450,
+                decoration: BoxDecoration(
+                  color: AppColors.s3,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.s3, width: 3),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "기업명",
-                        style: TextStyle(
-                          fontFamily: 'pretendard',
-                          fontSize: 16,
-                          color: AppColors.g2,
-                        ),
+                        '기업명',
+                        style: FontStyles.questionFont,
                       ),
                       TextField(
                         decoration: InputDecoration(
                           hintText: 'ex) OO회사, 애플',
-                          hintStyle: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.g5,
-                          ),
+                          hintStyle: FontStyles.hintFont,
                         ),
                       ),
                       SizedBox(height: 35),
                       Row(
                         children: [
                           Text(
-                            "브랜드명",
-                            style: TextStyle(
-                              fontFamily: 'pretendard',
-                              fontSize: 16,
-                              color: AppColors.g2,
-                            ),
+                            '브랜드명',
+                            style: FontStyles.questionFont,
                           ),
                           Spacer(),
                           Row(
@@ -97,8 +77,9 @@ class _CommercialScreen extends State<CommercialScreen> {
                               Text(
                                 '없음',
                                 style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.normal,
                                   fontFamily: 'pretendard',
-                                  fontSize: 16,
                                   color: AppColors.g2,
                                 ),
                               ),
@@ -117,44 +98,46 @@ class _CommercialScreen extends State<CommercialScreen> {
                       TextField(
                         decoration: InputDecoration(
                           hintText: 'ex) 아이폰, 아이패드',
-                          hintStyle: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.g5,
-                          ),
+                          hintStyle: FontStyles.hintFont,
                         ),
                       ),
                       SizedBox(height: 35),
                       Row(
                         children: [
                           Text(
-                            "현재 브랜드 이미지 키워드",
-                            style: TextStyle(
-                              fontFamily: 'pretendard',
-                              fontSize: 16,
-                              color: AppColors.g2,
-                            ),
+                            '목표 브랜드 이미지 키워드',
+                            style: FontStyles.questionFont,
                           ),
                           Text(
                             " (최대 3개)",
                             style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
                               fontFamily: 'pretendard',
-                              fontSize: 12,
                               color: AppColors.g2,
                             ),
-                          )
+                          ),
                         ],
                       ),
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.m1,
-                          foregroundColor: Colors.white,
+                          backgroundColor: AppColors.g6,
+                          foregroundColor: AppColors.g3,
                           minimumSize: Size(78, 32),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: Text('기본 키워드 보기'),
+                        child: Text(
+                          '기본 키워드 보기',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'pretendard',
+                            color: AppColors.g3,
+                          ),
+                        ),
                       ),
                       Row(
                         children: [
@@ -162,10 +145,7 @@ class _CommercialScreen extends State<CommercialScreen> {
                             child: TextField(
                               decoration: InputDecoration(
                                 hintText: 'ex) 고급스러움, 키치함',
-                                hintStyle: TextStyle(
-                                  fontSize: 16,
-                                  color: AppColors.g5,
-                                ),
+                                hintStyle: FontStyles.hintFont,
                               ),
                             ),
                           ),
@@ -184,37 +164,32 @@ class _CommercialScreen extends State<CommercialScreen> {
                     ],
                   ),
                 ),
-                height: 450,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.white, width: 3),
-                ),
               ),
+
               SizedBox(
                 height: 35,
               ),
 
-              Row(
-                children: [
-                  Icon(
-                    Icons.person, //임시 아이콘(디자인 확정나면 바꿀 예정)
-                    size: 16,
-                    color: AppColors.g2,
-                  ),
-                  SizedBox(width: 5),
-                  Text(
-                    "타겟",
-                    style: TextStyle(
-                      fontFamily: 'pretendard',
-                      fontSize: 16,
-                      color: AppColors.g2,
-                    ),
-                  ),
-                ],
+              CustomTitle(iconData: Icons.construction, title: '상품 정보'),
+
+              SizedBox(height: 22),
+
+              CustomContainer(
+                  questionOne: '상품명',
+                  hintOne: 'ex) 아이패드 에어, 아이폰 프로',
+                  questionTwo: '강조할 제품 특징',
+                  hintTwo: 'ex) 초광각 카메라 탑재',
+                  selectKeywords: '상품 이미지 키워드',
+                  hintKeywords: 'ex) 고급스러움, 키치함'),
+
+              SizedBox(
+                height: 35,
               ),
 
-              const SizedBox(height: 22),
+
+              CustomTitle(iconData: Icons.person, title: '타겟'),
+
+              SizedBox(height: 22),
 
               Container(
                 height: 450,
@@ -251,21 +226,27 @@ class _CommercialScreen extends State<CommercialScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.g6,
-                              foregroundColor: AppColors.g2,
+                          Flexible(
+                            flex: 2,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.g6,
+                                foregroundColor: AppColors.g2,
+                              ),
+                              child: Text('남자'),
                             ),
-                            child: Text('남자'),
                           ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.g6,
-                              foregroundColor: AppColors.g2,
+                          Flexible(
+                            flex: 2,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.g6,
+                                foregroundColor: AppColors.g2,
+                              ),
+                              child: Text('여자'),
                             ),
-                            child: Text('여자'),
                           ),
                         ],
                       ),
