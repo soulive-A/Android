@@ -52,34 +52,33 @@ class _ModelResultScreen extends State<ModelResultScreen>{
                       return Row(
                         children: [
                           for(var i =0; i<3; i++)
-                            TextButton(
-                              onPressed: (){
-                                viewModel.selectTab(i);
-                                //api 호출하여 데이터 업데이트하는 로직 추가
-                              },
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.47),
-                                    side: viewModel.selectedTab == i ? BorderSide.none
-                                        :BorderSide(color:AppColors.border, width: 1),
-                                  )
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 18),
-                                child: Text(
-                                  '안녕',
-                                  style: TextStyle(
-                                    fontSize: 13.86,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'pretendard',
-                                    color: viewModel.selectedTab == i ? Colors.white : AppColors.g5
+                            Padding(
+                                padding: EdgeInsets.only(right: 8),
+                                child: TextButton(
+                                  onPressed: (){
+                                    viewModel.selectTab(i);
+                                    //api 호출하여 데이터 업데이트하는 로직 추가
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.47),
+                                          side: viewModel.selectedTab == i ? BorderSide.none
+                                              :BorderSide(color:AppColors.border, width: 1),
+                                        )
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 18),
+                                    child: Text(
+                                        '안녕',
+                                        style: FontStyles.Headline1.copyWith(color: viewModel.selectedTab == i ? Colors.white : AppColors.g4)
+                                      //FontStyles.Headline1
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+                            )
                         ],
                       );
                     },
@@ -140,8 +139,8 @@ Widget _tabBarView(){
 
 Widget MainCard(){
   return Card(
+    color: AppColors.s3,
     elevation: 10.0,
-    color: Colors.white,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(13),
     ),
@@ -163,6 +162,7 @@ Widget MainCard(){
         ),
         SizedBox(width: 20,),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -171,7 +171,7 @@ Widget MainCard(){
                       fontFamily: 'pretendard',
                       fontWeight: FontWeight.w600,
                       fontSize: 14.77,
-                      color: Colors.black
+                      color: AppColors.g1
                   ),
                 ),
                 SizedBox(width: 7,),
@@ -180,11 +180,12 @@ Widget MainCard(){
                     fontSize: 10.15,
                     fontFamily: 'pretendard',
                     fontWeight: FontWeight.w600,
+                      color: AppColors.g4
                   ),
                 )
               ],
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 7),
             Text(
               '1991.03.19 (32세)',
               style: TextStyle(
@@ -198,7 +199,7 @@ Widget MainCard(){
             Text(
               '걸그룹 레드벨벳 멤버',
               style: TextStyle(
-                  color: AppColors.black,
+                  color: AppColors.g1,
                   fontWeight: FontWeight.w500,
                 fontFamily: 'pretendard',
                 fontSize: 9.23,
@@ -206,13 +207,16 @@ Widget MainCard(){
             ),
             SizedBox(height: 7),
             Text(
-              '소속사: SM 엔터테인먼트',
+              '소속사:SM 엔터테인먼트',
               style: TextStyle(
-                color: AppColors.black,
+                color: AppColors.g1,
                 fontWeight: FontWeight.w500,
                 fontFamily: 'pretendard',
                 fontSize: 9.23,
               ),
+            ),
+            Row(
+              //ai추천 추가하기 백에서 오는 데이터 형식 보고
             )
           ],
         )
