@@ -5,6 +5,7 @@ import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
 import 'package:soulive/design/component/CustomContainer.dart';
 import 'package:soulive/design/component/CustomTitle.dart';
+import 'package:soulive/design/component/CustomElevatedButton.dart';
 
 class ProductAddScreen extends StatefulWidget {
   const ProductAddScreen({super.key});
@@ -239,28 +240,14 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                         ],
                                       ),
                                       actions: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            //관련 키워드 추가 로직
-                                          },
-                                          style: ElevatedButton.styleFrom(
+                                        CustomElevatedButton(
                                             backgroundColor: AppColors.m1,
-                                            // shape: RoundedRectangleBorder(
-                                            //   borderRadius: BorderRadius.circular(10),
-                                            // ),
-                                            minimumSize:
-                                                const Size.fromHeight(50),
-                                          ),
-                                          child: Text(
-                                            '추가하기',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'pretendard',
-                                              color: AppColors.s3,
-                                            ),
-                                          ),
-                                        ),
+                                            borderColor: AppColors.m1,
+                                            textColor: AppColors.s3,
+                                            title: '추가하기',
+                                            onPressed: () {
+                                              print('테스트');
+                                            }),
                                       ],
                                     );
                                   },
@@ -470,62 +457,49 @@ class _ProductAddScreen extends State<ProductAddScreen> {
               SizedBox(
                 height: 35,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  //다이얼로그 표시
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    //false로 지정해주면 확인 버튼이 아닌 다른 영역을 아무리 클릭을 해도 창이 닫히지 않는다.
-                    builder: (context) {
-                      return AlertDialog(
-                        backgroundColor: AppColors.s3,
-                        actionsAlignment: MainAxisAlignment.center,
-                        content: Text(
-                          '광고 상품 등록이 완료되었습니다.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'pretendard',
-                            color: AppColors.g1,
-                          ),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text(
-                              '확인',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'pretendard',
-                                color: AppColors.g1,
-                              ),
+              CustomElevatedButton(
+                  backgroundColor: AppColors.m1,
+                  borderColor: AppColors.m1,
+                  textColor: AppColors.s3,
+                  title: '등록하기',
+                  onPressed: () {
+                    //다이얼로그 표시
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      //false로 지정해주면 확인 버튼이 아닌 다른 영역을 아무리 클릭을 해도 창이 닫히지 않는다.
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: AppColors.s3,
+                          actionsAlignment: MainAxisAlignment.center,
+                          content: Text(
+                            '광고 상품 등록이 완료되었습니다.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'pretendard',
+                              color: AppColors.g1,
                             ),
                           ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.m1,
-                  // shape: RoundedRectangleBorder(
-                  //   borderRadius: BorderRadius.circular(10),
-                  // ),
-                  minimumSize: const Size.fromHeight(50),
-                ),
-                child: Text(
-                  '등록하기',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'pretendard',
-                    color: AppColors.s3,
-                  ),
-                ),
-              ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(
+                                '확인',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'pretendard',
+                                  color: AppColors.g1,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }),
             ],
           ),
         ),
