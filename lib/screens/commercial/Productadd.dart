@@ -5,6 +5,7 @@ import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
 import 'package:soulive/design/component/CustomContainer.dart';
 import 'package:soulive/design/component/CustomTitle.dart';
+import 'package:soulive/design/component/CustomElevatedButton.dart';
 
 class ProductAddScreen extends StatefulWidget {
   const ProductAddScreen({super.key});
@@ -15,16 +16,21 @@ class ProductAddScreen extends StatefulWidget {
 
 class _ProductAddScreen extends State<ProductAddScreen> {
   var isChecked = false;
+  int isPressed = 0;
+
   List<String> allTags = [];
-  List<String> selectedTags= [];
+  List<String> selectedTags = [];
+
   //기업 정보 텍스트
   TextEditingController companyController = TextEditingController();
   TextEditingController brandNameController = TextEditingController();
   TextEditingController brandKeywordController = TextEditingController();
+
   //상품 정보 텍스트
   TextEditingController productNameController = TextEditingController();
   TextEditingController productFeatController = TextEditingController();
   TextEditingController productKeywordController = TextEditingController();
+
   //타겟 텍스트
   TextEditingController targetController = TextEditingController();
 
@@ -105,7 +111,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     isChecked = value!;
-
                                   });
                                 },
                               ),
@@ -179,6 +184,74 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               icon: Icon(Icons.add_circle),
                               onPressed: () {
                                 //태그 추가 로직 작성
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: AppColors.s3,
+                                      title: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '관련 이미지 키워드를 선택해주세요.',
+                                            style: FontStyles.questionFont,
+                                          ),
+                                          Text(
+                                            '최대 3가지 선택 가능합니다.',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'pretendard',
+                                              color: AppColors.g2,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      content: Wrap(
+                                        spacing: 8,
+                                        runSpacing: 4,
+                                        direction: Axis.horizontal,
+                                        alignment: WrapAlignment.start,
+                                        children: <Widget>[
+                                          ActionChip(
+                                            label: Text(
+                                              '새로운',
+                                              style: TextStyle(
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: 'pretendard',
+                                                color: AppColors.g2,
+                                              ),
+                                            ),
+                                            backgroundColor: AppColors.g6,
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                color: AppColors.g6,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                            onPressed: () {
+                                              print('눌렸다!');
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      actions: [
+                                        CustomElevatedButton(
+                                            backgroundColor: AppColors.m1,
+                                            borderColor: AppColors.m1,
+                                            textColor: AppColors.s3,
+                                            title: '추가하기',
+                                            onPressed: () {
+                                              print('테스트');
+                                            }),
+                                      ],
+                                    );
+                                  },
+                                );
                               },
                               iconSize: 40,
                               color: AppColors.g2,
@@ -384,62 +457,49 @@ class _ProductAddScreen extends State<ProductAddScreen> {
               SizedBox(
                 height: 35,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  //다이얼로그 표시
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    //false로 지정해주면 확인 버튼이 아닌 다른 영역을 아무리 클릭을 해도 창이 닫히지 않는다.
-                    builder: (context) {
-                      return AlertDialog(
-                        backgroundColor: AppColors.s3,
-                        actionsAlignment: MainAxisAlignment.center,
-                        content: Text(
-                          '광고 상품 등록이 완료되었습니다.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'pretendard',
-                            color: AppColors.g1,
-                          ),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text(
-                              '확인',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'pretendard',
-                                color: AppColors.g1,
-                              ),
+              CustomElevatedButton(
+                  backgroundColor: AppColors.m1,
+                  borderColor: AppColors.m1,
+                  textColor: AppColors.s3,
+                  title: '등록하기',
+                  onPressed: () {
+                    //다이얼로그 표시
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      //false로 지정해주면 확인 버튼이 아닌 다른 영역을 아무리 클릭을 해도 창이 닫히지 않는다.
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: AppColors.s3,
+                          actionsAlignment: MainAxisAlignment.center,
+                          content: Text(
+                            '광고 상품 등록이 완료되었습니다.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'pretendard',
+                              color: AppColors.g1,
                             ),
                           ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.m1,
-                  // shape: RoundedRectangleBorder(
-                  //   borderRadius: BorderRadius.circular(10),
-                  // ),
-                  minimumSize: const Size.fromHeight(50),
-                ),
-                child: Text(
-                  '등록하기',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'pretendard',
-                    color: AppColors.s3,
-                  ),
-                ),
-              ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(
+                                '확인',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'pretendard',
+                                  color: AppColors.g1,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }),
             ],
           ),
         ),
