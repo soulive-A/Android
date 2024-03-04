@@ -65,6 +65,7 @@ Widget modelKeyword(){
           ),
         ),
         SizedBox(height: 14,),
+        //flex위젯같은게 없나?
         CustomTextButton(text: '세련됨', backgroundColor: AppColors.s1, textColor: AppColors.g2,)
       ],
     ),

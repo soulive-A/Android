@@ -139,6 +139,7 @@ Widget _tabBarView(){
   );
 }
 
+//메인 카드
 Widget MainCard(){
   return Card(
     color: AppColors.s3,
