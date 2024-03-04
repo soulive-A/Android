@@ -26,7 +26,7 @@ class _CommercialScreen extends State<CommercialScreen> {
                   MaterialPageRoute(builder: (context) => ProductAddScreen())
               );
             },
-            child: Text('광고상품등록화면 임시 이동버튼'),
+            child: Text('광고상품패이지'),
           )
       ),
     );
