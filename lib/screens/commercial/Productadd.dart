@@ -15,6 +15,18 @@ class ProductAddScreen extends StatefulWidget {
 
 class _ProductAddScreen extends State<ProductAddScreen> {
   var isChecked = false;
+  List<String> allTags = [];
+  List<String> selectedTags= [];
+  //기업 정보 텍스트
+  TextEditingController companyController = TextEditingController();
+  TextEditingController brandNameController = TextEditingController();
+  TextEditingController brandKeywordController = TextEditingController();
+  //상품 정보 텍스트
+  TextEditingController productNameController = TextEditingController();
+  TextEditingController productFeatController = TextEditingController();
+  TextEditingController productKeywordController = TextEditingController();
+  //타겟 텍스트
+  TextEditingController targetController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +52,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
             children: [
               const SizedBox(height: 22),
               //텍스트
-              CustomTitle(iconData: Icons.construction, title: '기업명'),
+              CustomTitle(iconData: Icons.business, title: '기업명'),
 
               const SizedBox(height: 22),
 
@@ -61,6 +73,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         style: FontStyles.questionFont,
                       ),
                       TextField(
+                        controller: companyController,
                         decoration: InputDecoration(
                           hintText: 'ex) OO회사, 애플',
                           hintStyle: FontStyles.hintFont,
@@ -86,10 +99,13 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                 ),
                               ),
                               Checkbox(
+                                activeColor: AppColors.s3,
+                                checkColor: AppColors.g2,
                                 value: isChecked,
                                 onChanged: (value) {
                                   setState(() {
                                     isChecked = value!;
+
                                   });
                                 },
                               ),
@@ -98,9 +114,15 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         ],
                       ),
                       TextField(
+                        //체크박스 표시할 시 비활성화
+                        enabled: isChecked != false ? false : true,
+                        controller: brandNameController,
                         decoration: InputDecoration(
                           hintText: 'ex) 아이폰, 아이패드',
                           hintStyle: FontStyles.hintFont,
+                          //체크박스 표시할 시 색상 채우기
+                          filled: isChecked != false ? true : false,
+                          fillColor: AppColors.g6,
                         ),
                       ),
                       SizedBox(height: 35),
@@ -145,6 +167,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         children: [
                           Flexible(
                             child: TextField(
+                              controller: brandKeywordController,
                               decoration: InputDecoration(
                                 hintText: 'ex) 고급스러움, 키치함',
                                 hintStyle: FontStyles.hintFont,
@@ -172,7 +195,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                 height: 35,
               ),
 
-              CustomTitle(iconData: Icons.construction, title: '상품 정보'),
+              CustomTitle(iconData: Icons.shopping_bag, title: '상품 정보'),
 
               SizedBox(height: 22),
 
@@ -208,17 +231,14 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         children: [
                           Text(
                             "성별",
-                            style: TextStyle(
-                              fontFamily: 'pretendard',
-                              fontSize: 16,
-                              color: AppColors.g2,
-                            ),
+                            style: FontStyles.questionFont,
                           ),
                           Text(
                             " (중복 선택 가능)",
                             style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
                               fontFamily: 'pretendard',
-                              fontSize: 12,
                               color: AppColors.g2,
                             ),
                           ),
@@ -256,17 +276,14 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         children: [
                           Text(
                             "연령대",
-                            style: TextStyle(
-                              fontFamily: 'pretendard',
-                              fontSize: 16,
-                              color: AppColors.g2,
-                            ),
+                            style: FontStyles.questionFont,
                           ),
                           Text(
                             " (중복 선택 가능)",
                             style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
                               fontFamily: 'pretendard',
-                              fontSize: 12,
                               color: AppColors.g2,
                             ),
                           ),
@@ -337,23 +354,16 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                       SizedBox(height: 35),
                       Text(
                         "구체적 범주",
-                        style: TextStyle(
-                          fontFamily: 'pretendard',
-                          fontSize: 16,
-                          color: AppColors.g2,
-                        ),
+                        style: FontStyles.questionFont,
                       ),
                       Row(
                         children: [
                           Flexible(
                             child: TextField(
+                              controller: targetController,
                               decoration: InputDecoration(
                                 hintText: 'ex) 고급스러움, 키치함',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'pretendard',
-                                  fontSize: 16,
-                                  color: AppColors.g5,
-                                ),
+                                hintStyle: FontStyles.hintFont,
                               ),
                             ),
                           ),
