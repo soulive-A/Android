@@ -41,4 +41,12 @@ class SoulliveIcon{
     return fromAsset('ic_arrow', width: width, height: height);
   }
 
+  static Widget logoWhite({double width = 49, double height = 55, Color? color}){
+    return fromAsset('ic_logo_white', width: width, height: height);
+  }
+
+  static Widget logoPurple({double width = 49, double height = 55, Color? color}){
+    return fromAsset('ic_logo_purple', width: width, height: height);
+  }
+
 }
