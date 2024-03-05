@@ -18,8 +18,18 @@ class _ProductAddScreen extends State<ProductAddScreen> {
   var isChecked = false;
   int isPressed = 0;
 
-  List<String> allTags = [];
-  List<String> selectedTags = [];
+  List<String> allTags = [
+    '세련된',
+    '패셔너블한',
+    '대중에게 친숙한',
+    '새로운',
+    '혁신적인',
+    '독특한',
+    '화려한',
+  ];
+  List<String> selectedTags = [
+
+  ];
 
   //기업 정보 텍스트
   TextEditingController companyController = TextEditingController();
@@ -149,7 +159,82 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         ],
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          //기본 키워드 다이얼로그 표시
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: AppColors.s3,
+                                title: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '관련 이미지 키워드를 선택해주세요.',
+                                      style: FontStyles.questionFont,
+                                    ),
+                                    Text(
+                                      '최대 3가지 선택 가능합니다.',
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'pretendard',
+                                        color: AppColors.g2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                content: Wrap(
+                                  spacing: 8,
+                                  runSpacing: 4,
+                                  direction: Axis.horizontal,
+                                  alignment: WrapAlignment.start,
+                                  children: allTags.map((tag) {
+                                    return ActionChip(
+                                      label: Text(
+                                        tag,
+                                        style: const TextStyle(
+                                          fontSize: 9,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'pretendard',
+                                          color: AppColors.g2,
+                                        ),
+                                      ),
+                                      backgroundColor: AppColors.g6,
+                                      shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                          color: AppColors.g6,
+                                        ),
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          if(selectedTags.length<3){
+                                            selectedTags.add(tag);
+                                          }
+                                          else
+                                            print('더이상 추가 불가능');
+                                        });
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
+                                actions: [
+                                  CustomElevatedButton(
+                                      backgroundColor: AppColors.m1,
+                                      borderColor: AppColors.m1,
+                                      textColor: AppColors.s3,
+                                      title: '추가하기',
+                                      onPressed: () {
+                                        print('테스트');
+                                      }),
+                                ],
+                              );
+                            },
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.g6,
                           foregroundColor: AppColors.g3,
@@ -184,80 +269,39 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               icon: Icon(Icons.add_circle),
                               onPressed: () {
                                 //태그 추가 로직 작성
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      backgroundColor: AppColors.s3,
-                                      title: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            '관련 이미지 키워드를 선택해주세요.',
-                                            style: FontStyles.questionFont,
-                                          ),
-                                          Text(
-                                            '최대 3가지 선택 가능합니다.',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'pretendard',
-                                              color: AppColors.g2,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      content: Wrap(
-                                        spacing: 8,
-                                        runSpacing: 4,
-                                        direction: Axis.horizontal,
-                                        alignment: WrapAlignment.start,
-                                        children: <Widget>[
-                                          ActionChip(
-                                            label: Text(
-                                              '새로운',
-                                              style: TextStyle(
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily: 'pretendard',
-                                                color: AppColors.g2,
-                                              ),
-                                            ),
-                                            backgroundColor: AppColors.g6,
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                color: AppColors.g6,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                            ),
-                                            onPressed: () {
-                                              print('눌렸다!');
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      actions: [
-                                        CustomElevatedButton(
-                                            backgroundColor: AppColors.m1,
-                                            borderColor: AppColors.m1,
-                                            textColor: AppColors.s3,
-                                            title: '추가하기',
-                                            onPressed: () {
-                                              print('테스트');
-                                            }),
-                                      ],
-                                    );
-                                  },
-                                );
+                                setState(() {
+                                  String newTag =brandKeywordController.text;
+                                  allTags.add(newTag);
+                                  brandKeywordController.clear();
+                                });
                               },
                               iconSize: 40,
                               color: AppColors.g2,
                             ),
                           ),
                         ],
+                      ),
+                      Row(
+                        children: selectedTags.map((tag) {
+                          return Chip(
+                            label: Text(
+                              tag,
+                              style: const TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'pretendard',
+                                color: AppColors.g2,
+                              ),
+                            ),
+                            backgroundColor: AppColors.s1,
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                color: AppColors.s1,
+                              ),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ],
                   ),
