@@ -27,9 +27,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
     '독특한',
     '화려한',
   ];
-  List<String> selectedTags = [
-
-  ];
+  List<String> selectedTags = [];
 
   //기업 정보 텍스트
   TextEditingController companyController = TextEditingController();
@@ -168,8 +166,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               return AlertDialog(
                                 backgroundColor: AppColors.s3,
                                 title: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       '관련 이미지 키워드를 선택해주세요.',
@@ -202,7 +199,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                           color: AppColors.g2,
                                         ),
                                       ),
-                                      backgroundColor: AppColors.g6,
+                                      backgroundColor: selectedTags.contains(tag) ? AppColors.s1 : AppColors.g6,
                                       shape: RoundedRectangleBorder(
                                         side: const BorderSide(
                                           color: AppColors.g6,
@@ -211,12 +208,14 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                       ),
                                       onPressed: () {
                                         setState(() {
-                                          if(selectedTags.length<3){
+                                          if(selectedTags.contains(tag)){
+                                            selectedTags.remove(tag);
+                                          }
+                                          else if (selectedTags.length < 3) {
                                             selectedTags.add(tag);
                                           }
-                                          else
-                                            print('더이상 추가 불가능');
                                         });
+
                                       },
                                     );
                                   }).toList(),
@@ -228,7 +227,21 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                       textColor: AppColors.s3,
                                       title: '추가하기',
                                       onPressed: () {
-                                        print('테스트');
+                                        // setState(() {
+                                        //   if (selectedTags.length < 3) {
+                                        //     selectedTags.add(tag);
+                                        //   } else
+                                        //     ScaffoldMessenger.of(context).showSnackBar(
+                                        //       SnackBar(
+                                        //         backgroundColor: AppColors.s3,
+                                        //         content:
+                                        //         Text('더 이상 추가할 수 없습니다.',
+                                        //           style: FontStyles.Subcopy2.copyWith(color: AppColors.g1),
+                                        //         ),
+                                        //         //임의로 설정한 스낵바, 추후 변경
+                                        //       ),
+                                        //     );
+                                        // });
                                       }),
                                 ],
                               );
@@ -270,9 +283,11 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               onPressed: () {
                                 //태그 추가 로직 작성
                                 setState(() {
-                                  String newTag =brandKeywordController.text;
-                                  allTags.add(newTag);
-                                  brandKeywordController.clear();
+                                  String newTag = brandKeywordController.text;
+                                  if (newTag.isNotEmpty) {
+                                    allTags.add(newTag);
+                                    brandKeywordController.clear();
+                                  }
                                 });
                               },
                               iconSize: 40,
@@ -281,7 +296,11 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           ),
                         ],
                       ),
-                      Row(
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 4,
+                        direction: Axis.horizontal,
+                        alignment: WrapAlignment.start,
                         children: selectedTags.map((tag) {
                           return Chip(
                             label: Text(
