@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/design/FontStyles.dart';
 
+import '../SoulliveIcon.dart';
+
 //광고 추가 페이지 컨테이너 박스용
 class CustomContainer extends StatelessWidget {
   final String questionOne;
@@ -100,7 +102,7 @@ class CustomContainer extends StatelessWidget {
                 ),
                 Container(
                   child: IconButton(
-                    icon: Icon(Icons.add_circle),
+                    icon: SoulliveIcon.plusIcon(),
                     onPressed: () {
                       //태그 추가 로직 작성
                     },

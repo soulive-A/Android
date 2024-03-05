@@ -17,8 +17,18 @@ class ProductAddScreen extends StatefulWidget {
 class _ProductAddScreen extends State<ProductAddScreen> {
   var isChecked = false;
   int isPressed = 0;
+  bool isSelected = false;
+  String currentTag = '';
 
-  List<String> allTags = [];
+  List<String> allTags = [
+    '세련된',
+    '패셔너블한',
+    '대중에게 친숙한',
+    '새로운',
+    '혁신적인',
+    '독특한',
+    '화려한',
+  ];
   List<String> selectedTags = [];
 
   //기업 정보 텍스트
@@ -149,7 +159,101 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         ],
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          //기본 키워드 다이얼로그 표시
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: AppColors.s3,
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '관련 이미지 키워드를 선택해주세요.',
+                                      style: FontStyles.questionFont,
+                                    ),
+                                    Text(
+                                      '최대 3가지 선택 가능합니다.',
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'pretendard',
+                                        color: AppColors.g2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                content: Wrap(
+                                  spacing: 8,
+                                  runSpacing: 4,
+                                  direction: Axis.horizontal,
+                                  alignment: WrapAlignment.start,
+                                  children: allTags.map((tag) {
+                                    return InputChip(
+                                      selected: selectedTags.contains(tag),
+                                      label: Text(
+                                        tag,
+                                        style: const TextStyle(
+                                          fontSize: 9,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'pretendard',
+                                          color: AppColors.g2,
+                                        ),
+                                      ),
+                                      backgroundColor: AppColors.g6,
+                                      selectedColor: AppColors.s1,
+                                      shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                          color: AppColors.g6,
+                                        ),
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      onSelected: (isSelected) {
+                                        //태그 색깔 변하게 수정
+                                        setState(() {
+                                          if (isSelected) {
+                                           // selectedTags.add(tag);
+                                          }
+                                          currentTag = tag;
+                                        });
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
+                                actions: [
+                                  CustomElevatedButton(
+                                      backgroundColor: AppColors.m1,
+                                      borderColor: AppColors.m1,
+                                      textColor: AppColors.s3,
+                                      title: '추가하기',
+                                      onPressed: () {
+                                        //태그 추가 기능 (다중선택도 가능하도록 수정하기)
+                                        setState(() {
+                                          if (selectedTags.length < 3) {
+                                            selectedTags.add(currentTag);
+                                          } else
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                backgroundColor: AppColors.s3,
+                                                content: Text(
+                                                  '더 이상 추가할 수 없습니다.',
+                                                  style: FontStyles.Subcopy2
+                                                      .copyWith(
+                                                          color: AppColors.g1),
+                                                ),
+                                                //임의로 설정한 스낵바, 추후 변경
+                                              ),
+                                            );
+                                        });
+                                      }),
+                                ],
+                              );
+                            },
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.g6,
                           foregroundColor: AppColors.g3,
@@ -181,83 +285,77 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           ),
                           Container(
                             child: IconButton(
-                              icon: Icon(Icons.add_circle),
+                              icon: SoulliveIcon.plusIcon(),
                               onPressed: () {
                                 //태그 추가 로직 작성
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      backgroundColor: AppColors.s3,
-                                      title: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            '관련 이미지 키워드를 선택해주세요.',
-                                            style: FontStyles.questionFont,
-                                          ),
-                                          Text(
-                                            '최대 3가지 선택 가능합니다.',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'pretendard',
-                                              color: AppColors.g2,
-                                            ),
-                                          ),
-                                        ],
+                                setState(() {
+                                  String newTag = brandKeywordController.text;
+                                  if (newTag.isNotEmpty) {
+                                    allTags.add(newTag);
+                                    brandKeywordController.clear();
+                                    //태그 추가 알림창(임시적)
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: AppColors.s3,
+                                        content: Text(
+                                          '키워드가 추가되었습니다.',
+                                          style: FontStyles.Subcopy2.copyWith(
+                                              color: AppColors.g1),
+                                        ),
+                                        //임의로 설정한 스낵바, 추후 변경
                                       ),
-                                      content: Wrap(
-                                        spacing: 8,
-                                        runSpacing: 4,
-                                        direction: Axis.horizontal,
-                                        alignment: WrapAlignment.start,
-                                        children: <Widget>[
-                                          ActionChip(
-                                            label: Text(
-                                              '새로운',
-                                              style: TextStyle(
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily: 'pretendard',
-                                                color: AppColors.g2,
-                                              ),
-                                            ),
-                                            backgroundColor: AppColors.g6,
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                color: AppColors.g6,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                            ),
-                                            onPressed: () {
-                                              print('눌렸다!');
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      actions: [
-                                        CustomElevatedButton(
-                                            backgroundColor: AppColors.m1,
-                                            borderColor: AppColors.m1,
-                                            textColor: AppColors.s3,
-                                            title: '추가하기',
-                                            onPressed: () {
-                                              print('테스트');
-                                            }),
-                                      ],
                                     );
-                                  },
-                                );
+                                  } else
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: AppColors.s3,
+                                        content: Text(
+                                          '키워드를 입력해주세요.',
+                                          style: FontStyles.Subcopy2.copyWith(
+                                              color: AppColors.g1),
+                                        ),
+                                        //임의로 설정한 스낵바, 추후 변경
+                                      ),
+                                    );
+                                });
                               },
                               iconSize: 40,
                               color: AppColors.g2,
                             ),
                           ),
                         ],
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 4,
+                        direction: Axis.horizontal,
+                        alignment: WrapAlignment.start,
+                        children: selectedTags.map((tag) {
+                          return InputChip(
+                            label: Text(
+                              tag,
+                              style: const TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'pretendard',
+                                color: AppColors.g2,
+                              ),
+                            ),
+                            backgroundColor: AppColors.s1,
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                color: AppColors.s1,
+                              ),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            //삭제 버튼
+                            onDeleted: () {
+                              setState(() {
+                                selectedTags.remove(tag);
+                              });
+                            },
+                          );
+                        }).toList(),
                       ),
                     ],
                   ),
@@ -442,7 +540,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           ),
                           Container(
                             child: IconButton(
-                              icon: Icon(Icons.add_circle),
+                              icon: SoulliveIcon.plusIcon(),
                               onPressed: () {},
                               iconSize: 40,
                               color: AppColors.g2,
