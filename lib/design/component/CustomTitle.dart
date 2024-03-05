@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:soulive/design/ColorStyles.dart';
+import 'package:soulive/design/FontStyles.dart';
 
 //아이콘과 텍스트가 결합된 위젯
 class CustomTitle extends StatelessWidget {
   final IconData iconData;
   final String title;
 
-  const CustomTitle({ Key? key,
+  const CustomTitle({
+    Key? key,
     required this.iconData,
     required this.title,
   }) : super(key: key);
@@ -23,10 +25,7 @@ class CustomTitle extends StatelessWidget {
         SizedBox(width: 5),
         Text(
           title,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'pretendard',
+          style: FontStyles.Headline1.copyWith(
             color: AppColors.g2,
           ),
         ),

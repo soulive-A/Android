@@ -61,12 +61,7 @@ class CustomContainer extends StatelessWidget {
                 ),
                 Text(
                   " (최대 3개)",
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'pretendard',
-                    color: AppColors.g2,
-                  ),
+                  style: FontStyles.Subcopy2.copyWith(color: AppColors.g2),
                 ),
               ],
             ),
@@ -82,12 +77,7 @@ class CustomContainer extends StatelessWidget {
               ),
               child: Text(
                 '기본 키워드 보기',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'pretendard',
-                  color: AppColors.g3,
-                ),
+                style: FontStyles.Subcopy2.copyWith(color: AppColors.g3),
               ),
             ),
             Row(

@@ -54,5 +54,8 @@ class SoulliveIcon{
   static Widget deleteIcon({double width = 8, double height = 8, Color? color}){
     return fromAsset('ic_delete', width: width, height: height);
   }
+  static Widget companyIcon({double width = 12, double height = 14, Color? color}){
+    return fromAsset('ic_company', width: width, height: height);
+  }
 
 }

@@ -16,7 +16,17 @@ class ProductAddScreen extends StatefulWidget {
 
 class _ProductAddScreen extends State<ProductAddScreen> {
   var isChecked = false;
-  int isPressed = 0;
+  //버튼 비활성/활성
+  List<bool> isPressed = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
   bool isSelected = false;
   String currentTag = '';
 
@@ -49,6 +59,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
     return Scaffold(
       backgroundColor: AppColors.bg,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         leading: IconButton(
             icon: SoulliveIcon.arrowLeft(),
             onPressed: () {
@@ -56,7 +67,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
               Navigator.pop(context);
             }),
         foregroundColor: AppColors.black,
-        backgroundColor: AppColors.g6,
+        backgroundColor: AppColors.bg,
         title: const Text("광고 상품 추가", style: FontStyles.appbarFont),
         centerTitle: true,
       ),
@@ -68,7 +79,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
             children: [
               const SizedBox(height: 22),
               //텍스트
-              CustomTitle(iconData: Icons.business, title: '기업명'),
+              CustomTitle(iconData: Icons.business, title: '기업 정보'),
 
               const SizedBox(height: 22),
 
@@ -149,12 +160,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           ),
                           Text(
                             " (최대 3개)",
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'pretendard',
-                              color: AppColors.g2,
-                            ),
+                            style: FontStyles.Subcopy2.copyWith(
+                                color: AppColors.g2),
                           ),
                         ],
                       ),
@@ -176,12 +183,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                     ),
                                     Text(
                                       '최대 3가지 선택 가능합니다.',
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'pretendard',
-                                        color: AppColors.g2,
-                                      ),
+                                      style: FontStyles.Subcopy2.copyWith(
+                                          color: AppColors.g2),
                                     ),
                                   ],
                                 ),
@@ -195,27 +198,20 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                       selected: selectedTags.contains(tag),
                                       label: Text(
                                         tag,
-                                        style: const TextStyle(
-                                          fontSize: 9,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'pretendard',
-                                          color: AppColors.g2,
-                                        ),
+                                        style: FontStyles.Subcopy6.copyWith(
+                                            color: AppColors.g2),
                                       ),
                                       backgroundColor: AppColors.g6,
                                       selectedColor: AppColors.s1,
                                       shape: RoundedRectangleBorder(
                                         side: const BorderSide(
-                                          color: AppColors.g6,
+                                          color: Colors.transparent,
                                         ),
                                         borderRadius: BorderRadius.circular(50),
                                       ),
                                       onSelected: (isSelected) {
                                         //태그 색깔 변하게 수정
                                         setState(() {
-                                          if (isSelected) {
-                                           // selectedTags.add(tag);
-                                          }
                                           currentTag = tag;
                                         });
                                       },
@@ -264,12 +260,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         ),
                         child: Text(
                           '기본 키워드 보기',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'pretendard',
-                            color: AppColors.g3,
-                          ),
+                          style:
+                              FontStyles.Subcopy2.copyWith(color: AppColors.g3),
                         ),
                       ),
                       Row(
@@ -334,12 +326,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           return InputChip(
                             label: Text(
                               tag,
-                              style: const TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'pretendard',
-                                color: AppColors.g2,
-                              ),
+                              style: FontStyles.Subcopy6.copyWith(
+                                  color: AppColors.g2),
                             ),
                             backgroundColor: AppColors.s1,
                             shape: RoundedRectangleBorder(
@@ -406,38 +394,55 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           ),
                           Text(
                             " (중복 선택 가능)",
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'pretendard',
-                              color: AppColors.g2,
-                            ),
+                            style: FontStyles.Subcopy2.copyWith(
+                                color: AppColors.g2),
                           ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Flexible(
+                          Expanded(
                             flex: 2,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  isPressed[0] = !isPressed[0];
+                                });
+                              },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.g6,
+                                backgroundColor:
+                                    isPressed[0] ? AppColors.m3 : AppColors.g6,
                                 foregroundColor: AppColors.g2,
                               ),
-                              child: Text('남자'),
+                              child: Text(
+                                '남자',
+                                style: FontStyles.Subcopy4.copyWith(
+                                    color: AppColors.g2),
+                              ),
                             ),
                           ),
-                          Flexible(
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
                             flex: 2,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  isPressed[1] = !isPressed[1];
+                                });
+                              },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.g6,
+                                backgroundColor:
+                                    isPressed[1] ? AppColors.m3 : AppColors.g6,
                                 foregroundColor: AppColors.g2,
                               ),
-                              child: Text('여자'),
+                              child: Text(
+                                '여자',
+                                style: FontStyles.Subcopy4.copyWith(
+                                    color: AppColors.g2),
+                              ),
                             ),
                           ),
                         ],
@@ -451,12 +456,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           ),
                           Text(
                             " (중복 선택 가능)",
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'pretendard',
-                              color: AppColors.g2,
-                            ),
+                            style: FontStyles.Subcopy2.copyWith(
+                                color: AppColors.g2),
                           ),
                         ],
                       ),
@@ -465,61 +466,146 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.g6,
-                                  foregroundColor: AppColors.g2,
+                              Expanded(
+                                flex: 3,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPressed[2] = !isPressed[2];
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                    isPressed[2] ? AppColors.m3 : AppColors.g6,
+                                    foregroundColor: AppColors.g2,
+                                  ),
+                                  child: Text(
+                                    '10대',
+                                    style: FontStyles.Subcopy4.copyWith(
+                                        color: AppColors.g2),
+                                  ),
                                 ),
-                                child: Text('10대'),
                               ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.g6,
-                                  foregroundColor: AppColors.g2,
-                                ),
-                                child: Text('20대'),
+                              SizedBox(
+                                width: 10,
                               ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.g6,
-                                  foregroundColor: AppColors.g2,
+                              Expanded(
+                                flex: 3,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPressed[3] = !isPressed[3];
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                    isPressed[3] ? AppColors.m3 : AppColors.g6,
+                                    foregroundColor: AppColors.g2,
+                                  ),
+                                  child: Text(
+                                    '20대',
+                                    style: FontStyles.Subcopy4.copyWith(
+                                        color: AppColors.g2),
+                                  ),
                                 ),
-                                child: Text('30대'),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPressed[4] = !isPressed[4];
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                    isPressed[4] ? AppColors.m3 : AppColors.g6,
+                                    foregroundColor: AppColors.g2,
+                                  ),
+                                  child: Text(
+                                    '30대',
+                                    style: FontStyles.Subcopy4.copyWith(
+                                        color: AppColors.g2),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.g6,
-                                  foregroundColor: AppColors.g2,
+                              Expanded(
+                                flex: 3,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPressed[5] = !isPressed[5];
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                    isPressed[5] ? AppColors.m3 : AppColors.g6,
+                                    foregroundColor: AppColors.g2,
+                                  ),
+                                  child: Text(
+                                    '40대',
+                                    style: FontStyles.Subcopy4.copyWith(
+                                        color: AppColors.g2),
+                                  ),
                                 ),
-                                child: Text('40대'),
                               ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.g6,
-                                  foregroundColor: AppColors.g2,
-                                ),
-                                child: Text('50대'),
+                              SizedBox(
+                                width: 10,
                               ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.g6,
-                                  foregroundColor: AppColors.g2,
+                              Expanded(
+                                flex: 3,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPressed[6] = !isPressed[6];
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                    isPressed[6] ? AppColors.m3 : AppColors.g6,
+                                    foregroundColor: AppColors.g2,
+                                  ),
+                                  child: Text(
+                                    '50대',
+                                    style: FontStyles.Subcopy4.copyWith(
+                                        color: AppColors.g2),
+                                  ),
                                 ),
-                                child: Text('60대 이상'),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isPressed[7] = !isPressed[7];
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                    isPressed[7] ? AppColors.m3 : AppColors.g6,
+                                    foregroundColor: AppColors.g2,
+                                    padding: EdgeInsets.zero, //글자 짤림 방지
+                                  ),
+                                  child: Text(
+                                    '60대 이상',
+                                    style: FontStyles.Subcopy4.copyWith(
+                                        color: AppColors.g2),
+                                  ),
+                                ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                       SizedBox(height: 35),
@@ -573,24 +659,16 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           content: Text(
                             '광고 상품 등록이 완료되었습니다.',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.normal,
-                              fontFamily: 'pretendard',
-                              color: AppColors.g1,
-                            ),
+                            style: FontStyles.Subcopy8.copyWith(
+                                color: AppColors.g1),
                           ),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
                               child: Text(
                                 '확인',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'pretendard',
-                                  color: AppColors.g1,
-                                ),
+                                style: FontStyles.Subcopy1.copyWith(
+                                    color: AppColors.g1),
                               ),
                             ),
                           ],
