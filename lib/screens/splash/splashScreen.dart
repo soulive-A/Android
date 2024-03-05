@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:soulive/design/FontStyles.dart';
+import 'package:soulive/screens/screen_index.dart';
+
+import '../../design/SoulliveIcon.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,9 +15,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreen extends State<SplashScreen> {
-  final int Splash_time = 3000;
+  final int Splash_time = 2000;
   Timer? _splashTimer;
-  String _next = '/home';
+  //String _next = '/home';
 
   @override
   void initState(){
@@ -28,10 +31,10 @@ class _SplashScreen extends State<SplashScreen> {
     super.dispose();
   }
 
-  void checkNext(String next){
-    removeTimer();
-    context.go(next);
-  }
+  // void checkNext(String next){
+  //   removeTimer();
+  //   context.go(next);
+  // }
 
   void removeTimer(){
     if(_splashTimer != null && _splashTimer!.isActive){
@@ -46,7 +49,10 @@ class _SplashScreen extends State<SplashScreen> {
     }
     _splashTimer = Timer(Duration(milliseconds: Splash_time), (){
       if(mounted){
-        checkNext(_next);
+        removeTimer();
+        Navigator.pushReplacement(
+            context, 
+            MaterialPageRoute(builder: (context) => const ScreenIndex(index: 0)));
       }
     });
   }
@@ -67,19 +73,20 @@ class _SplashScreen extends State<SplashScreen> {
                 ),
               ),
             ),
-            FittedBox(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/ic_logo.png', width: 154, height: 317),
-                  //SizedBox(height: screenHeight*0.0375,),
-                  Text(
-                      'SOUL MODEL',
-                      style: FontStyles.logoFont.copyWith(color:Colors.white)
-                  )
-                ],
-              ),
-            )
+            Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/ic_logo.png', width: 49, height: 55,),
+                    //SizedBox(height: screenHeight*0.0375,),
+                    Text(
+                        'SOUL MODEL',
+                        style: FontStyles.AppTitle1.copyWith(color:Colors.white)
+                    )
+                  ],
+                ),
+              )
+
           ],
         ),
 
