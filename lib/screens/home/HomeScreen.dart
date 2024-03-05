@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:soulive/design/ColorStyles.dart';
-import 'package:soulive/screens/screen_index.dart';
-import 'package:soulive/screens/model_result/ModelResult.dart';
+import 'package:soulive/screens/model_result/InputModelScreen.dart';
 
+import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
+import '../model_result/ModelResult.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,10 +45,11 @@ class _HomeScreen extends State<HomeScreen> {
           child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => ModelResultScreen()));
+              MaterialPageRoute(builder: (context) => InputModelScreen()));
         },
-        child: Text('모델분석결과화면 임시 이동버튼'),
+        child: Text('모델분석결과화면 임시 인풋 버튼'),
       )),
     );
   }
+
 }
