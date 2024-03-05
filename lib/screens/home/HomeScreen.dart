@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soulive/screens/model_result/InputModelScreen.dart';
+import 'package:soulive/screens/home/InputModelScreen.dart';
 
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
