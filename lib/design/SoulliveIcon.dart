@@ -48,5 +48,11 @@ class SoulliveIcon{
   static Widget logoPurple({double width = 49, double height = 55, Color? color}){
     return fromAsset('ic_logo_puple', width: width, height: height);
   }
+  static Widget plusIcon({double width = 29, double height = 29, Color? color}){
+    return fromAsset('ic_plus', width: width, height: height);
+  }
+  static Widget deleteIcon({double width = 8, double height = 8, Color? color}){
+    return fromAsset('ic_delete', width: width, height: height);
+  }
 
 }

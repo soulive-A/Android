@@ -32,15 +32,18 @@ class FontStyles{
       fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'pretendard'
   );
   static const Subcopy5 = TextStyle(
-      fontSize: 10, fontWeight: FontWeight.w500, fontFamily: 'pretendard'
+      fontSize: 12, fontWeight: FontWeight.w500, fontFamily: 'pretendard'
   );
   static const Subcopy6 = TextStyle(
-      fontSize: 9, fontWeight: FontWeight.w500, fontFamily: 'pretendard'
+      fontSize:10, fontWeight: FontWeight.w500, fontFamily: 'pretendard'
   );
   static const Subcopy7 = TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w400, fontFamily: 'pretendard'
+      fontSize: 9, fontWeight: FontWeight.w400, fontFamily: 'pretendard'
   );
   static const Subcopy8 = TextStyle(
+      fontSize: 13, fontWeight: FontWeight.w400, fontFamily: 'pretendard'
+  );
+  static const Subcopy9 = TextStyle(
       fontSize: 8, fontWeight: FontWeight.w400, fontFamily: 'pretendard'
   );
 
