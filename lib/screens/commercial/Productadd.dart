@@ -17,6 +17,8 @@ class ProductAddScreen extends StatefulWidget {
 class _ProductAddScreen extends State<ProductAddScreen> {
   var isChecked = false;
   int isPressed = 0;
+  bool isSelected = false;
+  String currentTag = '';
 
   List<String> allTags = [
     '세련된',
@@ -189,7 +191,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                   direction: Axis.horizontal,
                                   alignment: WrapAlignment.start,
                                   children: allTags.map((tag) {
-                                    return ActionChip(
+                                    return InputChip(
+                                      selected: selectedTags.contains(tag),
                                       label: Text(
                                         tag,
                                         style: const TextStyle(
@@ -199,23 +202,22 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                           color: AppColors.g2,
                                         ),
                                       ),
-                                      backgroundColor: selectedTags.contains(tag) ? AppColors.s1 : AppColors.g6,
+                                      backgroundColor: AppColors.g6,
+                                      selectedColor: AppColors.s1,
                                       shape: RoundedRectangleBorder(
                                         side: const BorderSide(
                                           color: AppColors.g6,
                                         ),
                                         borderRadius: BorderRadius.circular(50),
                                       ),
-                                      onPressed: () {
+                                      onSelected: (isSelected) {
+                                        //태그 색깔 변하게 수정
                                         setState(() {
-                                          if(selectedTags.contains(tag)){
-                                            selectedTags.remove(tag);
+                                          if (isSelected) {
+                                           // selectedTags.add(tag);
                                           }
-                                          else if (selectedTags.length < 3) {
-                                            selectedTags.add(tag);
-                                          }
+                                          currentTag = tag;
                                         });
-
                                       },
                                     );
                                   }).toList(),
@@ -227,21 +229,25 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                       textColor: AppColors.s3,
                                       title: '추가하기',
                                       onPressed: () {
-                                        // setState(() {
-                                        //   if (selectedTags.length < 3) {
-                                        //     selectedTags.add(tag);
-                                        //   } else
-                                        //     ScaffoldMessenger.of(context).showSnackBar(
-                                        //       SnackBar(
-                                        //         backgroundColor: AppColors.s3,
-                                        //         content:
-                                        //         Text('더 이상 추가할 수 없습니다.',
-                                        //           style: FontStyles.Subcopy2.copyWith(color: AppColors.g1),
-                                        //         ),
-                                        //         //임의로 설정한 스낵바, 추후 변경
-                                        //       ),
-                                        //     );
-                                        // });
+                                        //태그 추가 기능 (다중선택도 가능하도록 수정하기)
+                                        setState(() {
+                                          if (selectedTags.length < 3) {
+                                            selectedTags.add(currentTag);
+                                          } else
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                backgroundColor: AppColors.s3,
+                                                content: Text(
+                                                  '더 이상 추가할 수 없습니다.',
+                                                  style: FontStyles.Subcopy2
+                                                      .copyWith(
+                                                          color: AppColors.g1),
+                                                ),
+                                                //임의로 설정한 스낵바, 추후 변경
+                                              ),
+                                            );
+                                        });
                                       }),
                                 ],
                               );
@@ -279,7 +285,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           ),
                           Container(
                             child: IconButton(
-                              icon: Icon(Icons.add_circle),
+                              icon: SoulliveIcon.plusIcon(),
                               onPressed: () {
                                 //태그 추가 로직 작성
                                 setState(() {
@@ -287,7 +293,30 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                   if (newTag.isNotEmpty) {
                                     allTags.add(newTag);
                                     brandKeywordController.clear();
-                                  }
+                                    //태그 추가 알림창(임시적)
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: AppColors.s3,
+                                        content: Text(
+                                          '키워드가 추가되었습니다.',
+                                          style: FontStyles.Subcopy2.copyWith(
+                                              color: AppColors.g1),
+                                        ),
+                                        //임의로 설정한 스낵바, 추후 변경
+                                      ),
+                                    );
+                                  } else
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: AppColors.s3,
+                                        content: Text(
+                                          '키워드를 입력해주세요.',
+                                          style: FontStyles.Subcopy2.copyWith(
+                                              color: AppColors.g1),
+                                        ),
+                                        //임의로 설정한 스낵바, 추후 변경
+                                      ),
+                                    );
                                 });
                               },
                               iconSize: 40,
@@ -302,7 +331,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         direction: Axis.horizontal,
                         alignment: WrapAlignment.start,
                         children: selectedTags.map((tag) {
-                          return Chip(
+                          return InputChip(
                             label: Text(
                               tag,
                               style: const TextStyle(
@@ -319,6 +348,12 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               ),
                               borderRadius: BorderRadius.circular(50),
                             ),
+                            //삭제 버튼
+                            onDeleted: () {
+                              setState(() {
+                                selectedTags.remove(tag);
+                              });
+                            },
                           );
                         }).toList(),
                       ),
@@ -505,7 +540,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           ),
                           Container(
                             child: IconButton(
-                              icon: Icon(Icons.add_circle),
+                              icon: SoulliveIcon.plusIcon(),
                               onPressed: () {},
                               iconSize: 40,
                               color: AppColors.g2,
