@@ -63,4 +63,7 @@ class SoulliveIcon{
   static Widget recIcon({double width = 29, double height = 36, Color? color}){
     return fromAsset('ic_recommend', width: width, height: height);
   }
+  static Widget addTriangleIcon({double width = 12, double height = 7, Color? color}){
+    return fromAsset('ic_addTriangle', width: width, height: height);
+  }
 }

@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    timeDilation =2;
+    timeDilation = 2;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -38,7 +38,6 @@ class _HomeScreen extends State<HomeScreen> {
       body: Stack(children: [
         Hero(
           tag: 'tab',
-
           child: Container(
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.7,
@@ -74,6 +73,56 @@ class _HomeScreen extends State<HomeScreen> {
               Text(
                 '광고상품에 딱 맞는 모델을 찾아보세요!',
                 style: FontStyles.Subcopy1.copyWith(color: AppColors.s3),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.01,
+              ),
+              //광고 상품 등록
+              Container(
+                padding: EdgeInsets.all(10),
+                width: double.infinity,
+               height: 200,
+                decoration: BoxDecoration(
+                  color: AppColors.s3,
+                  borderRadius: BorderRadius.circular(10),
+                  //그림자 임의로 조절한거라 수정 필요할수도
+                  boxShadow: [
+                    BoxShadow(
+                        color: AppColors.g4,
+                        blurRadius: 2,
+                        offset: Offset(1, 2)),
+                  ],
+                ),
+                child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '아직 등록한 광고 상품이 없어요',
+                              style:
+                              FontStyles.Subcopy8.copyWith(color: AppColors.g2),
+                            ),
+                            SoulliveIcon.addTriangleIcon(),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: SoulliveIcon.plusIcon(color: AppColors.m1),
+                      ),
+                      Text(
+                        '광고 상품 등록하기',
+                        style:
+                        FontStyles.Subcopy4.copyWith(color: AppColors.g2),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height*0.08,
+                      ),
+                    ]),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
