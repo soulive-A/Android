@@ -9,10 +9,11 @@ import 'package:soulive/screens/splash/splashScreen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
 import 'package:soulive/screens/screen_index.dart';
-
+import 'package:soulive/screens/model_result/ModelResult.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
-  //await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "assets/config/.env");
   runApp(MyApp());
 }
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,23 +9,36 @@ import 'package:soulive/design/SoulliveIcon.dart';
 import 'package:soulive/screens/model_result/ModelTab1Screen.dart';
 import 'package:soulive/screens/model_result/ModelTab2Screen.dart';
 import 'package:soulive/viewModel/TabViewModel.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:soulive/model/GetCheckModel.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'ModelTab3Screen.dart';
 import 'ModelTab4Screen.dart';
 
-class ModelResultScreen extends StatefulWidget{
-  const ModelResultScreen({super.key});
-
+class ModelResult extends StatelessWidget{
   @override
-  State<ModelResultScreen> createState() => _ModelResultScreen();
+  Widget build(BuildContext context){
+    return ChangeNotifierProvider<TabViewModel>(
+        create: (_) => TabViewModel(),
+      child: ModelResultScreen(),
+    );
+  }
 }
 
-class _ModelResultScreen extends State<ModelResultScreen>{
+
+class ModelResultScreen extends StatelessWidget{
+  const ModelResultScreen({Key? key}) : super(key:key);
+
   @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (_) => TabViewModel(),
-      child: Scaffold(
+  Widget build(BuildContext context){
+    final modelName = ["김희애", "김고은", "한지민"];
+    final tabViewModel = Provider.of<TabViewModel>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if(tabViewModel.currentModel == null){
+        tabViewModel.fetchCheckModel("김희애", 1);
+      }
+    });
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.bg,
           leading: IconButton(
@@ -37,71 +52,77 @@ class _ModelResultScreen extends State<ModelResultScreen>{
               style: FontStyles.appbarFont),
           centerTitle: true,
         ),
-        body: Container(
-          color: AppColors.bg,
-          child: DefaultTabController(
-            length: 4,
-            child: Column(
-              children: [
-                SizedBox(height: 36),
-                //모델 선택 토글
-                Container(
-                  margin: EdgeInsets.only(left: 20),
-                  child: Consumer<TabViewModel>(
-                    builder: (context, viewModel, child) {
-                      return Row(
-                        children: [
-                          for(var i =0; i<3; i++)
-                            Padding(
-                                padding: EdgeInsets.only(right: 8),
-                                child: TextButton(
-                                  onPressed: (){
-                                    viewModel.selectTab(i);
-                                    //api 호출하여 데이터 업데이트하는 로직 추가
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18.47),
-                                          side: viewModel.selectedTab == i ? BorderSide.none
-                                              :BorderSide(color:AppColors.border, width: 1),
-                                        )
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 18),
-                                    child: Text(
-                                        '안녕',
-                                        style: FontStyles.Headline1.copyWith(color: viewModel.selectedTab == i ? Colors.white : AppColors.g4)
-                                      //FontStyles.Headline1
-                                    ),
-                                  ),
-                                ),
-                            )
-                        ],
-                      );
-                    },
-                  )
+        body: Consumer<TabViewModel>(
+          builder: (context,viewModel,child) {
+            final modelData = viewModel.currentModel?.data;
+            if(modelData != null){
+              return Container(
+                color: AppColors.bg,
+                child: DefaultTabController(
+                  length: 4,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 36),
+                      //모델 선택 토글
+                      Container(
+                          margin: EdgeInsets.only(left: 20),
+                          child: Consumer<TabViewModel>(
+                            builder: (context, viewModel, child) {
+                              return Row(
+                                children: [
+                                  for(var i =0; i<3; i++)
+                                    Padding(
+                                      padding: EdgeInsets.only(right: 8),
+                                      child: TextButton(
+                                        onPressed: (){
+                                          viewModel.selectTab(i);
+                                          viewModel.fetchCheckModel(modelName[i], 1);
+                                        },
+                                        style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
+                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(18.47),
+                                                side: viewModel.selectedTab == i ? BorderSide.none
+                                                    :BorderSide(color:AppColors.border, width: 1),
+                                              )
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 18),
+                                          child: Text(
+                                              '${modelName[i]}',
+                                              style: FontStyles.Headline1.copyWith(color: viewModel.selectedTab == i ? Colors.white : AppColors.g4)
+                                            //FontStyles.Headline1
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                ],
+                              );
+                            },
+                          )
+                      ),
+                      SizedBox(height: 18.98,),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child:  MainCard(modelData.imageUrl!!,modelData.modelName!!,modelData.job!!,modelData.birth!!, modelData.age!!,modelData.info!!, modelData.agency!!, modelData.aiRate?.toInt() ?? 0 ),
+                      ),
+                      SizedBox(height: 41,),
+                      _tabBar(),
+                      Expanded(child: _tabBarView())
+                    ],
+                  ),
                 ),
-                SizedBox(height: 18.98,),
-               Padding(
-                   padding: EdgeInsets.symmetric(horizontal: 20),
-                 child:  MainCard(),
-               ),
-                SizedBox(height: 41,),
-                _tabBar(),
-                Expanded(child: _tabBarView())
-              ],
-            ),
-          ),
-        ),
-      ),
+              );
+            }else{
+              return Text('다시 시도해 주세요');
+            }
+          },
+        )
     );
   }
-
 }
-//활성화 g1 g3는 언샐랙트
 Widget _tabBar(){
   return const TabBar(
     labelColor: AppColors.g1,
@@ -140,7 +161,16 @@ Widget _tabBarView(){
 }
 
 //메인 카드
-Widget MainCard(){
+Widget MainCard(
+    String imageUrl,
+    String modelName,
+    String job,
+    String birth,
+    String age,
+    String info,
+    String agency,
+    int aiRate
+    ){
   return Card(
     color: AppColors.s3,
     elevation: 10.0,
@@ -154,9 +184,9 @@ Widget MainCard(){
         Padding(
           padding: EdgeInsets.symmetric(vertical: 20),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(20), // 둥근 모서리의 반지름 설정
-            child: Image.asset(
-              'assets/images/background.png',
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              imageUrl,
               width: 84,
               height: 118,
               fit: BoxFit.fill,
@@ -169,7 +199,7 @@ Widget MainCard(){
           children: [
             Row(
               children: [
-                Text('아이린',
+                Text(modelName,
                   style: TextStyle(
                       fontFamily: 'pretendard',
                       fontWeight: FontWeight.w600,
@@ -178,11 +208,11 @@ Widget MainCard(){
                   ),
                 ),
                 SizedBox(width: 7,),
-                Text('가수/아이돌',
+                Text(job,
                   style: TextStyle(
-                    fontSize: 10.15,
-                    fontFamily: 'pretendard',
-                    fontWeight: FontWeight.w600,
+                      fontSize: 10.15,
+                      fontFamily: 'pretendard',
+                      fontWeight: FontWeight.w600,
                       color: AppColors.g4
                   ),
                 )
@@ -190,27 +220,17 @@ Widget MainCard(){
             ),
             SizedBox(height: 7),
             Text(
-              '1991.03.19 (32세)',
+              '${birth} ($age)',
               style: TextStyle(
-                color: AppColors.g4,
-                fontWeight: FontWeight.w500,
-                fontSize: 10.15,
-                fontFamily: 'pretendard'
+                  color: AppColors.g4,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 10.15,
+                  fontFamily: 'pretendard'
               ),
             ),
             SizedBox(height: 6,),
             Text(
-              '걸그룹 레드벨벳 멤버',
-              style: TextStyle(
-                  color: AppColors.g1,
-                  fontWeight: FontWeight.w500,
-                fontFamily: 'pretendard',
-                fontSize: 9.23,
-              ),
-            ),
-            SizedBox(height: 7),
-            Text(
-              '소속사:SM 엔터테인먼트',
+              info,
               style: TextStyle(
                 color: AppColors.g1,
                 fontWeight: FontWeight.w500,
@@ -218,8 +238,32 @@ Widget MainCard(){
                 fontSize: 9.23,
               ),
             ),
+            SizedBox(height: 7),
+            Text(
+              '소속사: $agency',
+              style: TextStyle(
+                color: AppColors.g1,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'pretendard',
+                fontSize: 9.23,
+              ),
+            ),
+            SizedBox(height: 15),
             Row(
-              //ai추천 추가하기 백에서 오는 데이터 형식 보고
+              children: [
+                Text('AI 추천', style: FontStyles.Subcopy2,),
+                SizedBox(width: 9,),
+                for(int i=0; i<aiRate; i++)
+                  Padding(
+                    padding: EdgeInsets.only(right: 3),
+                    child: SoulliveIcon.starFill(),
+                  ),
+                for(int i=0; i<5-aiRate; i++)
+                  Padding(
+                    padding: EdgeInsets.only(right: 3),
+                    child: SoulliveIcon.starunFill(),
+                  ),
+              ],
             )
           ],
         )

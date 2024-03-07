@@ -152,7 +152,7 @@ class _InputModelScreen extends State<InputModelScreen>{
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => ModelResultScreen()));
+                          MaterialPageRoute(builder: (context) => ModelResult()));
                     },
                     child: Container(
                       width: double.infinity,

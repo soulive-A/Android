@@ -42,6 +42,7 @@ dependencies:
   provider: ^6.1.2
   url_launcher: ^6.2.5
   http: ^1.2.0
+  extended_image: ^8.2.0
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/config/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

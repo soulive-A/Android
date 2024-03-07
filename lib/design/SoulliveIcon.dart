@@ -63,4 +63,10 @@ class SoulliveIcon{
   static Widget recIcon({double width = 29, double height = 36, Color? color}){
     return fromAsset('ic_recommend', width: width, height: height);
   }
+  static Widget starFill({double width = 11, double height = 11, Color? color}){
+    return fromAsset('ic_star_fill', width: width, height: height);
+  }
+  static Widget starunFill({double width = 11, double height = 11, Color? color}){
+    return fromAsset('ic_star_unfill', width: width, height: height);
+  }
 }
