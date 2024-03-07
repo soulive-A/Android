@@ -18,22 +18,15 @@ class CommercialScreen extends StatefulWidget {
 class _CommercialScreen extends State<CommercialScreen> {
   @override
   Widget build(BuildContext context) {
-    timeDilation =2;
+    timeDilation = 2;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: Container(
-          padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
-          child: Image.asset(
-            'assets/images/ic_logo.png',
-            width: 24,
-            height: 26,
-          ),
-        ),
-        title: Text('SOUL MODEL',
-            style: FontStyles.AppTitle1.copyWith(color: Colors.white)),
+        title: Text('모델',
+            style: FontStyles.AppTitle1.copyWith(color: AppColors.s3)),
         backgroundColor: Colors.transparent,
+        centerTitle: true,
       ),
       body: Stack(
         children: [
@@ -41,9 +34,9 @@ class _CommercialScreen extends State<CommercialScreen> {
             tag: 'tab',
             child: Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: MediaQuery.of(context).size.height * 0.3,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(20),
                 gradient: LinearGradient(
                   begin: AlignmentDirectional.topCenter,
                   end: Alignment.bottomCenter,
@@ -55,14 +48,43 @@ class _CommercialScreen extends State<CommercialScreen> {
               ),
             ),
           ),
-          Center(
-              child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ProductAddScreen()));
-            },
-            child: Text('광고상품패이지'),
-          )),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.12,
+                ),
+                //광고 상품 정보 컨테이너
+                Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  decoration: BoxDecoration(
+                    color: AppColors.s3,
+                    borderRadius: BorderRadius.circular(10),
+                    //그림자 임의로 조절한거라 수정 필요할수도
+                    boxShadow: [
+                      BoxShadow(
+                          color: AppColors.g4,
+                          blurRadius: 2,
+                          offset: Offset(1, 2)),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Text(
+                  '최근 본 모델',
+                  style: FontStyles.Headline1.copyWith(color: AppColors.g2),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
