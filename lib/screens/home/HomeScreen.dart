@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:soulive/design/SoulliveIcon.dart';
 import 'package:soulive/screens/home/InputModelScreen.dart';
 import 'package:soulive/screens/home/ModelDescibeScreen.dart';
-
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
 import '../model_result/ModelResult.dart';
@@ -17,55 +17,67 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-        fit: BoxFit.cover,
-        image: AssetImage('assets/images/background_home.png'),
-      )),
-      child: Scaffold(
+    timeDilation =2;
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: Container(
+          padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+          child: Image.asset(
+            'assets/images/ic_logo.png',
+            width: 24,
+            height: 26,
+          ),
+        ),
+        title: Text('SOUL MODEL',
+            style: FontStyles.AppTitle1.copyWith(color: Colors.white)),
         backgroundColor: Colors.transparent,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
-          child: AppBar(
-            leading: Container(
-              padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
-              child: Image.asset(
-                'assets/images/ic_logo.png',
-                width: 24,
-                height: 26,
-              ),
-            ),
-            title: Text('SOUL MODEL',
-                style: FontStyles.AppTitle1.copyWith(color: Colors.white)),
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  begin: AlignmentDirectional.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    AppColors.m1,
-                    Color(0xFFDAC7E1),
-                  ],
-                ),
+      ),
+      body: Stack(children: [
+        Hero(
+          tag: 'tab',
+
+          child: Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.7,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                begin: AlignmentDirectional.topCenter,
+                end: Alignment.bottomCenter,
+                colors: <Color>[
+                  AppColors.m1,
+                  Color(0xFFDAC7E1),
+                ],
               ),
             ),
           ),
         ),
-        body: Padding(
+        Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
+              ),
               Text(
+                //유저 정보 받아서 닉네임 출력하는 형식으로 수정할 것
                 'oo님,',
                 style: FontStyles.Subcopy1.copyWith(color: AppColors.s3),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.01,
               ),
               Text(
                 '광고상품에 딱 맞는 모델을 찾아보세요!',
                 style: FontStyles.Subcopy1.copyWith(color: AppColors.s3),
               ),
-
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.01,
+              ),
               //버튼
               Row(
                 children: [
@@ -162,11 +174,10 @@ class _HomeScreen extends State<HomeScreen> {
                   ),
                 ],
               ),
-
             ],
           ),
         ),
-      ),
+      ]),
     );
   }
 }
