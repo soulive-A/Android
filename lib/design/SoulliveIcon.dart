@@ -66,4 +66,10 @@ class SoulliveIcon{
   static Widget addTriangleIcon({double width = 12, double height = 7, Color? color}){
     return fromAsset('ic_addTriangle', width: width, height: height);
   }
+  static Widget starFill({double width = 11, double height = 11, Color? color}){
+    return fromAsset('ic_star_fill', width: width, height: height);
+  }
+  static Widget starunFill({double width = 11, double height = 11, Color? color}){
+    return fromAsset('ic_star_unfill', width: width, height: height);
+  }
 }
