@@ -7,6 +7,7 @@ import 'package:soulive/screens/model_result/ModelResult.dart';
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
 import '../../design/SoulliveIcon.dart';
+import '../commercial/Productadd.dart';
 import 'ModelDescibeScreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -40,12 +41,13 @@ class _HomeScreen extends State<HomeScreen> {
       body: Stack(
           children: [
         Hero(
+          //hero로는 네비바 애니메이션 효과 적용이 힘들것같아서 animations package를 깔아야할듯
           tag: 'tab',
           child: Container(
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.75,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(20),
               gradient: LinearGradient(
                 begin: AlignmentDirectional.topCenter,
                 end: Alignment.bottomCenter,
@@ -211,26 +213,25 @@ Widget _buildNoProduct(BuildContext context) {
     ),
     child: Column(
         children: [
-          InkWell(
-            onTap: () {
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '아직 등록한 광고 상품이 없어요',
-                  style:
-                  FontStyles.Subcopy8.copyWith(color: AppColors.g2),
-                ),
-                SoulliveIcon.addTriangleIcon(),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '아직 등록한 광고 상품이 없어요',
+                style:
+                FontStyles.Subcopy8.copyWith(color: AppColors.g2),
+              ),
+              SoulliveIcon.addTriangleIcon(),
+            ],
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height*0.13,
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ProductAddScreen()));
+            },
             icon: SoulliveIcon.plusIcon(color: AppColors.m1),
           ),
           Text(
@@ -264,20 +265,16 @@ Widget _buildProduct(BuildContext context) {
     ),
     child: Column(
         children: [
-          InkWell(
-            onTap: () {
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '광고할 상품을 선택해주세요',
-                  style:
-                  FontStyles.Subcopy8.copyWith(color: AppColors.g2),
-                ),
-                SoulliveIcon.addTriangleIcon(),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '광고할 상품을 선택해주세요',
+                style:
+                FontStyles.Subcopy8.copyWith(color: AppColors.g2),
+              ),
+              SoulliveIcon.addTriangleIcon(),
+            ],
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height*0.13,
