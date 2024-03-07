@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
-import 'package:soulive/design/SoulliveIcon.dart';
-import 'package:soulive/screens/home/InputModelScreen.dart';
-import 'package:soulive/screens/home/ModelDescibeScreen.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:soulive/screens/model_result/InputModelScreen.dart';
+import 'package:soulive/screens/screen_index.dart';
+import 'package:soulive/screens/model_result/ModelResult.dart';
+
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
-import '../model_result/ModelResult.dart';
+import '../../design/SoulliveIcon.dart';
+import 'ModelDescibeScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -229,4 +231,5 @@ class _HomeScreen extends State<HomeScreen> {
       ]),
     );
   }
+
 }
