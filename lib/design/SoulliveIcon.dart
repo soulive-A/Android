@@ -57,5 +57,10 @@ class SoulliveIcon{
   static Widget companyIcon({double width = 12, double height = 14, Color? color}){
     return fromAsset('ic_company', width: width, height: height);
   }
-
+  static Widget analysisIcon({double width = 34, double height = 37, Color? color}){
+    return fromAsset('ic_analysis', width: width, height: height);
+  }
+  static Widget recIcon({double width = 29, double height = 36, Color? color}){
+    return fromAsset('ic_recommend', width: width, height: height);
+  }
 }
