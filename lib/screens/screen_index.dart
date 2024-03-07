@@ -47,7 +47,7 @@ class _ScreenIndexState extends State<ScreenIndex> {
           ),
           BottomNavigationBarItem(
               icon: currentIndex != 1 ? SoulliveIcon.secondunFill() : SoulliveIcon.secondFill(),
-              label: '광고 상품'
+              label: '모델'
           ),
           BottomNavigationBarItem(
               icon: currentIndex != 2 ? SoulliveIcon.mypageunFill() : SoulliveIcon.mypageFill(),
