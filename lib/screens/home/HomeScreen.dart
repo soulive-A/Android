@@ -7,6 +7,7 @@ import 'package:soulive/screens/model_result/ModelResult.dart';
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
 import '../../design/SoulliveIcon.dart';
+import '../commercial/Productadd.dart';
 import 'ModelDescibeScreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    timeDilation =2;
+    timeDilation = 2;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -37,15 +38,16 @@ class _HomeScreen extends State<HomeScreen> {
             style: FontStyles.AppTitle1.copyWith(color: Colors.white)),
         backgroundColor: Colors.transparent,
       ),
-      body: Stack(children: [
+      body: Stack(
+          children: [
         Hero(
+          //hero로는 네비바 애니메이션 효과 적용이 힘들것같아서 animations package를 깔아야할듯
           tag: 'tab',
-
           child: Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.7,
+            height: MediaQuery.of(context).size.height * 0.75,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(20),
               gradient: LinearGradient(
                 begin: AlignmentDirectional.topCenter,
                 end: Alignment.bottomCenter,
@@ -80,6 +82,14 @@ class _HomeScreen extends State<HomeScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
               ),
+              //광고 상품 없을 때
+              _buildNoProduct(context),
+             //광고 상품 있을 때
+             // _buildProduct(context),
+
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.01,
+              ),
               //버튼
               Row(
                 children: [
@@ -91,7 +101,7 @@ class _HomeScreen extends State<HomeScreen> {
                             builder: (context) => InputModelScreen()));
                       },
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           color: AppColors.s3,
                           borderRadius: BorderRadius.circular(10),
@@ -138,7 +148,7 @@ class _HomeScreen extends State<HomeScreen> {
                             builder: (context) => ModelDescribeScreen()));
                       },
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           color: AppColors.s3,
                           borderRadius: BorderRadius.circular(10),
@@ -182,5 +192,100 @@ class _HomeScreen extends State<HomeScreen> {
       ]),
     );
   }
+}
+
+//등록한 광고 상품이 없을 때
+Widget _buildNoProduct(BuildContext context) {
+  return  Container(
+    padding: EdgeInsets.all(10),
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.45,
+    decoration: BoxDecoration(
+      color: AppColors.s3,
+      borderRadius: BorderRadius.circular(10),
+      //그림자 임의로 조절한거라 수정 필요할수도
+      boxShadow: [
+        BoxShadow(
+            color: AppColors.g4,
+            blurRadius: 2,
+            offset: Offset(1, 2)),
+      ],
+    ),
+    child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '아직 등록한 광고 상품이 없어요',
+                style:
+                FontStyles.Subcopy8.copyWith(color: AppColors.g2),
+              ),
+              SoulliveIcon.addTriangleIcon(),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.13,
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ProductAddScreen()));
+            },
+            icon: SoulliveIcon.plusIcon(color: AppColors.m1),
+          ),
+          Text(
+            '광고 상품 등록하기',
+            style:
+            FontStyles.Subcopy4.copyWith(color: AppColors.g2),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.08,
+          ),
+        ]),
+  );
+}
+
+//등록한 광고 상품이 있을 때
+Widget _buildProduct(BuildContext context) {
+  return  Container(
+    padding: EdgeInsets.all(10),
+    width: double.infinity,
+    height: MediaQuery.of(context).size.height * 0.45,
+    decoration: BoxDecoration(
+      color: AppColors.s3,
+      borderRadius: BorderRadius.circular(10),
+      //그림자 임의로 조절한거라 수정 필요할수도
+      boxShadow: [
+        BoxShadow(
+            color: AppColors.g4,
+            blurRadius: 2,
+            offset: Offset(1, 2)),
+      ],
+    ),
+    child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '광고할 상품을 선택해주세요',
+                style:
+                FontStyles.Subcopy8.copyWith(color: AppColors.g2),
+              ),
+              SoulliveIcon.addTriangleIcon(),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.13,
+          ),
+
+          //선택한 상품 정보 불러오기
+
+          SizedBox(
+            height: MediaQuery.of(context).size.height*0.08,
+          ),
+        ]),
+  );
 
 }
