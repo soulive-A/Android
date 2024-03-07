@@ -174,6 +174,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 backgroundColor: AppColors.s3,
+                                surfaceTintColor: Colors.transparent,
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -655,6 +656,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                       builder: (context) {
                         return AlertDialog(
                           backgroundColor: AppColors.s3,
+                          surfaceTintColor: Colors.transparent,
                           actionsAlignment: MainAxisAlignment.center,
                           content: Text(
                             '광고 상품 등록이 완료되었습니다.',

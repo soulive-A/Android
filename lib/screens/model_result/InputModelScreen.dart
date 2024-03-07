@@ -97,6 +97,7 @@ class _InputModelScreen extends State<InputModelScreen>{
               SizedBox(height: 31,),
               Card(
                 color: AppColors.s3,
+                surfaceTintColor: Colors.transparent,
                 elevation: 10.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(13),
