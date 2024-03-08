@@ -72,4 +72,7 @@ class SoulliveIcon{
   static Widget starunFill({double width = 11, double height = 11, Color? color}){
     return fromAsset('ic_star_unfill', width: width, height: height);
   }
+  static Widget arrowRight({double width = 24, double height = 24, Color? color}){
+    return fromAsset('ic_arrow_right', width: width, height: height);
+  }
 }

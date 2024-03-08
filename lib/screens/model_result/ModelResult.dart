@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
+import 'package:soulive/model/GetModelNegative.dart';
 import 'package:soulive/model/GetModelPopular.dart';
 import 'package:soulive/screens/model_result/ModelTab1Screen.dart';
 import 'package:soulive/screens/model_result/ModelTab2Screen.dart';
@@ -45,6 +46,9 @@ class ModelResultScreen extends StatelessWidget{
       if(tabViewModel.modelPopular == null){
         tabViewModel.fetchModelPopular("김희애");
       }
+      if(tabViewModel.modelNegative == null){
+        tabViewModel.fetchModelNegative("김희애");
+      }
     });
     return Scaffold(
         appBar: AppBar(
@@ -65,6 +69,7 @@ class ModelResultScreen extends StatelessWidget{
             final modelData = viewModel.currentModel?.data;
             final modelntroduce = viewModel.modelIntroduce;
             final modelPopular = viewModel.modelPopular;
+            final modelNegative = viewModel.modelNegative;
             if(modelData != null){
               return Container(
                 color: AppColors.bg,
@@ -89,6 +94,7 @@ class ModelResultScreen extends StatelessWidget{
                                           viewModel.fetchCheckModel(modelName[i], 1);
                                           viewModel.fetchModelIntroduce(modelName[i]);
                                           viewModel.fetchModelPopular(modelName[i]);
+                                          viewModel.fetchModelNegative(modelName[i]);
                                         },
                                         style: ButtonStyle(
                                           backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
@@ -122,13 +128,15 @@ class ModelResultScreen extends StatelessWidget{
                       ),
                       SizedBox(height: 41,),
                       _tabBar(),
-                      Expanded(child: _tabBarView(modelntroduce!, modelPopular!))
+                      Expanded(child: _tabBarView(modelntroduce!, modelPopular!, modelNegative!))
                     ],
                   ),
                 ),
               );
             }else{
-              return Text('다시 시도해 주세요');
+              return Center(
+                  child: CircularProgressIndicator()
+              );
             }
           },
         )
@@ -164,12 +172,13 @@ Widget _tabBar(){
 Widget _tabBarView(
     GetModelIntroduce tab1data,
     GetModelPopular tab2data,
+    GetModelNegative tab3data,
     ){
   return TabBarView(
       children: [
         ModelTab1Screen(modelIntroduceData: tab1data),
         ModelTab2Screen(modelPopular: tab2data,),
-        ModelTab3Screen(),
+        ModelTab3Screen(modelNegative: tab3data,),
         ModelTab4Screen(),
       ]
   );

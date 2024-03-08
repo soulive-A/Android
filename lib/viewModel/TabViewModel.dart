@@ -8,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:soulive/model/GetCheckModel.dart';
+import 'package:soulive/model/GetModelNegative.dart';
 
 import '../model/GetModelIntroduce.dart';
 import '../model/GetModelPopular.dart';
@@ -28,6 +29,10 @@ class TabViewModel with ChangeNotifier{
   //모델화제성
   GetModelPopular? _modelPopular;
   GetModelPopular? get modelPopular => _modelPopular;
+
+  //모델 부정이슈
+  GetModelNegative? _modelNegative;
+  GetModelNegative? get modelNegative => _modelNegative;
 
 
   void selectTab(int index){
@@ -67,6 +72,18 @@ class TabViewModel with ChangeNotifier{
     if(response.statusCode == 200){
       final jsonResponse = jsonDecode(response.body);
       _modelPopular = GetModelPopular.fromJson(jsonResponse);
+      notifyListeners();
+    }else{
+      print('API introduce: ${response.body}');
+    }
+  }
+
+  Future<void> fetchModelNegative(String modelName) async{
+    final url = Uri.parse('$baseUrl/api/model/issue?modelName=$modelName');
+    final response = await http.get(url);
+    if(response.statusCode == 200){
+      final jsonResponse = jsonDecode(response.body);
+      _modelNegative = GetModelNegative.fromJson(jsonResponse);
       notifyListeners();
     }else{
       print('API introduce: ${response.body}');
