@@ -1,18 +1,24 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
+import '../../viewModel/RecommendViewModel.dart';
 
-class ModelDescribeScreen extends StatefulWidget{
-  const ModelDescribeScreen({super.key});
-
+class ModelDescribeScreen extends StatelessWidget{
   @override
-  State<ModelDescribeScreen> createState() => _ModelDescribeScreen();
+  Widget build(BuildContext context){
+    return ChangeNotifierProvider<RecommendViewModel>(
+        create: (_) => RecommendViewModel(),
+      child: ModelDescribe(),
+    );
+  }
 }
 
-class _ModelDescribeScreen extends State<ModelDescribeScreen>{
+class ModelDescribe extends StatelessWidget{
+  const ModelDescribe({Key? key}) : super(key:key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
