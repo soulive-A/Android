@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:soulive/screens/model_result/InputModelScreen.dart';
 import 'package:soulive/screens/screen_index.dart';
 import 'package:soulive/screens/model_result/ModelResult.dart';
@@ -20,8 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    timeDilation = 2;
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
@@ -38,8 +35,7 @@ class _HomeScreen extends State<HomeScreen> {
             style: FontStyles.AppTitle1.copyWith(color: Colors.white)),
         backgroundColor: Colors.transparent,
       ),
-      body: Stack(
-          children: [
+      body: Stack(children: [
         Hero(
           //hero로는 네비바 애니메이션 효과 적용이 힘들것같아서 animations package를 깔아야할듯
           tag: 'tab',
@@ -84,8 +80,8 @@ class _HomeScreen extends State<HomeScreen> {
               ),
               //광고 상품 없을 때
               _buildNoProduct(context),
-             //광고 상품 있을 때
-             // _buildProduct(context),
+              //광고 상품 있을 때
+              //_buildProduct(context),
 
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
@@ -196,7 +192,7 @@ class _HomeScreen extends State<HomeScreen> {
 
 //등록한 광고 상품이 없을 때
 Widget _buildNoProduct(BuildContext context) {
-  return  Container(
+  return Container(
     padding: EdgeInsets.all(10),
     width: double.infinity,
     height: MediaQuery.of(context).size.height * 0.45,
@@ -205,50 +201,44 @@ Widget _buildNoProduct(BuildContext context) {
       borderRadius: BorderRadius.circular(10),
       //그림자 임의로 조절한거라 수정 필요할수도
       boxShadow: [
-        BoxShadow(
-            color: AppColors.g4,
-            blurRadius: 2,
-            offset: Offset(1, 2)),
+        BoxShadow(color: AppColors.g4, blurRadius: 2, offset: Offset(1, 2)),
       ],
     ),
-    child: Column(
+    child: Column(children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '아직 등록한 광고 상품이 없어요',
-                style:
-                FontStyles.Subcopy8.copyWith(color: AppColors.g2),
-              ),
-              SoulliveIcon.addTriangleIcon(),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height*0.13,
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ProductAddScreen()));
-            },
-            icon: SoulliveIcon.plusIcon(color: AppColors.m1),
-          ),
           Text(
-            '광고 상품 등록하기',
-            style:
-            FontStyles.Subcopy4.copyWith(color: AppColors.g2),
+            '아직 등록한 광고 상품이 없어요',
+            style: FontStyles.Subcopy8.copyWith(color: AppColors.g2),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height*0.08,
-          ),
-        ]),
+          SoulliveIcon.addTriangleIcon(),
+        ],
+      ),
+      SizedBox(
+        height: MediaQuery.of(context).size.height * 0.13,
+      ),
+      IconButton(
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => ProductAddScreen()));
+        },
+        icon: SoulliveIcon.plusIcon(color: AppColors.m1),
+      ),
+      Text(
+        '광고 상품 등록하기',
+        style: FontStyles.Subcopy4.copyWith(color: AppColors.g2),
+      ),
+      SizedBox(
+        height: MediaQuery.of(context).size.height * 0.08,
+      ),
+    ]),
   );
 }
 
 //등록한 광고 상품이 있을 때
 Widget _buildProduct(BuildContext context) {
-  return  Container(
+  return Container(
     padding: EdgeInsets.all(10),
     width: double.infinity,
     height: MediaQuery.of(context).size.height * 0.45,
@@ -257,35 +247,29 @@ Widget _buildProduct(BuildContext context) {
       borderRadius: BorderRadius.circular(10),
       //그림자 임의로 조절한거라 수정 필요할수도
       boxShadow: [
-        BoxShadow(
-            color: AppColors.g4,
-            blurRadius: 2,
-            offset: Offset(1, 2)),
+        BoxShadow(color: AppColors.g4, blurRadius: 2, offset: Offset(1, 2)),
       ],
     ),
-    child: Column(
+    child: Column(children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '광고할 상품을 선택해주세요',
-                style:
-                FontStyles.Subcopy8.copyWith(color: AppColors.g2),
-              ),
-              SoulliveIcon.addTriangleIcon(),
-            ],
+          Text(
+            '광고할 상품을 선택해주세요',
+            style: FontStyles.Subcopy8.copyWith(color: AppColors.g2),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height*0.13,
-          ),
+          SoulliveIcon.addTriangleIcon(),
+        ],
+      ),
+      SizedBox(
+        height: MediaQuery.of(context).size.height * 0.13,
+      ),
 
-          //선택한 상품 정보 불러오기
+      //선택한 상품 정보 불러오기
 
-          SizedBox(
-            height: MediaQuery.of(context).size.height*0.08,
-          ),
-        ]),
+      SizedBox(
+        height: MediaQuery.of(context).size.height * 0.08,
+      ),
+    ]),
   );
-
 }
