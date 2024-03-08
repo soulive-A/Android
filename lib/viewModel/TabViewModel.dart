@@ -40,19 +40,15 @@ class TabViewModel with ChangeNotifier{
       'modelName': modelName,
       'productId' : productId.toString()
     });
-    print('urlurl: ${url}');
     final response = await http.get(url);
-    print('urlurl: ${url}dd');
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
       _currentModel = GetCheckModel.fromJson(jsonResponse);
       notifyListeners();
-      print('apisuccess: ${response.body}');
-    }else{
-      print('API unSuccess: ${response.body}');
     }
   }
 
+  //모델소개
   Future<void> fetchModelIntroduce(String modelName) async{
     final url = Uri.parse('$baseUrl/api/model/introduction?modelName=$modelName');
     final response = await http.get(url);

@@ -12,6 +12,7 @@ import 'package:soulive/viewModel/TabViewModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:soulive/model/GetCheckModel.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../../model/GetModelIntroduce.dart';
 import 'ModelTab3Screen.dart';
 import 'ModelTab4Screen.dart';
 
@@ -37,6 +38,9 @@ class ModelResultScreen extends StatelessWidget{
       if(tabViewModel.currentModel == null){
         tabViewModel.fetchCheckModel("김희애", 1);
       }
+      if(tabViewModel.modelIntroduce == null){
+        tabViewModel.fetchModelIntroduce("김희애");
+      }
     });
     return Scaffold(
         appBar: AppBar(
@@ -55,6 +59,7 @@ class ModelResultScreen extends StatelessWidget{
         body: Consumer<TabViewModel>(
           builder: (context,viewModel,child) {
             final modelData = viewModel.currentModel?.data;
+            final modelntroduce = viewModel.modelIntroduce;
             if(modelData != null){
               return Container(
                 color: AppColors.bg,
@@ -77,6 +82,7 @@ class ModelResultScreen extends StatelessWidget{
                                         onPressed: (){
                                           viewModel.selectTab(i);
                                           viewModel.fetchCheckModel(modelName[i], 1);
+                                          viewModel.fetchModelIntroduce(modelName[i]);
                                         },
                                         style: ButtonStyle(
                                           backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
@@ -106,11 +112,11 @@ class ModelResultScreen extends StatelessWidget{
                       SizedBox(height: 18.98,),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
-                        child:  MainCard(modelData.imageUrl!!,modelData.modelName!!,modelData.job!!,modelData.birth!!, modelData.age!!,modelData.info!!, modelData.agency!!, modelData.aiRate?.toInt() ?? 0 ),
+                        child:  MainCard(modelData.imageUrl!,modelData.modelName!,modelData.job!,modelData.birth!, modelData.age!,modelData.info!, modelData.agency!, modelData.aiRate?.toInt() ?? 0 ),
                       ),
                       SizedBox(height: 41,),
                       _tabBar(),
-                      Expanded(child: _tabBarView())
+                      Expanded(child: _tabBarView(modelntroduce!))
                     ],
                   ),
                 ),
@@ -149,10 +155,12 @@ Widget _tabBar(){
   );
 }
 
-Widget _tabBarView(){
+Widget _tabBarView(
+    GetModelIntroduce tab1data,
+    ){
   return TabBarView(
       children: [
-        ModelTab1Screen(),
+        ModelTab1Screen(modelIntroduceData: tab1data),
         ModelTab2Screen(),
         ModelTab3Screen(),
         ModelTab4Screen(),
