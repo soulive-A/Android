@@ -2,13 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:soulive/design/FontStyles.dart';
+import 'package:soulive/model/GetModelFitness.dart';
 
 import '../../design/ColorStyles.dart';
 import '../../design/component/CustomTextButton.dart';
 import '../../viewModel/TabViewModel.dart';
 
 class ModelTab4Screen extends StatefulWidget{
-  const ModelTab4Screen({super.key});
+
+  final GetModelFitness modelFitness;
+  const ModelTab4Screen({
+   super.key,
+   required this.modelFitness,
+});
 
   @override
   State<ModelTab4Screen> createState() => _ModelTab4Screen();
@@ -17,6 +23,7 @@ class ModelTab4Screen extends StatefulWidget{
 class _ModelTab4Screen extends State<ModelTab4Screen>{
   @override
   Widget build(BuildContext context) {
+    GetModelFitness tab4Data = widget.modelFitness;
     return ChangeNotifierProvider(
       create: (_) => TabViewModel(),
       child: Scaffold(
@@ -29,7 +36,7 @@ class _ModelTab4Screen extends State<ModelTab4Screen>{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 30,),
-                      ModelPerfection(),
+                      ModelPerfection(tab4Data.data!.scoreUrl!),
                       SizedBox(height: 30,),
                       ModelKeyword(),
                       SizedBox(height: 30,),
@@ -46,9 +53,14 @@ class _ModelTab4Screen extends State<ModelTab4Screen>{
   }
 }
 
-Widget ModelPerfection(){
+Widget ModelPerfection(String scoreUrl){
   return Container(
-    child: Text('이미지들어갈곳'),
+    child: Image.network(
+        scoreUrl,
+      width: double.infinity,
+      height: 176,
+      fit: BoxFit.fill
+    ),
   );
 }
 

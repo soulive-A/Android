@@ -8,7 +8,7 @@
     </queries>
     <application
         android:label="soulive"
-        android:name="${applicationName}"
+        android:name="SOULMODEL"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
