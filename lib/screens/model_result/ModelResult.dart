@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
+import 'package:soulive/model/GetModelPopular.dart';
 import 'package:soulive/screens/model_result/ModelTab1Screen.dart';
 import 'package:soulive/screens/model_result/ModelTab2Screen.dart';
 import 'package:soulive/viewModel/TabViewModel.dart';
@@ -41,6 +42,9 @@ class ModelResultScreen extends StatelessWidget{
       if(tabViewModel.modelIntroduce == null){
         tabViewModel.fetchModelIntroduce("김희애");
       }
+      if(tabViewModel.modelPopular == null){
+        tabViewModel.fetchModelPopular("김희애");
+      }
     });
     return Scaffold(
         appBar: AppBar(
@@ -60,6 +64,7 @@ class ModelResultScreen extends StatelessWidget{
           builder: (context,viewModel,child) {
             final modelData = viewModel.currentModel?.data;
             final modelntroduce = viewModel.modelIntroduce;
+            final modelPopular = viewModel.modelPopular;
             if(modelData != null){
               return Container(
                 color: AppColors.bg,
@@ -83,6 +88,7 @@ class ModelResultScreen extends StatelessWidget{
                                           viewModel.selectTab(i);
                                           viewModel.fetchCheckModel(modelName[i], 1);
                                           viewModel.fetchModelIntroduce(modelName[i]);
+                                          viewModel.fetchModelPopular(modelName[i]);
                                         },
                                         style: ButtonStyle(
                                           backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
@@ -116,7 +122,7 @@ class ModelResultScreen extends StatelessWidget{
                       ),
                       SizedBox(height: 41,),
                       _tabBar(),
-                      Expanded(child: _tabBarView(modelntroduce!))
+                      Expanded(child: _tabBarView(modelntroduce!, modelPopular!))
                     ],
                   ),
                 ),
@@ -157,11 +163,12 @@ Widget _tabBar(){
 
 Widget _tabBarView(
     GetModelIntroduce tab1data,
+    GetModelPopular tab2data,
     ){
   return TabBarView(
       children: [
         ModelTab1Screen(modelIntroduceData: tab1data),
-        ModelTab2Screen(),
+        ModelTab2Screen(modelPopular: tab2data,),
         ModelTab3Screen(),
         ModelTab4Screen(),
       ]
@@ -182,6 +189,7 @@ Widget MainCard(
   return Card(
     color: AppColors.s3,
     elevation: 10.0,
+    surfaceTintColor: Colors.transparent,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(13),
     ),
@@ -205,6 +213,7 @@ Widget MainCard(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 27,),
             Row(
               children: [
                 Text(modelName,
@@ -272,7 +281,8 @@ Widget MainCard(
                     child: SoulliveIcon.starunFill(),
                   ),
               ],
-            )
+            ),
+            SizedBox(height: 27,)
           ],
         )
       ],
