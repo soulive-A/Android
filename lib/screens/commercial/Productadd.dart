@@ -6,6 +6,8 @@ import 'package:soulive/design/SoulliveIcon.dart';
 import 'package:soulive/design/component/CustomContainer.dart';
 import 'package:soulive/design/component/CustomTitle.dart';
 import 'package:soulive/design/component/CustomElevatedButton.dart';
+import 'package:soulive/model/productModel.dart';
+import 'package:soulive/viewModel/viewProduct.dart';
 
 class ProductAddScreen extends StatefulWidget {
   const ProductAddScreen({super.key});
@@ -54,6 +56,56 @@ class _ProductAddScreen extends State<ProductAddScreen> {
   //타겟 텍스트
   TextEditingController targetController = TextEditingController();
 
+  late productApi productapi;
+
+  @override
+  void initState() {
+    super.initState();
+    productapi = productApi();
+  }
+
+  @override
+  void dispose() {
+    companyController.dispose();
+    brandNameController.dispose();
+    brandKeywordController.dispose();
+    productNameController.dispose();
+    productFeatController.dispose();
+    productKeywordController.dispose();
+    targetController.dispose();
+    super.dispose();
+  }
+
+  // Future<void> postProduct() async {
+  //   //텍스트 변환
+  //   final company = companyController.text;
+  //   final brand = brandNameController.text;
+  //   final brandImage = [];
+  //   final product = productNameController.text;
+  //   final productFeat = productFeatController.text;
+  //   final productImage = [];
+  //   final genders = [];
+  //   final ages = [];
+  //   final target = targetController.text;
+  //
+  //   // Map<String, dynamic> productData = {
+  //   //   // company: company,
+  //   //   // brand: brand,
+  //   //   // "brandImage": List<dynamic>.from(brandImage.map((x) => x)),
+  //   //   // product: product,
+  //   //   // characteristic: characteristic,
+  //   //   // "productImage": List<dynamic>.from(productImage.map((x) => x)),
+  //   //   // "gender": List<dynamic>.from(gender.map((x) => x)),
+  //   //   // "age": List<dynamic>.from(age.map((x) => x)),
+  //   //   // "range": List<dynamic>.from(range.map((x) => x)),
+  //   // };
+  //
+  //
+  //
+  // }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +148,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '기업명',
+                        'company',
                         style: FontStyles.questionFont,
                       ),
                       TextField(
@@ -649,6 +701,15 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                   title: '등록하기',
                   onPressed: () {
                     //다이얼로그 표시
+                    postProduct();
+
+                    companyController.clear();
+                    brandNameController.clear();
+                    productNameController.clear();
+                    productFeatController.clear();
+                    productKeywordController.clear();
+                    targetController.clear();
+
                     showDialog(
                       context: context,
                       barrierDismissible: false,
