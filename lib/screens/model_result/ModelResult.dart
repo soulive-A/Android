@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
+import 'package:soulive/model/GetModelFitness.dart';
 import 'package:soulive/model/GetModelNegative.dart';
 import 'package:soulive/model/GetModelPopular.dart';
 import 'package:soulive/screens/model_result/ModelTab1Screen.dart';
@@ -49,6 +50,9 @@ class ModelResultScreen extends StatelessWidget{
       if(tabViewModel.modelNegative == null){
         tabViewModel.fetchModelNegative("김희애");
       }
+      if(tabViewModel.modelFitness == null){
+        tabViewModel.fetchModelFitness("김희애", 1);
+      }
     });
     return Scaffold(
         appBar: AppBar(
@@ -70,6 +74,7 @@ class ModelResultScreen extends StatelessWidget{
             final modelntroduce = viewModel.modelIntroduce;
             final modelPopular = viewModel.modelPopular;
             final modelNegative = viewModel.modelNegative;
+            final modelFitness = viewModel.modelFitness;
             if(modelData != null){
               return Container(
                 color: AppColors.bg,
@@ -95,6 +100,7 @@ class ModelResultScreen extends StatelessWidget{
                                           viewModel.fetchModelIntroduce(modelName[i]);
                                           viewModel.fetchModelPopular(modelName[i]);
                                           viewModel.fetchModelNegative(modelName[i]);
+                                          viewModel.fetchModelFitness(modelName[i], 1);
                                         },
                                         style: ButtonStyle(
                                           backgroundColor: MaterialStateProperty.all(viewModel.selectedTab == i ? AppColors.m1 : AppColors.s3),
@@ -128,7 +134,7 @@ class ModelResultScreen extends StatelessWidget{
                       ),
                       SizedBox(height: 41,),
                       _tabBar(),
-                      Expanded(child: _tabBarView(modelntroduce!, modelPopular!, modelNegative!))
+                      Expanded(child: _tabBarView(modelntroduce!, modelPopular!, modelNegative!, modelFitness!))
                     ],
                   ),
                 ),
@@ -173,13 +179,14 @@ Widget _tabBarView(
     GetModelIntroduce tab1data,
     GetModelPopular tab2data,
     GetModelNegative tab3data,
+    GetModelFitness tab4data
     ){
   return TabBarView(
       children: [
         ModelTab1Screen(modelIntroduceData: tab1data),
         ModelTab2Screen(modelPopular: tab2data,),
         ModelTab3Screen(modelNegative: tab3data,),
-        ModelTab4Screen(),
+        ModelTab4Screen(modelFitness: tab4data),
       ]
   );
 }
