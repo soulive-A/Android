@@ -22,7 +22,7 @@ class productApi with ChangeNotifier{
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
-        print('성공');
+        print('Get 요청 성공');
         final parsedProducts = jsonDecode(response.body);
         for (var product in parsedProducts) {
           final instance = ProductModel.fromJson(product);
@@ -47,7 +47,7 @@ class productApi with ChangeNotifier{
           },
           body: jsonEncode(product.toJson()));
       if (response.statusCode == 200) {
-        print('성공');
+        print('Post 요청 성공');
       }
 
       return response;

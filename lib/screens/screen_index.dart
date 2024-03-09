@@ -21,7 +21,7 @@ class _ScreenIndexState extends State<ScreenIndex> {
 
   final List<Widget> tabs = [
     const HomeScreen(),
-    const CommercialScreen(),
+    const Commercial(),
     const MypageScreen(),
   ];
 
