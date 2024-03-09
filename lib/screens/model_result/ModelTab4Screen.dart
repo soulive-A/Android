@@ -38,11 +38,11 @@ class _ModelTab4Screen extends State<ModelTab4Screen>{
                       SizedBox(height: 30,),
                       ModelPerfection(tab4Data.data!.scoreUrl!),
                       SizedBox(height: 30,),
-                      ModelKeyword(),
+                      ModelKeyword(tab4Data.data!.modelImageKeywordList!),
                       SizedBox(height: 30,),
-                      CompanyGoal(),
-                      SizedBox(height: 30,),
-                      AIComment()
+                      CompanyGoal(tab4Data.data!.brandImageKeywordList!),
+                      SizedBox(height: 15,),
+                      CompanyGoal(tab4Data.data!.productImageKeywordList!),
                     ],
                   ),
                 )
@@ -64,7 +64,7 @@ Widget ModelPerfection(String scoreUrl){
   );
 }
 
-Widget ModelKeyword(){
+Widget ModelKeyword(List<String> keywords){
   return Container(
     color: AppColors.bg,
     child: Column(
@@ -75,28 +75,59 @@ Widget ModelKeyword(){
           style: FontStyles.Headline2.copyWith(color: AppColors.g1, fontSize: 15),
         ),
         SizedBox(height: 14,),
-        CustomTextButton(text: '#세련됨', backgroundColor: AppColors.g6, textColor: AppColors.g3,),
-        CustomTextButton(text: '#패셔너블한', backgroundColor: AppColors.g6, textColor: AppColors.g1,),
+        Wrap(
+          spacing: 5.0,
+          runSpacing: 10.0,
+          children: keywords.map((keyword) => CustomTextButton(
+              text: "${keyword}", backgroundColor: AppColors.s1, textColor: AppColors.g2
+          )).toList(),
+        )
       ],
     ),
   );
 }
 
-Widget CompanyGoal(){
+Widget CompanyGoal(List<String> items){
   return Row(
     children: [
       Container(
         decoration: BoxDecoration(
           color: AppColors.s3,
           borderRadius: BorderRadius.circular(13),
-          border: Border.all(color: AppColors.g6)
+          border: Border.all(width: 1, color: AppColors.g6)
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 17, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
           child: Column(
-//추후 api오면 더 정
+            children: [
+              Text('목표 기업 이미지', style: FontStyles.Headline2.copyWith(color:AppColors.g1 ),),
+              SizedBox(height: 14,),
+              Wrap(
+                spacing: 6,
+                children: items.map((item) => CustomTextButton(
+                    text: item, backgroundColor: AppColors.g6, textColor: AppColors.g2
+                )).toList(),
+              )
+            ],
           ),
         ),
+      ),
+      Container(
+        decoration: BoxDecoration(
+          color: AppColors.m3,
+          borderRadius: BorderRadius.circular(13),
+        ),
+        child:Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              '모델 이미지와', style:FontStyles.Subcopy6.copyWith(color: AppColors.s3),
+            ),
+            Text(
+              '적합', style:FontStyles.Headline2.copyWith(color: AppColors.s3),
+            ),
+          ],
+        )
       )
     ],
   );

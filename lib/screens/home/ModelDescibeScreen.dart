@@ -143,7 +143,7 @@ Widget MainProduct(
               Text('목표 기업 이미지', style: FontStyles.Subcopy2.copyWith(color: AppColors.g2),),
               SizedBox(width: 4,),
               Wrap(
-                spacing: 6.0,
+                spacing: 9.0,
                 runSpacing: 8.0,
                 children: brandImages.map((brandImage) => CustomTextButton(
                     text: brandImage, backgroundColor: AppColors.s1, textColor: AppColors.g2

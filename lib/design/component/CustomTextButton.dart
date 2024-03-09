@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:soulive/design/FontStyles.dart';
 
 //이 버튼은 보여주기만 하는 용도
 class CustomTextButton extends StatelessWidget{
@@ -30,9 +31,7 @@ class CustomTextButton extends StatelessWidget{
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Text(
           text,
-          style: TextStyle(
-            fontFamily: 'pretendard',fontWeight:FontWeight.w600, fontSize: 10, color: textColor
-          ),
+          style: FontStyles.Subcopy6.copyWith(color: textColor)
         ),
       )
     );
