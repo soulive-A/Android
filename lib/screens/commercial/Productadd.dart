@@ -701,7 +701,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                   title: '등록하기',
                   onPressed: () {
                     //다이얼로그 표시
-                    postProduct();
+                    //postProduct();
 
                     companyController.clear();
                     brandNameController.clear();
