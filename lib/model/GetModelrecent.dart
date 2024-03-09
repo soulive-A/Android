@@ -1,7 +1,7 @@
 class GetModelrecent {
   int? code;
   String? message;
-  List<Data>? data;
+  Data? data;
   bool? success;
 
   GetModelrecent({this.code, this.message, this.data, this.success});
@@ -9,12 +9,7 @@ class GetModelrecent {
   GetModelrecent.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     success = json['success'];
   }
 
@@ -23,7 +18,7 @@ class GetModelrecent {
     data['code'] = this.code;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     data['success'] = this.success;
     return data;

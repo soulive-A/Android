@@ -43,8 +43,8 @@ class RecommendViewModel with ChangeNotifier{
   }
 
   //최근 조회 모델
-  Future<void> fetchRecentModel(int productId) async{
-    final url = Uri.parse('$baseUrl/api/model/recent/${productId}');
+  Future<void> fetchRecentModel(int modelId) async{
+    final url = Uri.parse('$baseUrl/api/model/recent/${modelId}');
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
