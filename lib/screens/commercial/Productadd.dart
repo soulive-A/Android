@@ -957,6 +957,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         age: selectedAge,
                         range: selectedTarget,
                       );
+                    //postProduct();
+
 
                      //productapi.postProduct(productModel);
 

@@ -71,10 +71,25 @@ class ModelResultScreen extends StatelessWidget{
         body: Consumer<TabViewModel>(
           builder: (context,viewModel,child) {
             final modelData = viewModel.currentModel?.data;
+            if(modelData == null){
+              return Center(child: CircularProgressIndicator(),);
+            }
             final modelntroduce = viewModel.modelIntroduce;
+            if(modelntroduce == null){
+              return Center(child: CircularProgressIndicator(),);
+            }
             final modelPopular = viewModel.modelPopular;
+            if(modelPopular == null){
+              return Center(child: CircularProgressIndicator(),);
+            }
             final modelNegative = viewModel.modelNegative;
+            if(modelNegative == null){
+              return Center(child: CircularProgressIndicator(),);
+            }
             final modelFitness = viewModel.modelFitness;
+            if(modelFitness == null){
+              return Center(child: CircularProgressIndicator(),);
+            }
             if(modelData != null){
               return Container(
                 color: AppColors.bg,
@@ -86,9 +101,7 @@ class ModelResultScreen extends StatelessWidget{
                       //모델 선택 토글
                       Container(
                           margin: EdgeInsets.only(left: 20),
-                          child: Consumer<TabViewModel>(
-                            builder: (context, viewModel, child) {
-                              return Row(
+                          child: Row(
                                 children: [
                                   for(var i =0; i<3; i++)
                                     Padding(
@@ -123,9 +136,7 @@ class ModelResultScreen extends StatelessWidget{
                                       ),
                                     )
                                 ],
-                              );
-                            },
-                          )
+                              )
                       ),
                       SizedBox(height: 18.98,),
                       Padding(
