@@ -40,9 +40,9 @@ class _ModelTab4Screen extends State<ModelTab4Screen>{
                       SizedBox(height: 30,),
                       ModelKeyword(tab4Data.data!.modelImageKeywordList!),
                       SizedBox(height: 30,),
-                      CompanyGoal(tab4Data.data!.brandImageKeywordList!),
+                      CompanyGoal(tab4Data.data!.brandImageKeywordList!, '목표 기업 이미지'),
                       SizedBox(height: 15,),
-                      CompanyGoal(tab4Data.data!.productImageKeywordList!),
+                      CompanyGoal(tab4Data.data!.productImageKeywordList!, '목표 블라블라'),
                     ],
                   ),
                 )
@@ -87,7 +87,7 @@ Widget ModelKeyword(List<String> keywords){
   );
 }
 
-Widget CompanyGoal(List<String> items){
+Widget CompanyGoal(List<String> items, String title){
   return Row(
     children: [
       Container(
@@ -100,7 +100,7 @@ Widget CompanyGoal(List<String> items){
           padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
           child: Column(
             children: [
-              Text('목표 기업 이미지', style: FontStyles.Headline2.copyWith(color:AppColors.g1 ),),
+              Text(title, style: FontStyles.Headline2.copyWith(color:AppColors.g1 ),),
               SizedBox(height: 14,),
               Wrap(
                 spacing: 6,
@@ -130,30 +130,5 @@ Widget CompanyGoal(List<String> items){
         )
       )
     ],
-  );
-}
-
-Widget AIComment(){
-  return Container(
-      width: double.infinity,
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(13),
-            border: Border.all(color: AppColors.m1, width: 1)
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('AI 한줄 평가',
-                style: FontStyles.Subcopy4.copyWith(color: AppColors.m1),),
-              SizedBox(height: 7,),
-              Text('아이린은 어쩌구 저쩌구 블라블라',
-                style: FontStyles.Subcopy4.copyWith(color: AppColors.g1, fontSize: 12),),
-            ],
-          ),
-        ),
-      )
   );
 }
