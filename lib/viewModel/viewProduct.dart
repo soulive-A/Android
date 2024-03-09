@@ -1,10 +1,18 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:soulive/model/productModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:soulive/model/productModel.dart';
 
-class productApi {
+class productApi with ChangeNotifier{
   final baseUrl = dotenv.env['BASE_URL'];
+
+  //모든 광고 상품 조회
+  ProductModel? _getAllProduct;
+  ProductModel? get modelIntroduce => _getAllProduct;
+
+
 
   //모든 광고 상품 조회
   Future<List<ProductModel>?> getProduct() async {
