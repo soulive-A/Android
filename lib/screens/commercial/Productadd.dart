@@ -34,7 +34,17 @@ class _ProductAddScreen extends State<ProductAddScreen> {
   bool isSelected = false;
   String currentTag = '';
 
-  List<String> allTags = [
+  List<String> allBrandTags = [
+    '세련된',
+    '패셔너블한',
+    '대중에게 친숙한',
+    '새로운',
+    '혁신적인',
+    '독특한',
+    '화려한',
+  ];
+
+  List<String> allPdtTags = [
     '세련된',
     '패셔너블한',
     '대중에게 친숙한',
@@ -70,12 +80,13 @@ class _ProductAddScreen extends State<ProductAddScreen> {
   TextEditingController targetController = TextEditingController();
 
 
-
+  late productApi productapi;
 
 
   @override
   void initState() {
     super.initState();
+    productapi = productApi();
   }
 
   @override
@@ -135,7 +146,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'company',
+                        '기업명',
                         style: FontStyles.questionFont,
                       ),
                       TextField(
@@ -233,7 +244,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                   runSpacing: 4,
                                   direction: Axis.horizontal,
                                   alignment: WrapAlignment.start,
-                                  children: allTags.map((tag) {
+                                  children: allBrandTags.map((tag) {
                                     return InputChip(
                                       selected: selectedTags.contains(tag),
                                       label: Text(
@@ -323,7 +334,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                 setState(() {
                                   String newTag = brandKeywordController.text;
                                   if (newTag.isNotEmpty) {
-                                    allTags.add(newTag);
+                                    allBrandTags.add(newTag);
                                     brandKeywordController.clear();
                                     //태그 추가 알림창(임시적)
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -470,9 +481,9 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                   runSpacing: 4,
                                   direction: Axis.horizontal,
                                   alignment: WrapAlignment.start,
-                                  children: allTags.map((tag) {
+                                  children: allPdtTags.map((tag) {
                                     return InputChip(
-                                      selected: selectedTags.contains(tag),
+                                      selected: selectedProduct.contains(tag),
                                       label: Text(
                                         tag,
                                         style: FontStyles.Subcopy6.copyWith(
@@ -560,7 +571,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                 setState(() {
                                   String newPdtKeyword = productKeywordController.text;
                                   if (newPdtKeyword.isNotEmpty) {
-                                    allTags.add(newPdtKeyword);
+                                    allPdtTags.add(newPdtKeyword);
                                     productKeywordController.clear();
                                     //태그 추가 알림창(임시적)
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -593,6 +604,35 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                             ),
                           ),
                         ],
+                      ),
+                      //태그 보여주는 곳
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 4,
+                        direction: Axis.horizontal,
+                        alignment: WrapAlignment.start,
+                        children: selectedProduct.map((newProduct) {
+                          return InputChip(
+                            label: Text(
+                              newProduct,
+                              style: FontStyles.Subcopy6.copyWith(
+                                  color: AppColors.g2),
+                            ),
+                            backgroundColor: AppColors.s1,
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                color: AppColors.s1,
+                              ),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            //삭제 버튼
+                            onDeleted: () {
+                              setState(() {
+                                selectedProduct.remove(newProduct);
+                              });
+                            },
+                          );
+                        }).toList(),
                       ),
                     ],
                   ),
@@ -891,37 +931,12 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                   String newTarget = targetController.text;
                                   if (newTarget.isNotEmpty) {
                                     selectedTarget.add(newTarget);
+                                    print(selectedTarget);
                                     targetController.clear();
                                   }
+
                                 });
-                                Wrap(
-                                  spacing: 8,
-                                  runSpacing: 4,
-                                  direction: Axis.horizontal,
-                                  alignment: WrapAlignment.start,
-                                  children: selectedTarget.map((tag) {
-                                    return InputChip(
-                                      label: Text(
-                                        tag,
-                                        style: FontStyles.Subcopy6.copyWith(
-                                            color: AppColors.g2),
-                                      ),
-                                      backgroundColor: AppColors.s1,
-                                      shape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                          color: AppColors.s1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      //삭제 버튼
-                                      onDeleted: () {
-                                        setState(() {
-                                          selectedTarget.remove(tag);
-                                        });
-                                      },
-                                    );
-                                  }).toList(),
-                                );
+
 
 
 
@@ -929,8 +944,38 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               iconSize: 40,
                               color: AppColors.g2,
                             ),
+
                           ),
+
                         ],
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 4,
+                        direction: Axis.horizontal,
+                        alignment: WrapAlignment.start,
+                        children: selectedTarget.map((newTarget) {
+                          return InputChip(
+                            label: Text(
+                              newTarget,
+                              style: FontStyles.Subcopy6.copyWith(
+                                  color: AppColors.g2),
+                            ),
+                            backgroundColor: AppColors.s1,
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                color: AppColors.s1,
+                              ),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            //삭제 버튼
+                            onDeleted: () {
+                              setState(() {
+                                selectedTarget.remove(newTarget);
+                              });
+                            },
+                          );
+                        }).toList(),
                       ),
                     ],
                   ),
@@ -957,17 +1002,16 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         age: selectedAge,
                         range: selectedTarget,
                       );
-                    //postProduct();
 
 
-                     //productapi.postProduct(productModel);
+                      productapi.postProduct(productModel);
 
-                    // companyController.clear();
-                    // brandNameController.clear();
-                    // productNameController.clear();
-                    // productFeatController.clear();
-                    // productKeywordController.clear();
-                    // targetController.clear();
+                    companyController.clear();
+                    brandNameController.clear();
+                    productNameController.clear();
+                    productFeatController.clear();
+                    productKeywordController.clear();
+                    targetController.clear();
 
                     showDialog(
                       context: context,
