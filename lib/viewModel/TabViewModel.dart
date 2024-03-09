@@ -96,7 +96,7 @@ class TabViewModel with ChangeNotifier{
   }
 
   Future<void> fetchModelFitness(String modelName, int productId) async{
-    final url = Uri.parse('$baseUrl/api/model/fitness?modelName=$modelName');
+    final url = Uri.parse('$baseUrl/api/model/fitness?modelName=$modelName&productId=$productId');
     final response = await http.get(url);
     if(response.statusCode == 200){
       final jsonResponse = jsonDecode(response.body);

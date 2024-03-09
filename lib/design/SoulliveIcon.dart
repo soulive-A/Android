@@ -75,4 +75,13 @@ class SoulliveIcon{
   static Widget arrowRight({double width = 24, double height = 24, Color? color}){
     return fromAsset('ic_arrow_right', width: width, height: height);
   }
+  static Widget arrowVer2({double width = 13, double height = 9, Color? color}){
+    return fromAsset('ic_arrow_ver2', width: width, height: height);
+  }
+  static Widget ic_gender({double width = 11, double height = 11, Color? color}){
+    return fromAsset('ic_gender', width: width, height: height);
+  }
+  static Widget ic_book({double width = 10, double height = 12, Color? color}){
+    return fromAsset('ic_book', width: width, height: height);
+  }
 }

@@ -76,19 +76,6 @@ Widget ScoreTotal(String imageurl,String aiComment){
                   fit: BoxFit.fill,
                 ),
               ),
-              Positioned(
-                top: 89,
-                left: 20,
-                right: 20,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('AI 한줄 평가', style: FontStyles.Headline1.copyWith(color: AppColors.m1),),
-                    SizedBox(height: 17,),
-                    Text(aiComment, style: FontStyles.Subcopy5.copyWith(color: AppColors.g1),)
-                  ],
-                ),
-              )
             ],
           )
       ),
