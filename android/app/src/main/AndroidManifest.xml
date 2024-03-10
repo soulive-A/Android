@@ -8,6 +8,7 @@
     </queries>
     <application
         android:label="soulive"
+        android:usesCleartextTraffic = "true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

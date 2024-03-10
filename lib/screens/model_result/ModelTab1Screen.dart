@@ -106,6 +106,7 @@ Widget modelRecentDrama(List<ModelRecentWorks> drama){
   );
 }
 
+
 Widget DramaWidget(String imageUrl,int year, String category, String genre, String title, String role){
   return Padding(
       padding: EdgeInsets.only(right:10 ),

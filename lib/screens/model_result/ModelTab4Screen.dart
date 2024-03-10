@@ -42,7 +42,7 @@ class _ModelTab4Screen extends State<ModelTab4Screen>{
                       SizedBox(height: 30,),
                       CompanyGoal(tab4Data.data!.brandImageKeywordList!, '목표 기업 이미지'),
                       SizedBox(height: 15,),
-                      CompanyGoal(tab4Data.data!.productImageKeywordList!, '목표 블라블라'),
+                      CompanyGoal(tab4Data.data!.productImageKeywordList!, '목표 상품 이미지'),
                       SizedBox(height: 51,)
                     ],
                   ),
