@@ -41,7 +41,7 @@ class Commercial extends StatelessWidget {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text('모델',
-              style: FontStyles.AppTitle1.copyWith(color: AppColors.s3)),
+              style: FontStyles.AppTitle2.copyWith(color: AppColors.s3)),
           backgroundColor: Colors.transparent,
           centerTitle: true,
         ),
@@ -50,7 +50,7 @@ class Commercial extends StatelessWidget {
             final mainData = viewModel.modelone?.data;
             final recentModel = viewModel.modelrecent?.data;
 
-            if (mainData != null && recentModel != null) {
+            if (recentModel != null) {
               return Stack(
                 children: [
                   Hero(
@@ -81,14 +81,14 @@ class Commercial extends StatelessWidget {
                         ),
 
                         //광고 상품 컨테이너 위젯 배치
-                        productDisplay(
-                            mainData.company!,
-                            mainData.product!,
-                            mainData.brandImages!,
-                            mainData.productImages!,
-                            mainData.characteristic!,
-                            mainData.genders!,
-                            mainData.ages!),
+                        // productDisplay(
+                        //     mainData.company!,
+                        //     mainData.product!,
+                        //     mainData.brandImages!,
+                        //     mainData.productImages!,
+                        //     mainData.characteristic!,
+                        //     mainData.genders!,
+                        //     mainData.ages!),
 
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,
@@ -103,7 +103,7 @@ class Commercial extends StatelessWidget {
                         ),
                         //최근 본 모델 리스트뷰
                         recentDisplay(
-                            recentModel.modelId!,
+                            //recentModel.modelId!,
                             recentModel.imageUrl!,
                             recentModel.modelName!,
                             recentModel.aiRate!,
@@ -171,13 +171,14 @@ Widget productDisplay(
                   runSpacing: 8.0,
                   children: brandImages
                       .map((brandImage) => CustomTextButton(
-                          text: brandImage,
+                          text: '#${brandImage}',
                           backgroundColor: AppColors.s1,
                           textColor: AppColors.g2))
                       .toList(),
                 )
               ],
             ),
+            SizedBox(height: 14,),
             Row(
               children: [
                 Text(
@@ -244,10 +245,10 @@ Widget productDisplay(
 
 //최근 조회 모델 컨테이너
 Widget recentDisplay(
-  int modelId,
+  //int modelId,
   String imageUrl,
   String modelName,
-  int aiRate,
+    double aiRate,
   String job,
 ) {
   return Container(
@@ -260,11 +261,7 @@ Widget recentDisplay(
         BoxShadow(color: AppColors.g4, blurRadius: 2, offset: Offset(1, 2)),
       ],
     ),
-    child: ListView.separated(
-      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-      itemCount: modelId,
-      itemBuilder: (BuildContext context, modelId) {
-        return Container(
+    child: Container(
           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
           child: Row(
             children: [
@@ -319,7 +316,7 @@ Widget recentDisplay(
                       empty: SoulliveIcon.starunFill(),
                     ),
                     onRatingUpdate: (rating) {
-                      rating = aiRate.toDouble();
+                      rating = aiRate;
                     },
                   ),
                 ],
@@ -330,9 +327,101 @@ Widget recentDisplay(
               SoulliveIcon.arrowRight(),
             ],
           ),
-        );
-      },
-      separatorBuilder: (BuildContext, modelId) => const Divider(),
-    ),
+        ),
+
   );
 }
+
+// Widget recentDisplay(
+//     //int modelId,
+//     String imageUrl,
+//     String modelName,
+//     double aiRate,
+//     String job,
+//     ) {
+//   return Container(
+//     width: double.infinity,
+//     height: 263.2,
+//     decoration: BoxDecoration(
+//       color: AppColors.s3,
+//       borderRadius: BorderRadius.circular(13),
+//       boxShadow: [
+//         BoxShadow(color: AppColors.g4, blurRadius: 2, offset: Offset(1, 2)),
+//       ],
+//     ),
+//     child: ListView.separated(
+//       padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+//       itemCount: 1,
+//       itemBuilder: (BuildContext context, itemCount) {
+//         return Container(
+//           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+//           child: Row(
+//             children: [
+//               ClipRRect(
+//                 borderRadius: BorderRadius.circular(13),
+//                 child: Image.network(
+//                   imageUrl,
+//                   width: 40,
+//                   height: 40,
+//                 ),
+//               ),
+//               SizedBox(
+//                 width: 20,
+//               ),
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     modelName,
+//                     style: FontStyles.Subcopy1.copyWith(color: AppColors.g2),
+//                   ),
+//                   Text(
+//                     job,
+//                     style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
+//                   ),
+//                 ],
+//               ),
+//               SizedBox(
+//                 width: 60,
+//               ),
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.end,
+//                 children: [
+//                   Text(
+//                     'AI 추천',
+//                     style: FontStyles.Subcopy6.copyWith(
+//                       color: AppColors.g2,
+//                       fontWeight: FontWeight.w700,
+//                     ),
+//                   ),
+//                   //별점 시스템
+//                   RatingBar(
+//                     itemSize: 13,
+//                     initialRating: 3,
+//                     direction: Axis.horizontal,
+//                     allowHalfRating: false,
+//                     ratingWidget: RatingWidget(
+//                       full: SoulliveIcon.starFill(),
+//                       half: Icon(
+//                         Icons.star_half,
+//                       ),
+//                       empty: SoulliveIcon.starunFill(),
+//                     ),
+//                     onRatingUpdate: (rating) {
+//                       rating = aiRate;
+//                     },
+//                   ),
+//                 ],
+//               ),
+//               SizedBox(
+//                 width: 23,
+//               ),
+//               SoulliveIcon.arrowRight(),
+//             ],
+//           ),
+//         );
+//       },
+//       separatorBuilder: (BuildContext, itemCount) => const Divider(),
+//     ),
+//   );
+// }

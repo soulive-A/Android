@@ -3,6 +3,7 @@ import 'package:soulive/screens/screen_index.dart';
 import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
+
 //import 'package:soulive/design/component/CustomContainer.dart';
 import 'package:soulive/design/component/CustomTitle.dart';
 import 'package:soulive/design/component/CustomElevatedButton.dart';
@@ -17,8 +18,8 @@ class ProductAddScreen extends StatefulWidget {
 }
 
 class _ProductAddScreen extends State<ProductAddScreen> {
-
   var isChecked = false;
+  late int productid;
 
   //버튼 비활성/활성
   List<bool> isPressed = [
@@ -36,35 +37,58 @@ class _ProductAddScreen extends State<ProductAddScreen> {
 
   List<String> allBrandTags = [
     '세련된',
-    '패셔너블한',
-    '대중에게 친숙한',
-    '새로운',
+    '현대적인',
+    '고객 중심',
     '혁신적인',
-    '독특한',
-    '화려한',
+    '프리미엄',
+    '창의적인',
+    '감각적인',
+    '패셔너블한',
+    '편안한',
+    '신뢰감',
+    '프로페셔널',
+    '성장하는',
+    '변화하는',
+    '차별화',
+    '도전적인',
+    '모험적인',
+    '자유로움',
+    '글로벌화',
   ];
 
   List<String> allPdtTags = [
-    '세련된',
-    '패셔너블한',
-    '대중에게 친숙한',
-    '새로운',
+    '세련됨',
+    '현대적인',
+    '스타일리쉬',
     '혁신적인',
-    '독특한',
-    '화려한',
+    '프리미엄',
+    '창의적인',
+    '감각적인',
+    '패셔너블한',
+    '편리함',
+    '친환경적인',
+    '효율적인',
+    '차별화',
+    '도전적인',
+    '다용도적인',
+    '자유로움',
+    '경제적인',
   ];
 
   //브랜드 이미지
   List<String> selectedTags = [];
+
   //상품 이미지
   List<String> selectedProduct = [];
+
   //성별
   List<String> selectedGender = [];
+
   //나이
   List<String> selectedAge = [];
+
   //구체적 범주
   List<String> selectedTarget = [];
-
 
   //기업 정보 텍스트
   TextEditingController companyController = TextEditingController();
@@ -79,9 +103,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
   //타겟 텍스트
   TextEditingController targetController = TextEditingController();
 
-
   late productApi productapi;
-
 
   @override
   void initState() {
@@ -100,8 +122,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
     targetController.dispose();
     super.dispose();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +240,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           //기본 키워드 다이얼로그 표시
                           showDialog(
                             context: context,
-                            barrierDismissible: false,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 backgroundColor: AppColors.s3,
@@ -240,8 +259,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                   ],
                                 ),
                                 content: Wrap(
-                                  spacing: 8,
-                                  runSpacing: 4,
+                                  spacing: 2,
+                                  runSpacing: 2,
                                   direction: Axis.horizontal,
                                   alignment: WrapAlignment.start,
                                   children: allBrandTags.map((tag) {
@@ -252,7 +271,10 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                         style: FontStyles.Subcopy6.copyWith(
                                             color: AppColors.g2),
                                       ),
-                                      backgroundColor: AppColors.g6,
+                                      backgroundColor:
+                                          selectedTags.contains(tag)
+                                              ? AppColors.s1
+                                              : AppColors.g6,
                                       selectedColor: AppColors.s1,
                                       shape: RoundedRectangleBorder(
                                         side: const BorderSide(
@@ -277,6 +299,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                       title: '추가하기',
                                       onPressed: () {
                                         //태그 추가 기능 (다중선택도 가능하도록 수정하기)
+
                                         setState(() {
                                           if (selectedTags.length < 3) {
                                             selectedTags.add(currentTag);
@@ -289,7 +312,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                                   '더 이상 추가할 수 없습니다.',
                                                   style: FontStyles.Subcopy2
                                                       .copyWith(
-                                                      color: AppColors.g1),
+                                                          color: AppColors.g1),
                                                 ),
                                                 //임의로 설정한 스낵바, 추후 변경
                                               ),
@@ -312,7 +335,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         child: Text(
                           '기본 키워드 보기',
                           style:
-                          FontStyles.Subcopy2.copyWith(color: AppColors.g3),
+                              FontStyles.Subcopy2.copyWith(color: AppColors.g3),
                         ),
                       ),
                       Row(
@@ -334,7 +357,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                 setState(() {
                                   String newTag = brandKeywordController.text;
                                   if (newTag.isNotEmpty) {
-                                    allBrandTags.add(newTag);
+                                    selectedTags.add(newTag);
+
                                     brandKeywordController.clear();
                                     //태그 추가 알림창(임시적)
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -448,7 +472,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           ),
                           Text(
                             " (최대 3개)",
-                            style: FontStyles.Subcopy2.copyWith(color: AppColors.g2),
+                            style: FontStyles.Subcopy2.copyWith(
+                                color: AppColors.g2),
                           ),
                         ],
                       ),
@@ -457,7 +482,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           //기본 키워드 다이얼로그 표시
                           showDialog(
                             context: context,
-                            barrierDismissible: false,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 backgroundColor: AppColors.s3,
@@ -526,7 +550,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                                   '더 이상 추가할 수 없습니다.',
                                                   style: FontStyles.Subcopy2
                                                       .copyWith(
-                                                      color: AppColors.g1),
+                                                          color: AppColors.g1),
                                                 ),
                                                 //임의로 설정한 스낵바, 추후 변경
                                               ),
@@ -537,7 +561,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               );
                             },
                           );
-
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.g6,
@@ -549,7 +572,8 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                         ),
                         child: Text(
                           '기본 키워드 보기',
-                          style: FontStyles.Subcopy2.copyWith(color: AppColors.g3),
+                          style:
+                              FontStyles.Subcopy2.copyWith(color: AppColors.g3),
                         ),
                       ),
                       Row(
@@ -569,9 +593,11 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               onPressed: () {
                                 //태그 추가 로직 작성
                                 setState(() {
-                                  String newPdtKeyword = productKeywordController.text;
+                                  String newPdtKeyword =
+                                      productKeywordController.text;
                                   if (newPdtKeyword.isNotEmpty) {
-                                    allPdtTags.add(newPdtKeyword);
+                                    selectedProduct.add(newPdtKeyword);
+
                                     productKeywordController.clear();
                                     //태그 추가 알림창(임시적)
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -645,7 +671,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                 ),
               ),
 
-
               SizedBox(
                 height: 35,
               ),
@@ -694,7 +719,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
-                                isPressed[0] ? AppColors.m3 : AppColors.g6,
+                                    isPressed[0] ? AppColors.m3 : AppColors.g6,
                                 foregroundColor: AppColors.g2,
                               ),
                               child: Text(
@@ -718,7 +743,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
-                                isPressed[1] ? AppColors.m3 : AppColors.g6,
+                                    isPressed[1] ? AppColors.m3 : AppColors.g6,
                                 foregroundColor: AppColors.g2,
                               ),
                               child: Text(
@@ -756,7 +781,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                     setState(() {
                                       isPressed[2] = !isPressed[2];
                                       selectedAge.add('TEN');
-
                                     });
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -782,7 +806,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                     setState(() {
                                       isPressed[3] = !isPressed[3];
                                       selectedAge.add('TWENTY');
-
                                     });
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -808,7 +831,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                     setState(() {
                                       isPressed[4] = !isPressed[4];
                                       selectedAge.add('THIRTY');
-
                                     });
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -931,22 +953,15 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                   String newTarget = targetController.text;
                                   if (newTarget.isNotEmpty) {
                                     selectedTarget.add(newTarget);
-                                    print(selectedTarget);
+
                                     targetController.clear();
                                   }
-
                                 });
-
-
-
-
                               },
                               iconSize: 40,
                               color: AppColors.g2,
                             ),
-
                           ),
-
                         ],
                       ),
                       Wrap(
@@ -985,8 +1000,10 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                 height: 35,
               ),
               CustomElevatedButton(
-                  backgroundColor: AppColors.m1,
-                  borderColor: AppColors.m1,
+                  backgroundColor:
+                      selectedTarget.isNotEmpty ? AppColors.m1 : AppColors.g5,
+                  borderColor:
+                      selectedTarget.isNotEmpty ? AppColors.m1 : AppColors.g5,
                   textColor: AppColors.s3,
                   title: '등록하기',
                   onPressed: () {
@@ -1004,22 +1021,30 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                       ranges: selectedTarget,
                     );
 
-                      // ProductModel().data productModel = ProductModel().data(
-                      //   company: companyController.text,
-                      //   brand: brandNameController.text,
-                      //   brandImage: selectedTags,
-                      //   product: productNameController.text,
-                      //   characteristic: productFeatController.text,
-                      //   productImage: selectedProduct,
-                      //   gender: selectedGender,
-                      //   age: selectedAge,
-                      //   range: selectedTarget,
-                      // );
+                    // ProductModel().data productModel = ProductModel().data(
+                    //   company: companyController.text,
+                    //   brand: brandNameController.text,
+                    //   brandImage: selectedTags,
+                    //   product: productNameController.text,
+                    //   characteristic: productFeatController.text,
+                    //   productImage: selectedProduct,
+                    //   gender: selectedGender,
+                    //   age: selectedAge,
+                    //   range: selectedTarget,
+                    // );
 
+                    productapi.postProduct(productModel).then((response) {
+                      if (response.statusCode > 200)
+                        print(response.body);
+                      else
+                        print(response.statusCode);
+                    }).catchError((error) {
+                      print('error : $error');
+                    });
 
-                      var postResponse = productapi.postProduct(productModel);
-                      print(postResponse);
-                      productapi.getProduct();
+                    // var postResponse = productapi.postProduct(productModel);
+                    // print(postResponse);
+                    // productapi.getProduct();
 
                     companyController.clear();
                     brandNameController.clear();
@@ -1030,8 +1055,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
 
                     showDialog(
                       context: context,
-                      barrierDismissible: false,
-                      //false로 지정해주면 확인 버튼이 아닌 다른 영역을 아무리 클릭을 해도 창이 닫히지 않는다.
                       builder: (context) {
                         return AlertDialog(
                           backgroundColor: AppColors.s3,
@@ -1063,5 +1086,4 @@ class _ProductAddScreen extends State<ProductAddScreen> {
       ),
     );
   }
-
 }
