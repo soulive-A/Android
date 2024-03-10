@@ -9,8 +9,8 @@ class productApi with ChangeNotifier{
   final baseUrl = dotenv.env['BASE_URL'];
 
   //모든 광고 상품 조회
-  ProductModel? _getAllProduct;
-  ProductModel? get modelIntroduce => _getAllProduct;
+  // ProductModel? _getAllProduct;
+  // ProductModel? get modelIntroduce => _getAllProduct;
 
 
 
@@ -23,10 +23,13 @@ class productApi with ChangeNotifier{
 
       if (response.statusCode == 200) {
         print('Get 요청 성공');
-        final parsedProducts = jsonDecode(response.body);
+        final List<dynamic> parsedProducts = jsonDecode(response.body);
+
         for (var product in parsedProducts) {
           final instance = ProductModel.fromJson(product);
+          allProduct.add(instance);
         }
+
         return allProduct;
       }
 
@@ -36,8 +39,9 @@ class productApi with ChangeNotifier{
     }
   }
 
+
   //광고 상품 생성
-  Future<http.Response> postProduct(ProductModel product) async {
+  Future<http.Response> postProduct(Data product) async {
     final url = Uri.parse('$baseUrl/api/product');
 
     try {
@@ -56,5 +60,5 @@ class productApi with ChangeNotifier{
       return http.Response('Error: $e', 500);
     }
   }
-//특정 광고 상품 조회
+
 }
