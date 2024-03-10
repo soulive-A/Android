@@ -991,20 +991,35 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                   title: '등록하기',
                   onPressed: () {
                     //다이얼로그 표시
-                      ProductModel productModel = ProductModel(
-                        company: companyController.text,
-                        brand: brandNameController.text,
-                        brandImage: selectedTags,
-                        product: productNameController.text,
-                        characteristic: productFeatController.text,
-                        productImage: selectedProduct,
-                        gender: selectedGender,
-                        age: selectedAge,
-                        range: selectedTarget,
-                      );
+
+                    final productModel = Data(
+                      company: companyController.text,
+                      brand: brandNameController.text,
+                      brandImages: selectedTags,
+                      product: productNameController.text,
+                      characteristic: productFeatController.text,
+                      productImages: selectedProduct,
+                      genders: selectedGender,
+                      ages: selectedAge,
+                      ranges: selectedTarget,
+                    );
+
+                      // ProductModel().data productModel = ProductModel().data(
+                      //   company: companyController.text,
+                      //   brand: brandNameController.text,
+                      //   brandImage: selectedTags,
+                      //   product: productNameController.text,
+                      //   characteristic: productFeatController.text,
+                      //   productImage: selectedProduct,
+                      //   gender: selectedGender,
+                      //   age: selectedAge,
+                      //   range: selectedTarget,
+                      // );
 
 
-                      productapi.postProduct(productModel);
+                      var postResponse = productapi.postProduct(productModel);
+                      print(postResponse);
+                      productapi.getProduct();
 
                     companyController.clear();
                     brandNameController.clear();
