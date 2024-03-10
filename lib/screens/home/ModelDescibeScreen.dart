@@ -1,8 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:soulive/design/SoulliveIcon.dart';
+import 'package:soulive/screens/model_result/ModelResult.dart';
 
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
@@ -11,6 +11,7 @@ import '../../model/GetModelList.dart';
 import '../../viewModel/RecommendViewModel.dart';
 
 class ModelDescribeScreen extends StatelessWidget{
+  
   @override
   Widget build(BuildContext context){
     return ChangeNotifierProvider<RecommendViewModel>(
@@ -78,17 +79,17 @@ class ModelDescribe extends StatelessWidget{
                             children: [
                               MainProduct(mainData.company!, mainData.product!, mainData.brandImages!, mainData.productImages!, mainData.characteristic!, mainData.genders!, mainData.ages!),
                               SizedBox(height: 23,),
-                              Text('가수', style: FontStyles.Subcopy6.copyWith(color: AppColors.g2),),
+                              Text('가수(아이돌)', style: FontStyles.Subcopy6.copyWith(color: AppColors.g2),),
                               SizedBox(height: 10,),
-                              People(allModelData!.singers!),
+                              People(context, allModelData!.singers!),
                               SizedBox(height: 35,),
-                              Text('가수', style: FontStyles.Subcopy6.copyWith(color: AppColors.g2),),
+                              Text('배우', style: FontStyles.Subcopy6.copyWith(color: AppColors.g2),),
                               SizedBox(height: 10,),
-                              People(allModelData!.actors!),
+                              People(context,allModelData!.actors!),
                               SizedBox(height: 35,),
-                              Text('가수', style: FontStyles.Subcopy6.copyWith(color: AppColors.g2),),
+                              Text('유투버', style: FontStyles.Subcopy6.copyWith(color: AppColors.g2),),
                               SizedBox(height: 10,),
-                              People(allModelData!.youtuber!),
+                              People(context,allModelData!.youtuber!),
                               SizedBox(height: 40,),
                             ],
                           ),
@@ -189,12 +190,19 @@ Widget MainProduct(
   );
 }
 
-Widget People(List<Format> datas ){
+Widget People(BuildContext context, List<Format> datas ){
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
-    child: Row(
-      children: datas.map((data) => Cotent(data.imageUrl!,data.name!)).toList(),
-    ),
+    child: GestureDetector(
+      onTap:(){
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ModelResult(isModelDescribe: true,))
+        );
+      },
+      child: Row(
+        children: datas.map((data) => Cotent(data.imageUrl!,data.name!)).toList(),
+      ),
+    )
   );
 }
 

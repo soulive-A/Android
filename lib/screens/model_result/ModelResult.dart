@@ -20,18 +20,21 @@ import 'ModelTab3Screen.dart';
 import 'ModelTab4Screen.dart';
 
 class ModelResult extends StatelessWidget{
+  final bool isModelDescribe;
+  ModelResult({Key? key, required this.isModelDescribe}) : super(key: key);
   @override
   Widget build(BuildContext context){
     return ChangeNotifierProvider<TabViewModel>(
         create: (_) => TabViewModel(),
-      child: ModelResultScreen(),
+      child: ModelResultScreen(isModelDescribe: isModelDescribe),
     );
   }
 }
 
 
 class ModelResultScreen extends StatelessWidget{
-  const ModelResultScreen({Key? key}) : super(key:key);
+  final bool isModelDescribe;
+  const ModelResultScreen({Key? key, required this.isModelDescribe}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
@@ -97,14 +100,14 @@ class ModelResultScreen extends StatelessWidget{
                   length: 4,
                   child: Column(
                     children: [
-                      SizedBox(height: 36),
+                      !isModelDescribe ? SizedBox(height: 36) : Container(),
                       //모델 선택 토글
                       Container(
                           margin: EdgeInsets.only(left: 20),
                           child: Row(
                                 children: [
                                   for(var i =0; i<3; i++)
-                                    Padding(
+                                    !isModelDescribe ? Padding(
                                       padding: EdgeInsets.only(right: 8),
                                       child: TextButton(
                                         onPressed: (){
@@ -132,9 +135,9 @@ class ModelResultScreen extends StatelessWidget{
                                               style: FontStyles.Headline1.copyWith(color: viewModel.selectedTab == i ? Colors.white : AppColors.g4)
                                             //FontStyles.Headline1
                                           ),
-                                        ),
+                                        )
                                       ),
-                                    )
+                                    ) : Container(),
                                 ],
                               )
                       ),

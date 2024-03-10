@@ -43,6 +43,7 @@ class _ModelTab4Screen extends State<ModelTab4Screen>{
                       CompanyGoal(tab4Data.data!.brandImageKeywordList!, '목표 기업 이미지'),
                       SizedBox(height: 15,),
                       CompanyGoal(tab4Data.data!.productImageKeywordList!, '목표 블라블라'),
+                      SizedBox(height: 51,)
                     ],
                   ),
                 )
@@ -90,15 +91,16 @@ Widget ModelKeyword(List<String> keywords){
 Widget CompanyGoal(List<String> items, String title){
   return Row(
     children: [
-      Container(
+      Expanded(child: Container(
         decoration: BoxDecoration(
-          color: AppColors.s3,
-          borderRadius: BorderRadius.circular(13),
-          border: Border.all(width: 1, color: AppColors.g6)
+            color: AppColors.s3,
+            borderRadius: BorderRadius.circular(13),
+            border: Border.all(width: 1, color: AppColors.g6)
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 15, horizontal: 12),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title, style: FontStyles.Headline2.copyWith(color:AppColors.g1 ),),
               SizedBox(height: 14,),
@@ -111,22 +113,26 @@ Widget CompanyGoal(List<String> items, String title){
             ],
           ),
         ),
-      ),
+      ),),
+      SizedBox(width: 10,),
       Container(
         decoration: BoxDecoration(
           color: AppColors.m3,
           borderRadius: BorderRadius.circular(13),
         ),
-        child:Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              '모델 이미지와', style:FontStyles.Subcopy6.copyWith(color: AppColors.s3),
-            ),
-            Text(
-              '적합', style:FontStyles.Headline2.copyWith(color: AppColors.s3),
-            ),
-          ],
+        child:Padding(
+          padding: EdgeInsets.symmetric(vertical: 28, horizontal: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                '모델 이미지와', style:FontStyles.Subcopy6.copyWith(color: AppColors.s3),
+              ),
+              Text(
+                '적합', style:FontStyles.Headline2.copyWith(color: AppColors.s3),
+              ),
+            ],
+          ),
         )
       )
     ],
