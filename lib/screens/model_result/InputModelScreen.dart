@@ -67,12 +67,11 @@ class _InputModelScreen extends State<InputModelScreen>{
         leading: IconButton(
           icon: SoulliveIcon.arrowLeft(),
           onPressed: () {
-            //뒤로가기 로직 추가
             Navigator.pop(context);
           },
         ),
         title: Text('후보 모델 작성',
-            style: FontStyles.Headline1),
+            style: FontStyles.Headline2),
         centerTitle: true,
       ),
       body: Container(
@@ -152,7 +151,7 @@ class _InputModelScreen extends State<InputModelScreen>{
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => ModelResult()));
+                          MaterialPageRoute(builder: (context) => ModelResult(isModelDescribe: false,)));
                     },
                     child: Container(
                       width: double.infinity,
@@ -165,7 +164,7 @@ class _InputModelScreen extends State<InputModelScreen>{
                         child: Text(
                           '완료',
                           textAlign: TextAlign.center,
-                          style: FontStyles.Subcopy1.copyWith(color: Colors.white),
+                          style: FontStyles.Subcopy1.copyWith(color:AppColors.s3),
                         ),
                       ),
                     ),

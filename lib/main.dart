@@ -13,10 +13,16 @@ import 'package:soulive/screens/screen_index.dart';
 import 'package:soulive/screens/model_result/ModelResult.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:soulive/viewModel/RecommendViewModel.dart';
+import 'package:soulive/viewModel/TabViewModel.dart';
 
 void main() async {
   await dotenv.load(fileName: "assets/config/.env");
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider<TabViewModel>(
+        create: (context) => TabViewModel(),
+      child: MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget{

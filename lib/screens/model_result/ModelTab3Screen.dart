@@ -134,22 +134,21 @@ Widget News(String title, String newsDate, String company,String url){
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
+                  Expanded(child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Text(company, style: FontStyles.Headline2.copyWith(fontSize: 11, color: AppColors.g2),),
                           SizedBox(width: 6,),
-                          Text(newsDate, style: FontStyles.Headline3.copyWith(fontSize: 8, color: AppColors.g2),)
-                        ],
+                          Expanded(child: Text(newsDate, style: FontStyles.Headline3.copyWith(fontSize: 8, color: AppColors.g2), overflow: TextOverflow.ellipsis,)
+                          )],
                       ),
                       SizedBox(height: 14,),
                       Text(title, style: FontStyles.Headline3.copyWith(fontSize: 12, color: AppColors.g2),)
                     ],
-                  ),
+                  ),),
                   //아이콘
-                  Spacer(),
                   Padding(padding: EdgeInsets.only(top: 20), child: SoulliveIcon.arrowRight(color: AppColors.g1),)
                 ],
               )

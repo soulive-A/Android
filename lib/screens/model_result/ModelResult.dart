@@ -20,18 +20,21 @@ import 'ModelTab3Screen.dart';
 import 'ModelTab4Screen.dart';
 
 class ModelResult extends StatelessWidget{
+  final bool isModelDescribe;
+  ModelResult({Key? key, required this.isModelDescribe}) : super(key: key);
   @override
   Widget build(BuildContext context){
     return ChangeNotifierProvider<TabViewModel>(
         create: (_) => TabViewModel(),
-      child: ModelResultScreen(),
+      child: ModelResultScreen(isModelDescribe: isModelDescribe),
     );
   }
 }
 
 
 class ModelResultScreen extends StatelessWidget{
-  const ModelResultScreen({Key? key}) : super(key:key);
+  final bool isModelDescribe;
+  const ModelResultScreen({Key? key, required this.isModelDescribe}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
@@ -65,7 +68,7 @@ class ModelResultScreen extends StatelessWidget{
             },
           ),
           title: Text('모델 분석',
-              style: FontStyles.appbarFont),
+              style: FontStyles.Headline1.copyWith(color: AppColors.g1)),
           centerTitle: true,
         ),
         body: Consumer<TabViewModel>(
@@ -97,14 +100,14 @@ class ModelResultScreen extends StatelessWidget{
                   length: 4,
                   child: Column(
                     children: [
-                      SizedBox(height: 36),
+                      !isModelDescribe ? SizedBox(height: 36) : Container(),
                       //모델 선택 토글
                       Container(
                           margin: EdgeInsets.only(left: 20),
                           child: Row(
                                 children: [
                                   for(var i =0; i<3; i++)
-                                    Padding(
+                                    !isModelDescribe ? Padding(
                                       padding: EdgeInsets.only(right: 8),
                                       child: TextButton(
                                         onPressed: (){
@@ -129,21 +132,21 @@ class ModelResultScreen extends StatelessWidget{
                                           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 18),
                                           child: Text(
                                               '${modelName[i]}',
-                                              style: FontStyles.Headline1.copyWith(color: viewModel.selectedTab == i ? Colors.white : AppColors.g4)
+                                              style: FontStyles.Headline2.copyWith(color: viewModel.selectedTab == i ? Colors.white : AppColors.g4)
                                             //FontStyles.Headline1
                                           ),
-                                        ),
+                                        )
                                       ),
-                                    )
+                                    ) : Container(),
                                 ],
                               )
                       ),
-                      SizedBox(height: 18.98,),
+                      SizedBox(height: 16.98,),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child:  MainCard(modelData.imageUrl!,modelData.modelName!,modelData.job!,modelData.birth!, modelData.age!,modelData.info!, modelData.agency!, modelData.aiRate?.toInt() ?? 0 ),
                       ),
-                      SizedBox(height: 41,),
+                      SizedBox(height: 33,),
                       _tabBar(),
                       Expanded(child: _tabBarView(modelntroduce!, modelPopular!, modelNegative!, modelFitness!))
                     ],
