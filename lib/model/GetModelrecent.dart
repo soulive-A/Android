@@ -34,7 +34,7 @@ class Data {
   int? modelId;
   String? imageUrl;
   String? modelName;
-  int? aiRate;
+  double? aiRate;
   String? job;
 
   Data({this.modelId, this.imageUrl, this.modelName, this.aiRate, this.job});
@@ -57,7 +57,7 @@ class Data {
     return data;
   }
 }
-
+//
 // class GetModelrecent {
 //   int? code;
 //   String? message;

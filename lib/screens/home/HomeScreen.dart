@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+  int a =1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,11 +81,11 @@ class _HomeScreen extends State<HomeScreen> {
                 height: MediaQuery.of(context).size.height * 0.01,
               ),
 
-              //광고 상품 없을 때
-              _buildNoProduct(context),
 
-              //광고 상품 있을 때
-              //_buildProduct(context),
+              //광고 상품 없을 때
+
+                _buildNoProduct(context),
+                //_buildProduct(context),
 
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,

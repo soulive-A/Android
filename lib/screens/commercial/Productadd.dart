@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soulive/screens/home/Homeproduct.dart';
 import 'package:soulive/screens/screen_index.dart';
 import 'package:soulive/design/ColorStyles.dart';
 import 'package:soulive/design/FontStyles.dart';
@@ -34,6 +35,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
   ];
   bool isSelected = false;
   String currentTag = '';
+  String currentTag2 = '';
 
   List<String> allBrandTags = [
     '세련된',
@@ -154,7 +156,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
 
               //첫번째 컨테이너
               Container(
-                height: 450,
                 decoration: BoxDecoration(
                   color: AppColors.s3,
                   borderRadius: BorderRadius.circular(20),
@@ -524,7 +525,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                       onSelected: (isSelected) {
                                         //태그 색깔 변하게 수정
                                         setState(() {
-                                          currentTag = tag;
+                                          currentTag2 = tag;
                                         });
                                       },
                                     );
@@ -540,7 +541,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                         //태그 추가 기능 (다중선택도 가능하도록 수정하기)
                                         setState(() {
                                           if (selectedProduct.length < 3) {
-                                            selectedProduct.add(currentTag);
+                                            selectedProduct.add(currentTag2);
                                           } else
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
@@ -550,7 +551,7 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                                                   '더 이상 추가할 수 없습니다.',
                                                   style: FontStyles.Subcopy2
                                                       .copyWith(
-                                                          color: AppColors.g1),
+                                                      color: AppColors.g1),
                                                 ),
                                                 //임의로 설정한 스낵바, 추후 변경
                                               ),
@@ -663,7 +664,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                     ],
                   ),
                 ),
-                height: 450,
                 decoration: BoxDecoration(
                   color: AppColors.s3,
                   borderRadius: BorderRadius.circular(20),
@@ -681,7 +681,6 @@ class _ProductAddScreen extends State<ProductAddScreen> {
 
               //세번째 컨테이너
               Container(
-                height: 450,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -1069,6 +1068,10 @@ class _ProductAddScreen extends State<ProductAddScreen> {
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
+                              // onPressed: () {
+                              //   // Navigator.of(context).push(MaterialPageRoute(
+                              //   //     builder: (context) => HomeProductScreen()));
+                              // },
                               child: Text(
                                 '확인',
                                 style: FontStyles.Subcopy1.copyWith(

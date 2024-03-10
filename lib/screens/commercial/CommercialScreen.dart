@@ -7,7 +7,7 @@ import 'package:soulive/design/SoulliveIcon.dart';
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
 import '../../design/component/CustomTextButton.dart';
-import '../../model/GetModelList.dart';
+import '../../model/GetModelrecent.dart';
 import '../../viewModel/RecommendViewModel.dart';
 
 class CommercialScreen extends StatelessWidget {
@@ -50,7 +50,7 @@ class Commercial extends StatelessWidget {
             final mainData = viewModel.modelone?.data;
             final recentModel = viewModel.modelrecent?.data;
 
-            if (recentModel != null) {
+            if (mainData != null && recentModel != null) {
               return Stack(
                 children: [
                   Hero(
@@ -81,14 +81,14 @@ class Commercial extends StatelessWidget {
                         ),
 
                         //광고 상품 컨테이너 위젯 배치
-                        // productDisplay(
-                        //     mainData.company!,
-                        //     mainData.product!,
-                        //     mainData.brandImages!,
-                        //     mainData.productImages!,
-                        //     mainData.characteristic!,
-                        //     mainData.genders!,
-                        //     mainData.ages!),
+                        productDisplay(
+                            mainData.company!,
+                            mainData.product!,
+                            mainData.brandImages!,
+                            mainData.productImages!,
+                            mainData.characteristic!,
+                            mainData.genders!,
+                            mainData.ages!),
 
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,
@@ -103,11 +103,7 @@ class Commercial extends StatelessWidget {
                         ),
                         //최근 본 모델 리스트뷰
                         recentDisplay(
-                            //recentModel.modelId!,
-                            recentModel.imageUrl!,
-                            recentModel.modelName!,
-                            recentModel.aiRate!,
-                            recentModel.job!),
+                            recentModel),
                       ],
                     ),
                   ),
@@ -232,6 +228,9 @@ Widget productDisplay(
                   width: 35,
                 ),
                 SoulliveIcon.ic_book(color: AppColors.g2),
+                SizedBox(
+                  width: 12,
+                ),
                 Text(
                   '30대, 40대',
                   style: FontStyles.Subcopy7.copyWith(color: AppColors.g2),
@@ -243,95 +242,9 @@ Widget productDisplay(
       ));
 }
 
-//최근 조회 모델 컨테이너
-// Widget recentDisplay(
-//   //int modelId,
-//  List<Data> recentModels
-// ) {
-//   return Container(
-//     width: double.infinity,
-//     height: 263.2,
-//     decoration: BoxDecoration(
-//       color: AppColors.s3,
-//       borderRadius: BorderRadius.circular(13),
-//       boxShadow: [
-//         BoxShadow(color: AppColors.g4, blurRadius: 2, offset: Offset(1, 2)),
-//       ],
-//     ),
-//     child: Container(
-//           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-//           child: Row(
-//             children: [
-//               ClipRRect(
-//                 borderRadius: BorderRadius.circular(13),
-//                 child: Image.network(
-//                   recentModels.image,
-//                   width: 40,
-//                   height: 40,
-//                 ),
-//               ),
-//               SizedBox(
-//                 width: 20,
-//               ),
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(
-//                     modelName,
-//                     style: FontStyles.Subcopy1.copyWith(color: AppColors.g2),
-//                   ),
-//                   Text(
-//                     job,
-//                     style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(
-//                 width: 60,
-//               ),
-//               Column(
-//                 crossAxisAlignment: CrossAxisAlignment.end,
-//                 children: [
-//                   Text(
-//                     'AI 추천',
-//                     style: FontStyles.Subcopy6.copyWith(
-//                       color: AppColors.g2,
-//                       fontWeight: FontWeight.w700,
-//                     ),
-//                   ),
-//                   //별점 시스템
-//                   RatingBar(
-//                     itemSize: 13,
-//                     initialRating: 3,
-//                     direction: Axis.horizontal,
-//                     allowHalfRating: false,
-//                     ratingWidget: RatingWidget(
-//                       full: SoulliveIcon.starFill(),
-//                       half: Icon(
-//                         Icons.star_half,
-//                       ),
-//                       empty: SoulliveIcon.starunFill(),
-//                     ),
-//                     onRatingUpdate: (rating) {
-//                       rating = aiRate;
-//                     },
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(
-//                 width: 23,
-//               ),
-//               SoulliveIcon.arrowRight(),
-//             ],
-//           ),
-//         ),
-//
-//   );
-// }
-
+//최근 조회 모델
 Widget recentDisplay(
-    //int modelId,
-    List<Data> recentModels
+    List<Data> model,
     ) {
   return Container(
     width: double.infinity,
@@ -345,9 +258,9 @@ Widget recentDisplay(
     ),
     child: ListView.separated(
       padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-      itemCount: recentModels.length,
+      itemCount: model.length,
       itemBuilder: (BuildContext context, index) {
-        Data recentModel = recentModels[index];
+        Data recentModel = model[index];
 
         return Container(
           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -364,50 +277,53 @@ Widget recentDisplay(
               SizedBox(
                 width: 20,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    recentModel.modelName!,
-                    style: FontStyles.Subcopy1.copyWith(color: AppColors.g2),
-                  ),
-                  Text(
-                    job,
-                    style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 60,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'AI 추천',
-                    style: FontStyles.Subcopy6.copyWith(
-                      color: AppColors.g2,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  //별점 시스템
-                  RatingBar(
-                    itemSize: 13,
-                    initialRating: 3,
-                    direction: Axis.horizontal,
-                    allowHalfRating: false,
-                    ratingWidget: RatingWidget(
-                      full: SoulliveIcon.starFill(),
-                      half: Icon(
-                        Icons.star_half,
+            Expanded(
+              flex: 2,
+              child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        recentModel.modelName!,
+                        style: FontStyles.Subcopy1.copyWith(color: AppColors.g2),
                       ),
-                      empty: SoulliveIcon.starunFill(),
-                    ),
-                    onRatingUpdate: (rating) {
-                      rating = aiRate;
-                    },
+                      Text(
+                        recentModel.job!,
+                        style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
+                      ),
+                    ],
                   ),
-                ],
+            ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'AI 추천',
+                      style: FontStyles.Subcopy6.copyWith(
+                        color: AppColors.g2,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    //별점 시스템
+                    RatingBar(
+                      itemSize: 13,
+                      initialRating: 4,
+                      direction: Axis.horizontal,
+                      allowHalfRating: false,
+                      ratingWidget: RatingWidget(
+                        full: SoulliveIcon.starFill(),
+                        half: Icon(
+                          Icons.star_half,
+                        ),
+                        empty: SoulliveIcon.starunFill(),
+                      ),
+                      onRatingUpdate: (rating) {
+                        //rating = recentModel.aiRate!;
+                      },
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 width: 23,
