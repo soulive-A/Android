@@ -6,6 +6,7 @@ import 'package:soulive/screens/model_result/ModelResult.dart';
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
 import '../../design/SoulliveIcon.dart';
+import '../../design/component/CustomTextButton.dart';
 import '../commercial/Productadd.dart';
 import 'ModelDescibeScreen.dart';
 
@@ -17,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+  int a =1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +34,7 @@ class _HomeScreen extends State<HomeScreen> {
           ),
         ),
         title: Text('SOUL MODEL',
-            style: FontStyles.AppTitle1.copyWith(color: Colors.white)),
+            style: FontStyles.AppTitle2.copyWith(color: Colors.white)),
         backgroundColor: Colors.transparent,
       ),
       body: Stack(children: [
@@ -78,10 +80,12 @@ class _HomeScreen extends State<HomeScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
               ),
+
+
               //광고 상품 없을 때
-              _buildNoProduct(context),
-              //광고 상품 있을 때
-              //_buildProduct(context),
+
+                _buildNoProduct(context),
+                //_buildProduct(context),
 
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
@@ -238,6 +242,18 @@ Widget _buildNoProduct(BuildContext context) {
 
 //등록한 광고 상품이 있을 때
 Widget _buildProduct(BuildContext context) {
+  List<String> brandImages = [
+    '#프로페셔녈',
+    '#프리미엄',
+    '#혁신적인',
+  ];
+
+  List<String> productImages = [
+    '#세련됨',
+    '#편리함',
+    '#혁신적인 기술',
+  ];
+
   return Container(
     padding: EdgeInsets.all(10),
     width: double.infinity,
@@ -250,26 +266,123 @@ Widget _buildProduct(BuildContext context) {
         BoxShadow(color: AppColors.g4, blurRadius: 2, offset: Offset(1, 2)),
       ],
     ),
-    child: Column(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            '광고할 상품을 선택해주세요',
-            style: FontStyles.Subcopy8.copyWith(color: AppColors.g2),
-          ),
-          SoulliveIcon.addTriangleIcon(),
-        ],
-      ),
-      SizedBox(
-        height: MediaQuery.of(context).size.height * 0.13,
-      ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '광고할 상품을 선택해주세요',
+              style: FontStyles.Subcopy8.copyWith(color: AppColors.g2),
+            ),
+            SoulliveIcon.addTriangleIcon(),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'LG전자',
+                      style: FontStyles.Headline2.copyWith(color: AppColors.g2),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text('LG 시그니처',
+                        style: FontStyles.Headline1.copyWith(color: AppColors.g1))
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
 
-      //선택한 상품 정보 불러오기
+                Text(
+                  '목표 기업 이미지',
+                  style: FontStyles.Headline2.copyWith(color: AppColors.g2),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Wrap(
+                  spacing: 9.0,
+                  runSpacing: 8.0,
+                  children: brandImages
+                      .map((brandImage) => CustomTextButton(
+                      text: brandImage,
+                      backgroundColor: AppColors.s1,
+                      textColor: AppColors.g2))
+                      .toList(),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
 
-      SizedBox(
-        height: MediaQuery.of(context).size.height * 0.08,
-      ),
-    ]),
+                Text(
+                  '목표 상품 이미지',
+                  style: FontStyles.Headline2.copyWith(color: AppColors.g2),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Wrap(
+                  spacing: 6.0,
+                  runSpacing: 8.0,
+                  children: productImages
+                      .map((productImage) => CustomTextButton(
+                      text: productImage,
+                      backgroundColor: AppColors.s1,
+                      textColor: AppColors.g2))
+                      .toList(),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+
+                Row(
+                  children: [
+                    SoulliveIcon.arrowVer2(color: AppColors.g2),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '올인원 세탁 방식',
+                      style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  children: [
+                    SoulliveIcon.ic_gender(color: AppColors.g2),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Text(
+                      '남녀노소',
+                      style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
+                    ),
+                    SizedBox(
+                      width: 35,
+                    ),
+                    SoulliveIcon.ic_book(color: AppColors.g2),
+                    Text(
+                      '30대, 40대',
+                      style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+        ),
+      ],
+    ),
   );
 }

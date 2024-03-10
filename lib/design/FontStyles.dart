@@ -8,7 +8,7 @@ class FontStyles{
   );
   //추후 변경 가능성 있음
   static const AppTitle2 = TextStyle(
-      fontSize: 28, fontWeight: FontWeight.w600, fontFamily: 'kristall'
+      fontSize: 22, fontWeight: FontWeight.w600, fontFamily: 'kristall'
   );
   static const Headline1 = TextStyle(
       fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'pretendard'

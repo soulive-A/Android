@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
-                          color: AppColors.g5,
+                          color: AppColors.g4,
                         ),
                       ),
                       labelText: '휴대폰 번호를 입력하세요',
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
-                          color: AppColors.g5,
+                          color: AppColors.g4,
                         ),
                       ),
                       labelText: '비밀번호를 입력하세요',
@@ -120,7 +120,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     textColor: AppColors.s3,
                     title: '로그인하기',
                     onPressed: () {
-                      print('테스트');
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ScreenIndex(index: 0)));
                     }),
                 SizedBox(
                   height: screenHeight * 0.2,
@@ -143,7 +144,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     textColor: AppColors.g2,
                     title: '가입하기',
                     onPressed: () {
-                      print('테스트');
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ScreenIndex(index: 0)));
                     }),
               ],
             ),

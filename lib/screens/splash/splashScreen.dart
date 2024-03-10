@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:soulive/design/FontStyles.dart';
 import 'package:soulive/screens/screen_index.dart';
+import 'package:soulive/screens/LoginScreen.dart';
 
 import '../../design/SoulliveIcon.dart';
 
@@ -52,7 +53,7 @@ class _SplashScreen extends State<SplashScreen> {
         removeTimer();
         Navigator.pushReplacement(
             context, 
-            MaterialPageRoute(builder: (context) => const ScreenIndex(index: 0)));
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       }
     });
   }

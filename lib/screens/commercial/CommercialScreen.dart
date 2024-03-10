@@ -7,7 +7,7 @@ import 'package:soulive/design/SoulliveIcon.dart';
 import '../../design/ColorStyles.dart';
 import '../../design/FontStyles.dart';
 import '../../design/component/CustomTextButton.dart';
-import '../../model/GetModelList.dart';
+import '../../model/GetModelrecent.dart';
 import '../../viewModel/RecommendViewModel.dart';
 
 class CommercialScreen extends StatelessWidget {
@@ -41,7 +41,7 @@ class Commercial extends StatelessWidget {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text('모델',
-              style: FontStyles.AppTitle1.copyWith(color: AppColors.s3)),
+              style: FontStyles.AppTitle2.copyWith(color: AppColors.s3)),
           backgroundColor: Colors.transparent,
           centerTitle: true,
         ),
@@ -103,11 +103,7 @@ class Commercial extends StatelessWidget {
                         ),
                         //최근 본 모델 리스트뷰
                         recentDisplay(
-                            recentModel.modelId!,
-                            recentModel.imageUrl!,
-                            recentModel.modelName!,
-                            recentModel.aiRate!,
-                            recentModel.job!),
+                            recentModel),
                       ],
                     ),
                   ),
@@ -171,13 +167,14 @@ Widget productDisplay(
                   runSpacing: 8.0,
                   children: brandImages
                       .map((brandImage) => CustomTextButton(
-                          text: brandImage,
+                          text: '#${brandImage}',
                           backgroundColor: AppColors.s1,
                           textColor: AppColors.g2))
                       .toList(),
                 )
               ],
             ),
+            SizedBox(height: 14,),
             Row(
               children: [
                 Text(
@@ -231,6 +228,9 @@ Widget productDisplay(
                   width: 35,
                 ),
                 SoulliveIcon.ic_book(color: AppColors.g2),
+                SizedBox(
+                  width: 12,
+                ),
                 Text(
                   '30대, 40대',
                   style: FontStyles.Subcopy7.copyWith(color: AppColors.g2),
@@ -242,14 +242,10 @@ Widget productDisplay(
       ));
 }
 
-//최근 조회 모델 컨테이너
+//최근 조회 모델
 Widget recentDisplay(
-  int modelId,
-  String imageUrl,
-  String modelName,
-  int aiRate,
-  String job,
-) {
+    List<Data> model,
+    ) {
   return Container(
     width: double.infinity,
     height: 263.2,
@@ -262,8 +258,10 @@ Widget recentDisplay(
     ),
     child: ListView.separated(
       padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-      itemCount: modelId,
-      itemBuilder: (BuildContext context, modelId) {
+      itemCount: model.length,
+      itemBuilder: (BuildContext context, index) {
+        Data recentModel = model[index];
+
         return Container(
           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
           child: Row(
@@ -271,7 +269,7 @@ Widget recentDisplay(
               ClipRRect(
                 borderRadius: BorderRadius.circular(13),
                 child: Image.network(
-                  imageUrl,
+                  recentModel.imageUrl!,
                   width: 40,
                   height: 40,
                 ),
@@ -279,50 +277,53 @@ Widget recentDisplay(
               SizedBox(
                 width: 20,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    modelName,
-                    style: FontStyles.Subcopy1.copyWith(color: AppColors.g2),
-                  ),
-                  Text(
-                    job,
-                    style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 60,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'AI 추천',
-                    style: FontStyles.Subcopy6.copyWith(
-                      color: AppColors.g2,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  //별점 시스템
-                  RatingBar(
-                    itemSize: 13,
-                    initialRating: 3,
-                    direction: Axis.horizontal,
-                    allowHalfRating: false,
-                    ratingWidget: RatingWidget(
-                      full: SoulliveIcon.starFill(),
-                      half: Icon(
-                        Icons.star_half,
+            Expanded(
+              flex: 2,
+              child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        recentModel.modelName!,
+                        style: FontStyles.Subcopy1.copyWith(color: AppColors.g2),
                       ),
-                      empty: SoulliveIcon.starunFill(),
-                    ),
-                    onRatingUpdate: (rating) {
-                      rating = aiRate.toDouble();
-                    },
+                      Text(
+                        recentModel.job!,
+                        style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
+                      ),
+                    ],
                   ),
-                ],
+            ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'AI 추천',
+                      style: FontStyles.Subcopy6.copyWith(
+                        color: AppColors.g2,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    //별점 시스템
+                    RatingBar(
+                      itemSize: 13,
+                      initialRating: 4,
+                      direction: Axis.horizontal,
+                      allowHalfRating: false,
+                      ratingWidget: RatingWidget(
+                        full: SoulliveIcon.starFill(),
+                        half: Icon(
+                          Icons.star_half,
+                        ),
+                        empty: SoulliveIcon.starunFill(),
+                      ),
+                      onRatingUpdate: (rating) {
+                        //rating = recentModel.aiRate!;
+                      },
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 width: 23,
@@ -332,7 +333,7 @@ Widget recentDisplay(
           ),
         );
       },
-      separatorBuilder: (BuildContext, modelId) => const Divider(),
+      separatorBuilder: (BuildContext, itemCount) => const Divider(),
     ),
   );
 }
