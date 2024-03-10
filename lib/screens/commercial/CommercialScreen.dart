@@ -244,101 +244,10 @@ Widget productDisplay(
 }
 
 //최근 조회 모델 컨테이너
-Widget recentDisplay(
-  //int modelId,
-  String imageUrl,
-  String modelName,
-    double aiRate,
-  String job,
-) {
-  return Container(
-    width: double.infinity,
-    height: 263.2,
-    decoration: BoxDecoration(
-      color: AppColors.s3,
-      borderRadius: BorderRadius.circular(13),
-      boxShadow: [
-        BoxShadow(color: AppColors.g4, blurRadius: 2, offset: Offset(1, 2)),
-      ],
-    ),
-    child: Container(
-          padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(13),
-                child: Image.network(
-                  imageUrl,
-                  width: 40,
-                  height: 40,
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    modelName,
-                    style: FontStyles.Subcopy1.copyWith(color: AppColors.g2),
-                  ),
-                  Text(
-                    job,
-                    style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 60,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'AI 추천',
-                    style: FontStyles.Subcopy6.copyWith(
-                      color: AppColors.g2,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  //별점 시스템
-                  RatingBar(
-                    itemSize: 13,
-                    initialRating: 3,
-                    direction: Axis.horizontal,
-                    allowHalfRating: false,
-                    ratingWidget: RatingWidget(
-                      full: SoulliveIcon.starFill(),
-                      half: Icon(
-                        Icons.star_half,
-                      ),
-                      empty: SoulliveIcon.starunFill(),
-                    ),
-                    onRatingUpdate: (rating) {
-                      rating = aiRate;
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 23,
-              ),
-              SoulliveIcon.arrowRight(),
-            ],
-          ),
-        ),
-
-  );
-}
-
 // Widget recentDisplay(
-//     //int modelId,
-//     String imageUrl,
-//     String modelName,
-//     double aiRate,
-//     String job,
-//     ) {
+//   //int modelId,
+//  List<Data> recentModels
+// ) {
 //   return Container(
 //     width: double.infinity,
 //     height: 263.2,
@@ -349,18 +258,14 @@ Widget recentDisplay(
 //         BoxShadow(color: AppColors.g4, blurRadius: 2, offset: Offset(1, 2)),
 //       ],
 //     ),
-//     child: ListView.separated(
-//       padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-//       itemCount: 1,
-//       itemBuilder: (BuildContext context, itemCount) {
-//         return Container(
+//     child: Container(
 //           padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
 //           child: Row(
 //             children: [
 //               ClipRRect(
 //                 borderRadius: BorderRadius.circular(13),
 //                 child: Image.network(
-//                   imageUrl,
+//                   recentModels.image,
 //                   width: 40,
 //                   height: 40,
 //                 ),
@@ -419,9 +324,100 @@ Widget recentDisplay(
 //               SoulliveIcon.arrowRight(),
 //             ],
 //           ),
-//         );
-//       },
-//       separatorBuilder: (BuildContext, itemCount) => const Divider(),
-//     ),
+//         ),
+//
 //   );
 // }
+
+Widget recentDisplay(
+    //int modelId,
+    List<Data> recentModels
+    ) {
+  return Container(
+    width: double.infinity,
+    height: 263.2,
+    decoration: BoxDecoration(
+      color: AppColors.s3,
+      borderRadius: BorderRadius.circular(13),
+      boxShadow: [
+        BoxShadow(color: AppColors.g4, blurRadius: 2, offset: Offset(1, 2)),
+      ],
+    ),
+    child: ListView.separated(
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+      itemCount: recentModels.length,
+      itemBuilder: (BuildContext context, index) {
+        Data recentModel = recentModels[index];
+
+        return Container(
+          padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(13),
+                child: Image.network(
+                  recentModel.imageUrl!,
+                  width: 40,
+                  height: 40,
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    recentModel.modelName!,
+                    style: FontStyles.Subcopy1.copyWith(color: AppColors.g2),
+                  ),
+                  Text(
+                    job,
+                    style: FontStyles.Subcopy5.copyWith(color: AppColors.g2),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 60,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    'AI 추천',
+                    style: FontStyles.Subcopy6.copyWith(
+                      color: AppColors.g2,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  //별점 시스템
+                  RatingBar(
+                    itemSize: 13,
+                    initialRating: 3,
+                    direction: Axis.horizontal,
+                    allowHalfRating: false,
+                    ratingWidget: RatingWidget(
+                      full: SoulliveIcon.starFill(),
+                      half: Icon(
+                        Icons.star_half,
+                      ),
+                      empty: SoulliveIcon.starunFill(),
+                    ),
+                    onRatingUpdate: (rating) {
+                      rating = aiRate;
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 23,
+              ),
+              SoulliveIcon.arrowRight(),
+            ],
+          ),
+        );
+      },
+      separatorBuilder: (BuildContext, itemCount) => const Divider(),
+    ),
+  );
+}
