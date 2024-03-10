@@ -61,6 +61,7 @@ class ModelDescribe extends StatelessWidget{
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.3,// 예시 높이, 적절히 조정 필요
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
                           gradient: LinearGradient(
                             colors: [AppColors.m1, Color(0xFFDAC7E1)],
                             begin: Alignment.topCenter,
@@ -79,15 +80,15 @@ class ModelDescribe extends StatelessWidget{
                             children: [
                               MainProduct(mainData.company!, mainData.product!, mainData.brandImages!, mainData.productImages!, mainData.characteristic!, mainData.genders!, mainData.ages!),
                               SizedBox(height: 23,),
-                              Text('가수(아이돌)', style: FontStyles.Subcopy6.copyWith(color: AppColors.g2),),
+                              Text('가수(아이돌)', style: FontStyles.Headline1.copyWith(color: AppColors.g2),),
                               SizedBox(height: 10,),
                               People(context, allModelData!.singers!),
                               SizedBox(height: 35,),
-                              Text('배우', style: FontStyles.Subcopy6.copyWith(color: AppColors.g2),),
+                              Text('배우', style: FontStyles.Headline1.copyWith(color: AppColors.g2),),
                               SizedBox(height: 10,),
                               People(context,allModelData!.actors!),
                               SizedBox(height: 35,),
-                              Text('유투버', style: FontStyles.Subcopy6.copyWith(color: AppColors.g2),),
+                              Text('유투버', style: FontStyles.Headline1.copyWith(color: AppColors.g2),),
                               SizedBox(height: 10,),
                               People(context,allModelData!.youtuber!),
                               SizedBox(height: 40,),
@@ -147,11 +148,12 @@ Widget MainProduct(
                 spacing: 9.0,
                 runSpacing: 8.0,
                 children: brandImages.map((brandImage) => CustomTextButton(
-                    text: brandImage, backgroundColor: AppColors.s1, textColor: AppColors.g2
+                    text: '#${brandImage}', backgroundColor: AppColors.s1, textColor: AppColors.g2
                 )).toList(),
               )
             ],
           ),
+          SizedBox(height: 14,),
           Row(
             children: [
               Text('목표 상품 이미지', style: FontStyles.Subcopy2.copyWith(color: AppColors.g2),),
@@ -160,7 +162,7 @@ Widget MainProduct(
                 spacing: 6.0,
                 runSpacing: 8.0,
                 children: productImages.map((productImage) => CustomTextButton(
-                    text: productImage, backgroundColor: AppColors.s1, textColor: AppColors.g2
+                    text: '#${productImage}', backgroundColor: AppColors.s1, textColor: AppColors.g2
                 )).toList(),
               )
             ],
@@ -181,6 +183,7 @@ Widget MainProduct(
               Text('남녀노소', style: FontStyles.Subcopy7.copyWith(color: AppColors.g2),),
               SizedBox(width: 35,),
               SoulliveIcon.ic_book(color: AppColors.g2),
+              SizedBox(width: 12,),
               Text('30대, 40대', style: FontStyles.Subcopy7.copyWith(color: AppColors.g2),),
             ],
           )
@@ -207,19 +210,25 @@ Widget People(BuildContext context, List<Format> datas ){
 }
 
 Widget Cotent(String imageUrl, String name){
-  return Column(
+  return Row(
     children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(13),
-        child: Image.network(
-          imageUrl,
-          width: 83,
-          height: 103,
-          fit: BoxFit.fill,
-        ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(13),
+            child: Image.network(
+              imageUrl,
+              width: 83,
+              height: 103,
+              fit: BoxFit.fill,
+            ),
+          ),
+          SizedBox(height: 12,),
+          Text(name, style: FontStyles.Subcopy4.copyWith(color: AppColors.g2))
+        ],
       ),
-      SizedBox(height: 12,),
-      Text(name, style: FontStyles.Subcopy4.copyWith(color: AppColors.g2))
+      SizedBox(width: 9,)
     ],
   );
 }

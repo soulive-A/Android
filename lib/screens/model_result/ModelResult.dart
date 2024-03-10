@@ -68,7 +68,7 @@ class ModelResultScreen extends StatelessWidget{
             },
           ),
           title: Text('모델 분석',
-              style: FontStyles.appbarFont),
+              style: FontStyles.Headline1.copyWith(color: AppColors.g1)),
           centerTitle: true,
         ),
         body: Consumer<TabViewModel>(
@@ -132,7 +132,7 @@ class ModelResultScreen extends StatelessWidget{
                                           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 18),
                                           child: Text(
                                               '${modelName[i]}',
-                                              style: FontStyles.Headline1.copyWith(color: viewModel.selectedTab == i ? Colors.white : AppColors.g4)
+                                              style: FontStyles.Headline2.copyWith(color: viewModel.selectedTab == i ? Colors.white : AppColors.g4)
                                             //FontStyles.Headline1
                                           ),
                                         )
@@ -141,12 +141,12 @@ class ModelResultScreen extends StatelessWidget{
                                 ],
                               )
                       ),
-                      SizedBox(height: 18.98,),
+                      SizedBox(height: 16.98,),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child:  MainCard(modelData.imageUrl!,modelData.modelName!,modelData.job!,modelData.birth!, modelData.age!,modelData.info!, modelData.agency!, modelData.aiRate?.toInt() ?? 0 ),
                       ),
-                      SizedBox(height: 41,),
+                      SizedBox(height: 33,),
                       _tabBar(),
                       Expanded(child: _tabBarView(modelntroduce!, modelPopular!, modelNegative!, modelFitness!))
                     ],

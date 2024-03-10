@@ -106,8 +106,9 @@ Widget CompanyGoal(List<String> items, String title){
               SizedBox(height: 14,),
               Wrap(
                 spacing: 6,
+                runSpacing: 6,
                 children: items.map((item) => CustomTextButton(
-                    text: item, backgroundColor: AppColors.g6, textColor: AppColors.g2
+                    text: '#${item}', backgroundColor: AppColors.g6, textColor: AppColors.g2
                 )).toList(),
               )
             ],
@@ -117,7 +118,7 @@ Widget CompanyGoal(List<String> items, String title){
       SizedBox(width: 10,),
       Container(
         decoration: BoxDecoration(
-          color: AppColors.m3,
+          color: AppColors.m1,
           borderRadius: BorderRadius.circular(13),
         ),
         child:Padding(

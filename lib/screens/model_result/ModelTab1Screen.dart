@@ -68,14 +68,9 @@ Widget modelKeyword(List<String> keywords){
       children: [
         Text(
           '모델 이미지 키워드',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-            fontFamily: 'pretendard'
-          ),
+          style: FontStyles.Headline1.copyWith(color: AppColors.g1),
         ),
-        SizedBox(height: 14,),
+        SizedBox(height: 23,),
         Wrap(
           spacing: 9.0,
           runSpacing: 8.0,
@@ -96,12 +91,7 @@ Widget modelRecentDrama(List<ModelRecentWorks> drama){
       children: [
         Text(
           '최근 작품',
-          style: TextStyle(
-            fontFamily: 'pretendard',
-            fontWeight: FontWeight.w600,
-            fontSize: 15,
-            color: Colors.black
-          ),
+          style: FontStyles.Headline1.copyWith(color: AppColors.g1),
         ),
         SizedBox(height: 12,),
         //최근 작품 리스트
@@ -168,12 +158,7 @@ Widget modelRecentCommercial(List<ModelRecentAdvertisements> advertisments){
       children: [
         Text(
           '최근 광고 활동',
-          style: TextStyle(
-            fontFamily: 'pretendard',
-            fontWeight: FontWeight.w600,
-            fontSize: 15,
-            color: Colors.black
-          ),
+          style: FontStyles.Headline1.copyWith(color: AppColors.g1),
         ),
         SizedBox(height: 12,),
         SingleChildScrollView(

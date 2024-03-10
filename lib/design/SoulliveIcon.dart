@@ -37,7 +37,7 @@ class SoulliveIcon{
     return fromAsset('ic_mypage_unfill', width: width, height: height);
   }
 
-  static Widget arrowLeft({double width = 18, double height = 18, Color? color}){
+  static Widget arrowLeft({double width = 15, double height = 15, Color? color}){
     return fromAsset('ic_arrow', width: width, height: height);
   }
 
